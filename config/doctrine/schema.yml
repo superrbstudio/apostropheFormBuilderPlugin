@@ -1,0 +1,148 @@
+options:
+  type: INNODB
+
+aFormSlot:
+  inheritance:
+    extends: aSlot
+    type: column_aggregation
+    keyField: type
+    keyValue: 'aForm'
+  columns:
+    form_id:
+      type: integer(4)
+  relations:
+    aForm:
+      local: form_id
+      foreign: id
+      onDelete: SET NULL
+      type: one
+
+aForm:
+  tableName: a_form
+  actAs:
+    Timestampable: ~
+  columns:
+    id:
+      type: integer(4)
+      primary: true
+      autoincrement: true
+    name:
+      type: string(255)
+      notnull: true
+    description:
+      type: string
+    email_to:
+      type: string(255)
+    thank_you:
+      type: string
+
+aFormField:
+  tableName: a_form_field
+  actAs:
+    Sluggable:
+      fields: [label]
+  columns:
+    id:
+      type: integer(4)
+      primary: true
+      autoincrement: true
+    form_id:
+      type: integer(4)
+      notnull: true
+    rank:
+      type: integer(4)
+      default: 1
+    type:
+      type: string(255)
+      notnull: true
+      # values: [input, email, url, textarea, date, date_time, select, select_many, select_radio, select_checkbox, confirmation, embedded_form]
+      # these are all embedded forms, aFormInput, aFormEmail, aFormUrl
+    label:
+      type: string(255)
+      notnull: true
+    help:
+      type: string
+    required:
+      type: boolean
+      default: 0
+  relations:
+    aForm:
+      class: aForm
+      foreign: id
+      local: form_id
+      onDelete: CASCADE
+      foreignAlias: aFormFields
+
+aFormFieldOption:
+  tableName: a_form_field_option
+  columns:
+    id:
+      type: integer(4)
+      primary: true
+      autoincrement: true
+    field_id:
+      type: integer(4)
+    name:
+      type: string(255)
+    rank:
+      type: integer(4)
+      default: 1
+  relations:
+    aFormField:
+      class: aFormField
+      foreign: id
+      local: field_id
+      onDelete: CASCADE
+      foreignAlias: aFormFieldOptions
+
+aFormSubmission:
+  tableName: a_form_submission
+  actAs:
+    Timestampable: ~
+  columns:
+    id:
+      type: integer(4)
+      primary: true
+      autoincrement: true
+    form_id:
+      type: integer(4)
+      notnull: true
+    ip_address:
+      type: string(255)
+  relations:
+    aForm:
+      class: aForm
+      foreign: id
+      local: form_id
+      onDelete: CASCADE
+      foreignAlias: aFormSubmissions
+
+aFormFieldSubmission:
+  tableName: a_form_field_submission
+  columns:
+    id:
+      type: integer(4)
+      primary: true
+      autoincrement: true
+    submission_id:
+      type: integer(4)
+      notnull: true
+    field_id:
+      type: integer(4)
+    sub_field:
+      type: string(255)
+    value:
+      type: string
+  relations:
+    aFormSubmission:
+      class: aFormSubmission
+      foreign: id
+      local: submission_id
+      onDelete: CASCADE
+      foreignAlias: aFormFieldSubmissions
+    aFormField:
+      class: aFormField
+      foreign: id
+      local: field_id
+      onDelete: CASCADE
+      foreignAlias: aFormFieldSubmissions
