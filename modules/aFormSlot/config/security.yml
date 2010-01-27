@@ -1,0 +1,6 @@
+submit:
+  is_secure: off
+
+default:
+  is_secure: on
+  credentials: [[superadmin, admin, editor]]
