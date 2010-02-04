@@ -4,8 +4,6 @@ class aFormBuilder extends BaseaFormSubmissionForm
 {
   protected
     $legends = array();
-  protected
-    $embedDefaults = array();
   
   public function setup()
   {
@@ -16,17 +14,16 @@ class aFormBuilder extends BaseaFormSubmissionForm
     }
 
     $this->setWidget('form_id', new sfWidgetFormInputHidden());
-    
     $this->setDefault('form_id', $this->getOption('a_form')->getId());
 
     $fieldWrapperForm = new sfForm();
     
-    $this->setEmbedDefaults();
+    $embeddedObjects = $this->getEmbeddedObjects();
     
     foreach ($this->getOption('a_form')->getAllFieldsByRank() as $field)
     {
       $this->legends[$field->getId()] = $field->getLabel();
-      $fieldWrapperForm->embedForm($field->getId(), $field->getForm($this->embedDefaults[$field['id']], array('a_form_field' => $field)));
+      $fieldWrapperForm->embedForm($field->getId(), $field->getForm($embeddedObjects[$field['id']], array('a_form_field' => $field)));
     }
 
     $this->embedForm('fields', $fieldWrapperForm);
@@ -37,21 +34,22 @@ class aFormBuilder extends BaseaFormSubmissionForm
     
     $this->useFields(array(
       'form_id',
-      'id',
       'fields'
     ));
   }
   
-  public function setEmbedDefaults()
+  public function getEmbeddedObjects()
   {
+    $embeddedObjects = array();
     foreach($this->getOption('a_form')->getAllFieldsByRank() as $field)
     {
-      $this->embedDefaults[$field['id']] = array();
+      $embeddedObjects[$field['id']] = array();
     }
     foreach($this->getObject()->aFormFieldSubmissions as $fieldSubmission)
     {
-      $this->embedDefaults[$fieldSubmission['field_id']][$fieldSubmission['sub_field']] = $fieldSubmission['value'];
+      $embeddedObjects[$fieldSubmission['field_id']][] = $fieldSubmission;
     }
+    return $embeddedObjects;
   }
   
   public function updateObjectEmbeddedForms($values, $forms = null)

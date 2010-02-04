@@ -69,16 +69,21 @@ abstract class BaseaFormActions extends sfActions
       if($this->form->isValid())
         $this->form->save();
     }
+    $this->setTemplate('edit');
   }
   
-  public function executeShow(sfWebRequest $request)
+  public function executeEdit(sfWebRequest $request)
   {
     $this->a_form = Doctrine::getTable('aForm')->createQuery()->fetchOne();
-
     $this->a_form_submission = Doctrine::getTable('aFormSubmission')->find($request->getParameter('id'));
 
     $this->form = new aFormBuilder($this->a_form_submission, array('a_form' => $this->a_form));
-    $this->setTemplate('new');
+    if($request->isMethod('POST'))
+    {
+      $this->form->bind($request->getParameter('form'));
+      if($this->form->isValid())
+        $this->form->save();
+    }
   }
   
 }

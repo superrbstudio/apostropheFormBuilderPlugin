@@ -3,6 +3,21 @@
 abstract class aFormEmbeddable extends sfForm
 {
   protected $objects = array();
+  
+  public function __construct($objects = null, $options = array(), $CSRFSecret = null)
+  {
+    parent::__construct(array(), $options, $CSRFSecret);
+    if(is_array($objects))
+    {
+      foreach($objects as $object)
+      {
+        $this->objects[$object->getSubField()] = $object;
+        $this->setDefault($object->getSubField(), $object->getValue());
+      }
+    }
+  }
+  
+  
   public function getRequired($default = false)
   {
     return isset($this->options['required']) ? $this->options['required'] : $default;
