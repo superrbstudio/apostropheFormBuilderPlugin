@@ -1,0 +1,32 @@
+aForm:
+  test_form:
+    name: "Test form"
+    description: "This is a test form"
+    email_to: "dan@punkave.com"
+    thank_you: string
+    
+<?php $fields = array(
+  array("type" => input, "label" => "Name", "help" => "Enter your name", "required" => true),
+  array("type" => email, "label" => "Email", "help" => "Enter your email", "required" => false),
+  array("type" => date, "label" => "Date of Birth", "help" => "Enter your Date of Birth", "required" => true),
+  array("type" => select, "label" => "Favorite Ice Cream Flavor", "help" => "Enter your Favorite Ice Cream Flavor", "required" => true,
+    "options" => array("Chocolate", "Vanilla", "Strawberry"))) ?>
+
+aFormField:
+<?php foreach($fields as $key => $field): ?>
+  form_field_<?php echo $key ?>:
+    aForm: test_form
+    rank: <?php echo $key ?> 
+    type: <?php echo $field['type'] ?> 
+    label: <?php echo $field['label'] ?> 
+    help: <?php echo $field['help'] ?> 
+    required: <?php echo $field['required'] ?> 
+<?php if( isset($field['options']) ): ?>
+    aFormFieldOptions:
+<?php foreach($field['options'] as $optionKey => $option): ?>
+      option_<?php echo $optionKey ?>:
+        rank: <?php echo $optionKey ?> 
+        name: <?php echo $option ?> 
+<?php endforeach ?>
+<?php endif ?>
+<?php endforeach ?>
