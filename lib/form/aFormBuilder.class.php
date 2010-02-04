@@ -1,12 +1,15 @@
 <?php
 
-class aFormBuilder extends sfForm
+class aFormBuilder extends BaseaFormSubmissionForm
 {
   protected
     $legends = array();
+  protected
+    $embedDefaults = array();
   
-  public function configure()
+  public function setup()
   {
+    parent::setup();
     if (!$this->getOption('a_form') instanceof aForm)
     {
       throw new Exception("aFormBuilder requires an instance of aForm in the 'a_form' option.");
@@ -15,13 +18,15 @@ class aFormBuilder extends sfForm
     $this->setWidget('form_id', new sfWidgetFormInputHidden());
     
     $this->setDefault('form_id', $this->getOption('a_form')->getId());
-    
+
     $fieldWrapperForm = new sfForm();
+    
+    $this->setEmbedDefaults();
     
     foreach ($this->getOption('a_form')->getAllFieldsByRank() as $field)
     {
       $this->legends[$field->getId()] = $field->getLabel();
-      $fieldWrapperForm->embedForm($field->getId(), $field->getForm());
+      $fieldWrapperForm->embedForm($field->getId(), $field->getForm($this->embedDefaults[$field['id']], array('a_form_field' => $field)));
     }
 
     $this->embedForm('fields', $fieldWrapperForm);
@@ -29,29 +34,53 @@ class aFormBuilder extends sfForm
     $this->widgetSchema->setNameFormat('form[%s]');
     
     $this->setValidator('form_id', new sfValidatorInteger(array('required' => true)));
+    
+    $this->useFields(array(
+      'form_id',
+      'id',
+      'fields'
+    ));
+  }
+  
+  public function setEmbedDefaults()
+  {
+    foreach($this->getOption('a_form')->getAllFieldsByRank() as $field)
+    {
+      $this->embedDefaults[$field['id']] = array();
+    }
+    foreach($this->getObject()->aFormFieldSubmissions as $fieldSubmission)
+    {
+      $this->embedDefaults[$fieldSubmission['field_id']][$fieldSubmission['sub_field']] = $fieldSubmission['value'];
+    }
+  }
+  
+  public function updateObjectEmbeddedForms($values, $forms = null)
+  {
+    foreach($this->getEmbeddedForm('fields')->getEmbeddedForms() as $name => $fieldForms)
+    {
+      $fieldForms->setOption('a_form_submission', $this->getObject());
+      $fieldForms->doUpdateObjects($values['fields'][$name]);
+      
+    }
+  }
+  
+  public function saveEmbeddedForms($con = null, $form = null)
+  {
+    foreach($this->getEmbeddedForm('fields')->getEmbeddedForms() as $name => $fieldForms)
+    {
+      $fieldForms->save();
+    }
   }
   
   public function getLegend($id)
   {
     return $this->legends[$id];
   }
-  
-  public function save()
+   
+  public function doUpdateObject($values)
   {
-    $a_form_submission = new aFormSubmission();
-    $a_form_submission->setFormId($this->getOption('a_form')->getId());
-    $a_form_submission->setIpAddress($_SERVER['REMOTE_ADDR']);
-    $a_form_submission->save();
-    
-    $values = $this->getValues();
-    foreach ($values['fields'] as $field_id => $field_values)
-    {
-      $a_form_field = Doctrine::getTable('aFormField')->find($field_id);
-      
-      $a_form_field_form = $a_form_field->getForm($field_values, array('a_form_submission' => $a_form_submission, 'a_form_field' => $a_form_field));
-      $a_form_field_form->save();
-    }
-    
-    return $a_form_submission;
+    $this->getObject()->setFormId($this->getOption('a_form')->getId());
+    $this->getObject()->setIpAddress($_SERVER['REMOTE_ADDR']);    
   }
+  
 }

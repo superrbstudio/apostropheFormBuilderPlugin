@@ -2,6 +2,8 @@
 
 class aFormSelect extends aFormEmbeddable
 {
+  protected $objects = array('select' => null);
+  
   public function configure()
   {
     $this->setWidgets(array(

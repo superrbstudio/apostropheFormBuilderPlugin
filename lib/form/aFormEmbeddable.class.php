@@ -1,7 +1,8 @@
 <?php
 
-class aFormEmbeddable extends sfForm
+abstract class aFormEmbeddable extends sfForm
 {
+  protected $objects = array();
   public function getRequired($default = false)
   {
     return isset($this->options['required']) ? $this->options['required'] : $default;
@@ -17,8 +18,23 @@ class aFormEmbeddable extends sfForm
     return isset($this->options['slug']) ? $this->options['slug'] : $default;
   }
   
-  public function save()
+  public function doUpdateObjects($values)
   {
+    foreach ($this->objects as $name => &$object)
+    {
+      if(is_null($object))
+      {
+        $object = new aFormFieldSubmission();
+        $object->setSubmissionId($this->getOption('a_form_submission'))->getId();
+        $object->setFieldId($this->getOption('a_form_field')->getId());
+        $object->setSubField($name);
+      }
+      $object->setValue($values[$name]);
+    }
+  }
+    
+  public function save($con = null)
+  { 
     if (!$this->getOption('a_form_submission') instanceof aFormSubmission)
     {
       throw new Exception("Saving a aFormEmbeddable object requires an instance of aFormSubmission in the 'a_form_submission' option.");
@@ -28,15 +44,10 @@ class aFormEmbeddable extends sfForm
     {
       throw new Exception("Saving a aFormEmbeddable object requires an instance of aFormField in the 'a_form_field' option.");
     }
-
-    foreach ($this as $key => $field)
+    
+    foreach ($this->objects as $name => &$object)
     {
-      $a_form_field_submission = new aFormFieldSubmission();
-      $a_form_field_submission->setSubmissionId($this->getOption('a_form_submission')->getId());
-      $a_form_field_submission->setFieldId($this->getOption('a_form_field')->getId());
-      $a_form_field_submission->setSubField((count($this) > 1) ? $key : null);
-      $a_form_field_submission->setValue($field->getValue());
-      $a_form_field_submission->save();
+      $object->save();
     }
   }
 }

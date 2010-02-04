@@ -2,6 +2,7 @@
 
 class aFormSelectRadio extends aFormEmbeddable
 {
+  protected $objects = array('radio' => null);
   public function configure()
   {
     $this->setWidgets(array(

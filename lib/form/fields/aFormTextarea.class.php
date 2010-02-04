@@ -2,6 +2,7 @@
 
 class aFormTextarea extends aFormEmbeddable
 {
+  protected $objects = array('textarea' => null);
   public function configure()
   {
     $this->setWidgets(array(

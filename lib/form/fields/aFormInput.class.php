@@ -2,6 +2,8 @@
 
 class aFormInput extends aFormEmbeddable
 {
+  protected $objects = array('input' => null);
+  
   public function configure()
   {
     $this->setWidgets(array(

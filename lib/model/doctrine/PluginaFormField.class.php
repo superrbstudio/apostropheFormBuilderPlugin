@@ -31,13 +31,13 @@ abstract class PluginaFormField extends BaseaFormField
     $options = array(
       'slug' => $this->getSlug(), 
       'label' => $this->getLabel(),
-      'required' => $this->getRequired(), 
+      'required' => $this->getRequired(),
     );
     
     if ($this->usesOptions())
     {
       $options['choices'] = array();
-      foreach ($this->getpkFormFieldOptions() as $choice)
+      foreach ($this->aFormFieldOptions as $choice)
       {
         $options['choices'][(string)$choice->getName()] = $choice->getName();
       }
@@ -75,9 +75,7 @@ abstract class PluginaFormField extends BaseaFormField
   {
     if ($this->isNew())
     {
-      $a_form = Doctrine::getTable('aForm')->find($this->getFormId());
-
-      $this->setRank($a_form->getMaxRank() + 1);
+      $this->setRank($this->aForm->getMaxRank() + 1);
     }
   }
   

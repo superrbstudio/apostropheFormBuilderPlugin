@@ -2,6 +2,14 @@
 
 class aFormAddress extends aFormEmbeddable
 {
+  protected $objects = array(
+    'street1' => null, 
+    'street2' => null, 
+    'city' => null, 
+    'state' => null, 
+    'postal_code' => null, 
+    'country' => null);
+  
   public function configure()
   {
     $this->setWidgets(array(
