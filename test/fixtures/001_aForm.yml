@@ -7,8 +7,8 @@ aForm:
     
 <?php $fields = array(
   array("type" => input, "label" => "Name", "help" => "Enter your name", "required" => true),
-  array("type" => email, "label" => "Email", "help" => "Enter your email", "required" => false),
-  array("type" => date, "label" => "Date of Birth", "help" => "Enter your Date of Birth", "required" => true),
+  array("type" => input, "label" => "Email", "help" => "Enter your email", "required" => false),
+  array("type" => input, "label" => "Date of Birth", "help" => "Enter your Date of Birth", "required" => true),
   array("type" => select, "label" => "Favorite Ice Cream Flavor", "help" => "Enter your Favorite Ice Cream Flavor", "required" => true,
     "options" => array("Chocolate", "Vanilla", "Strawberry"))) ?>
 
