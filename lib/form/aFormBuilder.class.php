@@ -10,7 +10,10 @@ class aFormBuilder extends BaseaFormSubmissionForm
     parent::setup();
     if (!$this->getOption('a_form') instanceof aForm)
     {
-      throw new Exception("aFormBuilder requires an instance of aForm in the 'a_form' option.");
+      if($this->isNew())
+        throw new Exception("aFormBuilder requires an instance of aForm in the 'a_form' option.");
+      else
+        $this->setOption('a_form', $this->getObject()->aForm);
     }
 
     $this->setWidget('form_id', new sfWidgetFormInputHidden());

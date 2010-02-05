@@ -1,0 +1,23 @@
+generator:
+  class: sfDoctrineGenerator
+  param:
+    model_class:           aFormSubmission
+    theme:                 aAdmin
+    non_verbose_templates: true
+    with_show:             false
+    singular:              ~
+    plural:                ~
+    route_prefix:          a_form_submission_admin
+    with_doctrine_route:   1
+    
+    
+    config:
+      list:
+        display: [ user ]
+        object_actions: ~
+        actions: ~
+      form:
+        class: aFormBuilder
+      filter:
+        class: aFormBuilderFilter
+    

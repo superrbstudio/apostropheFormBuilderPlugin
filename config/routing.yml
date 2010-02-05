@@ -1,0 +1,8 @@
+a_form_submission_admin:
+  class: sfDoctrineRouteCollection
+  options:
+    model:               aFormSubmission
+    module:              aFormSubmission
+    prefix_path:         admin/a_form_submission
+    column:              id
+    with_wildcard_routes: true
