@@ -17,6 +17,10 @@ abstract class aFormEmbeddable extends sfForm
     }
   }
   
+  public function getObjects()
+  {
+    return $this->objects;
+  }
   
   public function getRequired($default = false)
   {

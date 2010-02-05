@@ -78,7 +78,7 @@ class aFormBuilder extends BaseaFormSubmissionForm
   public function doUpdateObject($values)
   {
     $this->getObject()->setFormId($this->getOption('a_form')->getId());
-    $this->getObject()->setIpAddress($_SERVER['REMOTE_ADDR']);    
+    $this->getObject()->setIpAddress($_SERVER['REMOTE_ADDR']);  
   }
   
 }
