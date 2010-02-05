@@ -50,5 +50,3 @@ $t->ok($form->save(), 'Form was saved.');
 $a_form_submission = Doctrine::getTable('aFormSubmission')->findOneBy('id', $form->getObject()->getId());
 $t->is($a_form_submission->getFormId(), $a_form->getId(), 'Submission was saved with proper form_id');
 $bool = true;
-
-

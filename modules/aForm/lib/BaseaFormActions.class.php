@@ -85,5 +85,4 @@ abstract class BaseaFormActions extends sfActions
         $this->form->save();
     }
   }
-  
 }
