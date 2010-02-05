@@ -1,54 +1,94 @@
 aForm:
-  test_form:
-    name: "Test form"
-    description: "This is a test form"
+  a_form_0:
+    name: "Required fields"
+    description: "This is a test form with required fields."
+    email_to: "dan@punkave.com"
+    thank_you: string
+  a_form_1:
+    name: "Optional fields"
+    description: "This is a test form with optional fields."
     email_to: "dan@punkave.com"
     thank_you: string
     
-<?php $fields = array(
-  array("type" => input, "label" => "Name", "help" => "Enter your name", "required" => true),
-  array("type" => input, "label" => "Email", "help" => "Enter your email", "required" => false),
-  array("type" => input, "label" => "Date of Birth", "help" => "Enter your Date of Birth", "required" => true),
-  array("type" => select, "label" => "Favorite Ice Cream Flavor", "help" => "Enter your Favorite Ice Cream Flavor", "required" => true,
-    "options" => array("Chocolate", "Vanilla", "Strawberry"))) ?>
-
 aFormField:
-<?php foreach($fields as $key => $field): ?>
-  form_field_<?php echo $key ?>:
-    aForm: test_form
-    rank: <?php echo $key ?> 
-    type: <?php echo $field['type'] ?> 
-    label: <?php echo $field['label'] ?> 
-    help: <?php echo $field['help'] ?> 
-    required: <?php echo $field['required'] ?> 
-<?php if( isset($field['options']) ): ?>
+<?php for($i=0;$i<=1;$i++): ?>
+  a_form_field_address_<?php echo $i ?>:
+    aForm: a_form_<?php echo $i ?> 
+    rank: 1
+    type: address
+    label: address
+    help: Help text for address field
+    required: <?php echo $i ?> 
+  a_form_field_input_<?php echo $i ?>:
+    aForm: a_form_<?php echo $i ?> 
+    rank: 1
+    type: input
+    label: input
+    help: Help text for input field
+    required: <?php echo $i ?> 
+  a_form_field_select_<?php echo $i ?>:
+    aForm: a_form_<?php echo $i ?> 
+    rank: 1
+    type: select
+    label: select
+    help: Help text for select field
+    required: <?php echo $i ?> 
     aFormFieldOptions:
-<?php foreach($field['options'] as $optionKey => $option): ?>
-      option_<?php echo $optionKey ?>:
-        rank: <?php echo $optionKey ?> 
-        name: <?php echo $option ?> 
-<?php endforeach ?>
-<?php endif ?>
-<?php endforeach ?>
+      af_<?php echo $i ?>_select_option_1:
+        rank:  1
+        value: S1
+        name:  Select Option 1
+      af_<?php echo $i ?>_select_option_2:
+        rank:  2
+        value: S2
+        name:  Select Option 2 
+  a_form_field_select_checkbox_<?php echo $i ?>:
+    aForm: a_form_<?php echo $i ?> 
+    rank: 1
+    type: select_checkbox
+    label: select_checkbox
+    help: Help text for select_checkbox field
+    required: <?php echo $i ?> 
+    aFormFieldOptions:
+      af_<?php echo $i ?>_checkbox_option_1:
+        rank:  1
+        value: CB1
+        name:  Checkbox Option 1
+      af_<?php echo $i ?>_checkbox_option_2:
+        rank:  2
+        value: CB2
+        name:  Checkbox Option 2 
+  a_form_field_select_radio_<?php echo $i ?>:
+    aForm: a_form_<?php echo $i ?> 
+    rank: 1
+    type: select_radio
+    label: select_radio
+    help: Help text for select_radio field
+    required: <?php echo $i ?> 
+    aFormFieldOptions:
+      af_<?php echo $i ?>_radio_option_1:
+        rank:  1
+        value: R1
+        name:  Radio Option 1
+      af_<?php echo $i ?>_radio_option_2:
+        rank:  2
+        value: R2
+        name:  Radio Option 2 
+  a_form_field_textarea_<?php echo $i ?>:
+    aForm: a_form_<?php echo $i ?> 
+    rank: 1
+    type: textarea
+    label: textarea
+    help: Help text for textarea field
+    required: <?php echo $i ?> 
+<?php endfor ?>
 
 aFormSubmission:
-  test_submission:
-    aForm: test_form
+  a_form_submission_0:
+    aForm: a_form_0
     ip_address: 127.0.0.1
     aFormFieldSubmissions:
-      test_submission_name:
-        aFormField: form_field_0
+      a_form_field_submission_input:
+        aFormField: a_form_field_input_0
         sub_field:  input
         value:      Dan Ordille
-      test_submission_email:
-        aFormField: form_field_1
-        sub_field:  input 
-        value:      dan@punkave.com
-      test_submission_dob:
-        aFormField: form_field_2
-        sub_field:  input
-        value:      August
-      test_submission_ice:
-        aFormField: form_field_3
-        sub_field:  select
-        value:      Chocolate

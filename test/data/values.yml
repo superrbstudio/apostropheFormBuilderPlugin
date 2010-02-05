@@ -1,0 +1,43 @@
+# See apostropheFormBuilder/test/fixtures/001_aForm.yml for how the form is 
+# set up and what its requirements are.
+
+valid:
+  address:
+    street1: 1168 E Passyunk Ave 
+    street2: Suite 1
+    city: Philadelphia
+    state: PA
+    postal_code: 19148 
+    country: USA
+  input:
+    input: Some valid input text
+  select:
+    select: S1
+  select_checkbox:
+    CB1: 1
+    CB2: 1
+  select_radio:
+    radio: R1
+  textarea:
+    textarea: |
+      Some valid textarea text
+
+invalid:
+  address:
+    street1: 
+    street2: 
+    city: Philadelphia
+    state: PA
+    postal_code: 19148 
+    country: USA
+  input:
+    input: 
+  select:
+    select: 
+  select_checkbox:
+    CB1: 
+    CB2: 
+  select_radio:
+    radio:  
+  textarea:
+    textarea:

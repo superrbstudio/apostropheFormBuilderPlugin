@@ -4,6 +4,22 @@
  */
 class PluginaFormFieldTable extends Doctrine_Table
 {
+  protected static $types = array(
+    'input' => 'Text Field',
+    'textarea' => 'Text Area', 
+    'select' => 'Select Menu', 
+    'select_radio' => 'Radio Select', 
+    'select_checkbox' => 'Check Box', 
+    // 'confirmation' => 'Confirmation Box', 
+    // 'email' => 'Email Field', 
+    'address' => 'Address Fields',
+  );
+  
+  public static function getTypes()
+  {
+    return self::$types;
+  }
+
   public function doSort($order = array())
   {
     $fields = array();

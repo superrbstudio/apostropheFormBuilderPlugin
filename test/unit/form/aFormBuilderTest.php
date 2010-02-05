@@ -2,10 +2,12 @@
 
 /**
  * aFormSubmissionForm tests.
+ * 
+ * @see aFormBuilder.class.php
  */
 include dirname(__FILE__).'/../../bootstrap/Doctrine.php';
 
-$t = new lime_test(5);
+$t = new lime_test(6);
 
 $a_form = Doctrine::getTable('aForm')->createQuery()->fetchOne();
 
@@ -27,26 +29,38 @@ foreach($a_form->aFormFields as $field)
 $t->ok($bool, "Each form is embedded with proper field type.");
 
 /*
- * Testing the form submission process.
+ * Dynamic forms need to validate, bind and save correctly.
  */
-$t->comment('Testing the form submission process.');
-$testValues = array("Alex Gilbert", "alex@punkave.com", "June", "Vanilla");
-$key = 0;
+$t->comment('Dynamic forms need to validate, bind and save correctly.');
+
+/**
+ * Bind and save a valid form.
+ */
+$valid = aFormTestToolkit::getValidData();
 foreach($a_form->aFormFields as $field)
 {
-  foreach($field->getForm()->getObjects() as $subField => $object)
-  {
-     $values['fields'][$field->getId()][$subField] = $testValues[$key];
-  }
-  $key++;
+  $values['fields'][$field->getId()] = $valid[$field->getType()];
 }
 $values[$form->getCSRFFieldName()] = $form->getCSRFToken();
 $values['form_id'] = $a_form->getId();
 $form->bind($values);
-
 $t->ok($form->isValid(), 'Form was bound and is valid.');
+
 $t->ok($form->save(), 'Form was saved.');
 
 $a_form_submission = Doctrine::getTable('aFormSubmission')->findOneBy('id', $form->getObject()->getId());
 $t->is($a_form_submission->getFormId(), $a_form->getId(), 'Submission was saved with proper form_id');
-$bool = true;
+
+/**
+ * Try and save a form with invalid data.
+ */
+$form = new aFormBuilder(array(), array('a_form' => Doctrine::getTable('aForm')->findOneByName('Required fields')));
+$invalid = aFormTestToolkit::getInvalidData();
+foreach($a_form->aFormFields as $field)
+{
+  $values['fields'][$field->getId()] = $valid[$field->getType()];
+}
+$values[$form->getCSRFFieldName()] = $form->getCSRFToken();
+$values['form_id'] = $a_form->getId();
+$form->bind($values);
+$t->is($form->isValid(), false, 'Form was bound and is not valid.');

@@ -69,6 +69,8 @@ aFormFieldOption:
       type: integer
     name:
       type: string(255)
+    value:
+      type: string(255)
     rank:
       type: integer
       default: 1
