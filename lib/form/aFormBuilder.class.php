@@ -26,7 +26,7 @@ class aFormBuilder extends BaseaFormSubmissionForm
     foreach ($this->getOption('a_form')->getAllFieldsByRank() as $field)
     {
       $this->legends[$field->getId()] = $field->getLabel();
-      $fieldWrapperForm->embedForm($field->getId(), $field->getForm($embeddedObjects[$field['id']], array('a_form_field' => $field)));
+      $fieldWrapperForm->embedForm($field->getId(), $field->getForm($embeddedObjects[$field['id']], array('a_form_layout' => $field)));
     }
 
     $this->embedForm('fields', $fieldWrapperForm);

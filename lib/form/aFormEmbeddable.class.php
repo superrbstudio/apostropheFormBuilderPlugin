@@ -45,7 +45,7 @@ abstract class aFormEmbeddable extends sfForm
       {
         $object = new aFormFieldSubmission();
         $object->setSubmissionId($this->getOption('a_form_submission'))->getId();
-        $object->setFieldId($this->getOption('a_form_field')->getId());
+        $object->setLayoutId($this->getOption('a_form_layout')->getId());
         $object->setSubField($name);
       }
       $object->setValue($values[$name]);
@@ -59,9 +59,9 @@ abstract class aFormEmbeddable extends sfForm
       throw new Exception("Saving a aFormEmbeddable object requires an instance of aFormSubmission in the 'a_form_submission' option.");
     }
 
-    if (!$this->getOption('a_form_field') instanceof aFormField)
+    if (!$this->getOption('a_form_layout') instanceof aFormLayout)
     {
-      throw new Exception("Saving a aFormEmbeddable object requires an instance of aFormField in the 'a_form_field' option.");
+      throw new Exception("Saving a aFormEmbeddable object requires an instance of aFormLayout in the 'a_form_layout' option.");
     }
     
     foreach ($this->objects as $name => &$object)

@@ -19,19 +19,19 @@ abstract class BaseaFormActions extends sfActions
     $fields = $a_form->getAllFieldsByRank();
     // generate headers
     $headers = array();
-    foreach ($fields as $a_form_field)
+    foreach ($fields as $a_form_layout)
     {
-      $a_form_field_form = $a_form_field->getForm();
+      $a_form_layout_form = $a_form_layout->getForm();
       
-      if (count($a_form_field_form) == 1)
+      if (count($a_form_layout_form) == 1)
       {
-        $headers[] = $a_form_field->getLabel();
+        $headers[] = $a_form_layout->getLabel();
       }
       else
       {
-        foreach ($a_form_field_form as $key => $field)
+        foreach ($a_form_layout_form as $key => $field)
         {
-          $headers[] = $a_form_field->getLabel().': '.$key;
+          $headers[] = $a_form_layout->getLabel().': '.$key;
         }
       }
     }

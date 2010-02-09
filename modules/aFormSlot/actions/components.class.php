@@ -41,16 +41,16 @@ class aFormSlotComponents extends BaseaFormSlotComponents
       $this->a_form_form = new aFormForm($this->a_form);
     }
     
-    if (!isset($this->a_form_field_form) || !$this->a_form_field_form->hasErrors())
+    if (!isset($this->a_form_layout_form) || !$this->a_form_layout_form->hasErrors())
     {
-      $this->a_form_field = new aFormField();
-      $this->a_form_field_form = new aFormFieldForm($this->a_form_field, array('a_form' => $this->a_form));
+      $this->a_form_layout = new aFormLayout();
+      $this->a_form_layout_form = new aFormLayoutForm($this->a_form_layout, array('a_form' => $this->a_form));
     }
 	}
 	
 	public function executePkFormFieldOptions()
 	{
-    $this->a_form_field_options_form = $this->a_form_field->getOptionsForm();
+    $this->a_form_layout_options_form = $this->a_form_layout->getOptionsForm();
 	}
 	
 	public function executeSubmitEmail()
@@ -59,7 +59,7 @@ class aFormSlotComponents extends BaseaFormSlotComponents
     $this->values = array();
 	  foreach ($values['fields'] as $field_id => $field_values)
 	  {
-	    $this->values[Doctrine::getTable('aFormField')->find($field_id)->getLabel()] = $field_values;
+	    $this->values[Doctrine::getTable('aFormLayout')->find($field_id)->getLabel()] = $field_values;
 	  }
 	}
 }

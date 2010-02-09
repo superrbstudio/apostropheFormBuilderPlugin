@@ -15,7 +15,9 @@ abstract class BaseaFormSubmissionActions extends autoAFormSubmissionActions
   public function preExecute()
   {
     parent::preExecute();
-    $this->a_form = Doctrine::getTable('aForm')->createQuery()->fetchOne();  
+    $this->a_form = Doctrine::getTable('aForm')->createQuery('f')
+    ->leftJoin('f.aFormLayouts ff INDEXBY ff.id')
+    ->fetchOne();  
   }
   
   protected function buildQuery()
@@ -34,7 +36,12 @@ abstract class BaseaFormSubmissionActions extends autoAFormSubmissionActions
 
     $event = $this->dispatcher->filter(new sfEvent($this, 'admin.build_query'), $query);
     $query = $event->getReturnValue();
-
+    
+    $q2 = Doctrine_Query::create()->from('aFormSubmission f')
+      ->select('f.*, fsss.*')
+      ->leftJoin('f.aFormFieldSubmissions fsss')
+      ->whereIn('f.id IN (SELECT sf.id FROM ('.$query->getDql().') as sf)');
+    return $q2;
     return $query;
   }
   

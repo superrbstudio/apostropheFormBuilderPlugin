@@ -21,13 +21,13 @@
 </div>
 
 <div id="a-form-<?php echo $a_form->getId() ?>-fields" class="a-form-builder editing">
-<?php echo include_partial('aForm/aFormFields', array('a_form' => $a_form)); ?>
+<?php echo include_partial('aForm/aFormLayouts', array('a_form' => $a_form)); ?>
 </div>
 
 <?php echo jq_sortable_element('#a-form-'.$a_form->getId().'-fields', array('url' => 'aForm/sortFields')) ?>
 
-<div id="add-field-form-<?php echo $a_form->getId() ?>" class="a-form-builder adding" <?php if (!$a_form_field_form->hasErrors()): ?>style="display:none;"<?php endif ?>>
-<?php echo include_partial('aForm/aFormFieldForm', array('a_form_field_form' => $a_form_field_form, 'a_form_field' => $a_form_field, 'a_form' => $a_form)); ?>
+<div id="add-field-form-<?php echo $a_form->getId() ?>" class="a-form-builder adding" <?php if (!$a_form_layout_form->hasErrors()): ?>style="display:none;"<?php endif ?>>
+<?php echo include_partial('aForm/aFormLayoutForm', array('a_form_layout_form' => $a_form_layout_form, 'a_form_layout' => $a_form_layout, 'a_form' => $a_form)); ?>
 </div>
 
 <?php echo jq_link_to_function('Add field<span></span>', "$('#add-field-form-".$a_form->getId()."').show();$(this).hide()", array('id' => 'add-field-button-'.$a_form->getId(), 'class' => 'a-btn')) ?>

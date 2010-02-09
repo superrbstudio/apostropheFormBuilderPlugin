@@ -29,8 +29,8 @@ aForm:
     thank_you:
       type: string
 
-aFormField:
-  tableName: a_form_field
+aFormLayout:
+  tableName: a_form_layout
   actAs:
     Sluggable:
       fields: [label]
@@ -60,12 +60,12 @@ aFormField:
       foreign: id
       local: form_id
       onDelete: CASCADE
-      foreignAlias: aFormFields
+      foreignAlias: aFormLayouts
 
-aFormFieldOption:
-  tableName: a_form_field_option
+aFormLayoutOption:
+  tableName: a_form_layout_option
   columns:
-    field_id:
+    layout_id:
       type: integer
     name:
       type: string(255)
@@ -75,13 +75,28 @@ aFormFieldOption:
       type: integer
       default: 1
   relations:
-    aFormField:
-      class: aFormField
+    aFormLayout:
+      class: aFormLayout
       foreign: id
-      local: field_id
+      local: layout_id
       onDelete: CASCADE
-      foreignAlias: aFormFieldOptions
-
+      foreignAlias: aFormLayoutOptions
+      
+aFormField:
+  tableName: a_form_field
+  columns:
+    layout_id:
+      type: integer
+    name:
+      type: string
+  relations:
+    aFormLayout:
+      class: aFormLayout
+      foreign: id
+      local: layout_id
+      onDelete: CASCADE
+      foreignAlias: aFormFields
+    
 aFormSubmission:
   tableName: a_form_submission
   actAs:
@@ -106,6 +121,8 @@ aFormFieldSubmission:
     submission_id:
       type: integer
       notnull: true
+    layout_id:
+      type: integer
     field_id:
       type: integer
     sub_field:
@@ -117,6 +134,12 @@ aFormFieldSubmission:
       class: aFormSubmission
       foreign: id
       local: submission_id
+      onDelete: CASCADE
+      foreignAlias: aFormFieldSubmissions
+    aFormLayout:
+      class: aFormLayout
+      foreign: id
+      local: layout_id
       onDelete: CASCADE
       foreignAlias: aFormFieldSubmissions
     aFormField:

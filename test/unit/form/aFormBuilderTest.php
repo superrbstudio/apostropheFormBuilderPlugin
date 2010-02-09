@@ -18,10 +18,11 @@ $form = new aFormBuilder(array(), array('a_form' => $a_form));
  */
 $t->comment('An aFormBuilder object needs to correctly represent a corresponding aForm object.');
 
-$t->is(count($form->getEmbeddedForm('fields')->getEmbeddedForms()), count($a_form->aFormFields), 'Correct number of field forms were embedded');
+
+$t->is(count($form->getEmbeddedForm('fields')->getEmbeddedForms()), count($a_form->aFormLayouts), 'Correct number of field forms were embedded');
 
 $bool = true;
-foreach($a_form->aFormFields as $field)
+foreach($a_form->aFormLayouts as $field)
 {
   if(!($field->getFormClass() == get_class($form->getEmbeddedForm('fields')->getEmbeddedForm($field->getId()))) )
     $bool = $bool && false;
@@ -37,7 +38,7 @@ $t->comment('Dynamic forms need to validate, bind and save correctly.');
  * Bind and save a valid form.
  */
 $valid = aFormTestToolkit::getValidData();
-foreach($a_form->aFormFields as $field)
+foreach($a_form->aFormLayouts as $field)
 {
   $values['fields'][$field->getId()] = $valid[$field->getType()];
 }
@@ -56,7 +57,7 @@ $t->is($a_form_submission->getFormId(), $a_form->getId(), 'Submission was saved 
  */
 $form = new aFormBuilder(array(), array('a_form' => Doctrine::getTable('aForm')->findOneByName('Required fields')));
 $invalid = aFormTestToolkit::getInvalidData();
-foreach($a_form->aFormFields as $field)
+foreach($a_form->aFormLayouts as $field)
 {
   $values['fields'][$field->getId()] = $valid[$field->getType()];
 }

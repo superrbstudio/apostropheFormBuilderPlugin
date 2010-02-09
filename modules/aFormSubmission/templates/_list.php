@@ -5,10 +5,13 @@
     <table cellspacing="0" class="a-admin-list-table">
       <thead>
         <tr>
-					          	<th id="a-admin-list-batch-actions"><input id="a-admin-list-batch-checkbox-toggle" class="a-admin-list-batch-checkbox-toggle a-checkbox" type="checkbox"/></th>
-					          	<?php include_partial('aFormSubmission/list_th_tabular', array('sort' => $sort, 'a_form' => $a_form)) ?>
-					          	<th id="a-admin-list-th-actions"><?php echo __('Actions', array(), 'a-admin') ?></th>
-					        </tr>
+		      <th id="a-admin-list-batch-actions"><input id="a-admin-list-batch-checkbox-toggle" class="a-admin-list-batch-checkbox-toggle a-checkbox" type="checkbox"/></th>
+					<?php include_partial('aFormSubmission/list_th_tabular', array('sort' => $sort, 'a_form' => $a_form)) ?>
+					<th id="a-admin-list-th-actions"><?php echo __('Actions', array(), 'a-admin') ?></th>
+			 </tr>
+       <tr>
+         <?php include_partial('aFormSubmission/list_th_subfields', array('sort' => $sort, 'a_form' => $a_form)) ?>
+       </tr>
       </thead>
       <tfoot>
         <tr>
@@ -26,10 +29,10 @@
         </tr>
       </tfoot>
       <tbody>
-        <?php $n=1; $total = count($pager->getResults()); foreach ($pager->getResults() as $i => $a_form_submission): $odd = fmod(++$i, 2) ? 'odd' : 'even' ?>
+        <?php $n=1; $total = $pager->getNbResults(); foreach ($pager->getResults() as $i => $a_form_submission): $odd = fmod(++$i, 2) ? 'odd' : 'even' ?>
           <tr class="a-admin-row <?php echo $odd ?> <?php echo ($n == $total)? 'last':'' ?>">
 						            	<?php include_partial('aFormSubmission/list_td_batch_actions', array('a_form_submission' => $a_form_submission, 'helper' => $helper)) ?>
-						            	<?php include_partial('aFormSubmission/list_td_tabular', array('a_form_submission' => $a_form_submission)) ?>
+						            	<?php include_partial('aFormSubmission/list_td_tabular', array('a_form' => $a_form, 'a_form_submission' => $a_form_submission)) ?>
 						            	<?php include_partial('aFormSubmission/list_td_actions', array('a_form_submission' => $a_form_submission, 'helper' => $helper)) ?>
 						          </tr>
         <?php $n++; endforeach; ?>

@@ -57,71 +57,71 @@ abstract class BaseaFormSlotActions extends BaseaActions
   
   public function executeAddField(sfRequest $request)
   {
-    $this->a_form_field = new aFormField();
-    $this->form = new aFormFieldForm($this->a_form_field);
+    $this->a_form_layout = new aFormLayout();
+    $this->form = new aFormLayoutForm($this->a_form_layout);
 
-    $a_form_field = $request->getParameter($this->form->getName());
-	  $this->form->bind($a_form_field);
+    $a_form_layout = $request->getParameter($this->form->getName());
+	  $this->form->bind($a_form_layout);
     
-    $this->a_form = Doctrine::getTable('aForm')->find($a_form_field['form_id']);
+    $this->a_form = Doctrine::getTable('aForm')->find($a_form_layout['form_id']);
 
 	  if ($this->form->isValid())
 	  {
-      $this->a_form_field = $this->form->save();
+      $this->a_form_layout = $this->form->save();
 	  }
 
-    return $this->renderComponent('aForm', 'aFormEdit', array('a_form' => $this->a_form, 'a_form_field_form' => $this->form));
+    return $this->renderComponent('aForm', 'aFormEdit', array('a_form' => $this->a_form, 'a_form_layout_form' => $this->form));
   }
 
   public function executeShowField(sfRequest $request)
   {
-    $this->a_form_field = Doctrine::getTable('aFormField')->find($request->getParameter('id'));
+    $this->a_form_layout = Doctrine::getTable('aFormLayout')->find($request->getParameter('id'));
 
-    return $this->renderPartial('aForm/aFormFieldEdit', array('a_form_field' => $this->a_form_field));
+    return $this->renderPartial('aForm/aFormLayoutEdit', array('a_form_layout' => $this->a_form_layout));
   }
 
   public function executeEditField(sfRequest $request)
   {
-    $this->a_form_field = Doctrine::getTable('aFormField')->find($request->getParameter('id'));
+    $this->a_form_layout = Doctrine::getTable('aFormLayout')->find($request->getParameter('id'));
     
-    $this->form = new aFormFieldForm($this->a_form_field);
+    $this->form = new aFormLayoutForm($this->a_form_layout);
 
-    return $this->renderPartial('aForm/aFormFieldForm', array('a_form_field' => $this->a_form_field, 'a_form_field_form' => $this->form));
+    return $this->renderPartial('aForm/aFormLayoutForm', array('a_form_layout' => $this->a_form_layout, 'a_form_layout_form' => $this->form));
   }
 
   public function executeDeleteField(sfRequest $request)
   {
-    $this->a_form_field = Doctrine::getTable('aFormField')->find($request->getParameter('id'));
+    $this->a_form_layout = Doctrine::getTable('aFormLayout')->find($request->getParameter('id'));
     
-    $this->a_form_field->delete();
+    $this->a_form_layout->delete();
 
-    return $this->renderPartial('aForm/aFormFieldForm', array('a_form_field' => $this->a_form_field, 'a_form_field_form' => $this->form));
+    return $this->renderPartial('aForm/aFormLayoutForm', array('a_form_layout' => $this->a_form_layout, 'a_form_layout_form' => $this->form));
   }
   
   public function executeUpdateField(sfRequest $request)
   {
-    $a_form_field = $request->getParameter('a_form_field');
+    $a_form_layout = $request->getParameter('a_form_layout');
 
-    $this->a_form_field = Doctrine::getTable('aFormField')->find($a_form_field['id']);
+    $this->a_form_layout = Doctrine::getTable('aFormLayout')->find($a_form_layout['id']);
     
-    $this->form = new aFormFieldForm($this->a_form_field);
-	  $this->form->bind($a_form_field);
+    $this->form = new aFormLayoutForm($this->a_form_layout);
+	  $this->form->bind($a_form_layout);
 
 	  if ($this->form->isValid())
 	  {
-      $this->a_form_field = $this->form->save();
+      $this->a_form_layout = $this->form->save();
       
-      return $this->renderPartial('aForm/aFormFieldEdit', array('a_form_field' => $this->a_form_field));
+      return $this->renderPartial('aForm/aFormLayoutEdit', array('a_form_layout' => $this->a_form_layout));
 	  }
 
-    return $this->renderPartial('aForm/aFormFieldForm', array('a_form' => $this->a_form, 'a_form_field' => $this->a_form_field, 'a_form_field_form' => $this->form));
+    return $this->renderPartial('aForm/aFormLayoutForm', array('a_form' => $this->a_form, 'a_form_layout' => $this->a_form_layout, 'a_form_layout_form' => $this->form));
   }
 
   public function executeEditFieldOptions(sfRequest $request)
   {
-    $this->a_form_field = Doctrine::getTable('aFormField')->find($request->getParameter('field_id'));
+    $this->a_form_layout = Doctrine::getTable('aFormLayout')->find($request->getParameter('field_id'));
     
-    $this->form = $this->a_form_field->getOptionsForm();
+    $this->form = $this->a_form_layout->getOptionsForm();
     
     if ($request->isMethod('post'))
     {
@@ -133,18 +133,18 @@ abstract class BaseaFormSlotActions extends BaseaActions
       }
     }
 
-    $field = Doctrine::getTable('aFormField')
+    $field = Doctrine::getTable('aFormLayout')
       ->createQuery('f')
-      ->where('f.id = ?', $this->a_form_field->getId())
-      ->leftJoin('f.aFormFieldOptions')
+      ->where('f.id = ?', $this->a_form_layout->getId())
+      ->leftJoin('f.aFormLayoutOptions')
       ->fetchOne();
     
-    return $this->renderPartial('aForm/aFormFieldEdit', array('a_form_field' => $field));
+    return $this->renderPartial('aForm/aFormLayoutEdit', array('a_form_layout' => $field));
   }
   
   public function executeSortFields(sfRequest $request)
   {
-    Doctrine::getTable('aFormField')->doSort($request->getParameter('a-form-field'));
+    Doctrine::getTable('aFormLayout')->doSort($request->getParameter('a-form-field'));
     
     return sfView::NONE;
   }

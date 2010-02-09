@@ -12,7 +12,7 @@ abstract class PluginaForm extends BaseaForm
   
   public function fetchFieldByRank($rank = 1)
   {
-    $q = Doctrine::getTable('aFormField')
+    $q = Doctrine::getTable('aFormLayout')
       ->createQuery('ff')
       ->innerJoin('ff.aForm f WITH f.id = ?', $this->getId())
       ->where('ff.rank = ?', $rank);
@@ -22,7 +22,7 @@ abstract class PluginaForm extends BaseaForm
   
   public function getAllFieldsByRank()
   {
-    $q = Doctrine::getTable('aFormField')
+    $q = Doctrine::getTable('aFormLayout')
       ->createQuery('ff')
       ->innerJoin('ff.aForm f WITH f.id = ?', $this->getId())
       ->orderBy('ff.rank');
@@ -34,7 +34,7 @@ abstract class PluginaForm extends BaseaForm
   {
     $q = Doctrine_Query::create()
       ->select('max(ff.rank) as max')
-      ->from('aFormField ff')
+      ->from('aFormLayout ff')
       ->innerJoin('ff.aForm f WITH f.id = ?', $this->getId());
 
     $result = $q->fetchOne();

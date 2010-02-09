@@ -1,24 +1,24 @@
 <?php
 
-class aFormFieldOptionsForm extends sfForm
+class aFormLayoutOptionsForm extends sfForm
 {
   /**
    * http://www.thatsquality.com/articles/can-the-symfony-forms-framework-be-domesticated-a-simple-option-list
    */
   public function configure()
   {    
-    if (!$this->getOption('a_form_field') instanceof aFormField)
+    if (!$this->getOption('a_form_layout') instanceof aFormLayout)
     {
-      throw new Exception("aFormFieldOptionForm requires an instance of aFormField in the 'a_form_field' option.");
+      throw new Exception("aFormLayoutOptionForm requires an instance of aFormLayout in the 'a_form_layout' option.");
     }
 
     $optionWrapperForm = new sfForm();
-    foreach($this->getOption('a_form_field')->getpkFormFieldOptions() as $option)
+    foreach($this->getOption('a_form_layout')->getpkFormFieldOptions() as $option)
     {
-      $optionWrapperForm->embedForm($option->getId(), new aFormFieldOptionForm($option));
+      $optionWrapperForm->embedForm($option->getId(), new aFormLayoutOptionForm($option));
     }
 
-    $optionWrapperForm->embedForm('new_1', new aFormFieldOptionForm());
+    $optionWrapperForm->embedForm('new_1', new aFormLayoutOptionForm());
     
     $this->embedForm('options', $optionWrapperForm);
     
@@ -35,7 +35,7 @@ class aFormFieldOptionsForm extends sfForm
       {
         // only save options that aren't blank
         $optionForm->updateObject($values['options'][$key]);
-        $optionForm->getObject()->setFieldId($this->getOption('a_form_field')->getId());
+        $optionForm->getObject()->setFieldId($this->getOption('a_form_layout')->getId());
         $optionForm->getObject()->save();
       }
       else if (!$optionForm->getObject()->isNew())

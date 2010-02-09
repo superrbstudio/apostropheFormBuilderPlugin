@@ -49,11 +49,11 @@
 		</th>
 	<?php end_slot(); ?>
 
-<?php foreach($a_form->aFormFields as $aField): ?>
+<?php foreach($a_form->aFormLayouts as $aField): ?>
 <?php include_slot('a-admin.current-header') ?>
   
   <?php slot('a-admin.current-header') ?>
-  <th class="a-admin-text a-admin-list-th-field">
+  <th class="a-admin-text a-admin-list-th-field" style="text-align:center;" colspan="<?php echo count($aField->getForm()->getObjects()); ?>">
     <?php echo $aField['label'] ?>
   </th>
   <?php end_slot(); ?>
