@@ -2,6 +2,8 @@
 
 class aFormSelectCheckbox extends aFormEmbeddable
 {
+  protected $objects = array('select' => null);
+  
   public function configure()
   {
     foreach ($this->getChoices() as $value => $choice)

@@ -11,9 +11,9 @@
   <?php echo $a_form_submission->getUserId() ?>
 </td>
 <?php foreach($a_form->aFormLayouts as $aFormLayout): ?>
-  <?php foreach($aFormLayout->getForm()->getObjects() as $subField => $object): ?>
+  <?php foreach($aFormLayout->aFormFields as $field): ?>
     <td class="a-admin-foreignkey a-admin-list-td-user_id">
-      <?php echo $a_form_submission->aFormFieldSubmissions[$subField]->getValue() ?>
+      <?php echo $a_form_submission->aFormFieldSubmissions[$field->getId()]->getValue() ?>
     </td>
   <?php endforeach ?>
 <?php endforeach ?>

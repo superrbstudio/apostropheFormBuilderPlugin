@@ -5,6 +5,20 @@
  */
 abstract class PluginaForm extends BaseaForm
 {
+  protected $fieldCount;
+  
+  public function getfieldCount()
+  {
+    if(isset($this->fieldCount))
+      return $this->fieldCount;
+    $this->fieldCount = 0;
+    foreach($this->aFormLayouts as $aFormLayout)
+      foreach($aFormLayout->aFormFields as $aFormField)
+        $this->fieldCount++;
+    
+    return $this->fieldCount;
+  }
+  
   public function buildForm()
   {
     return new aFormBuilder(null, array('a_form' => $this));

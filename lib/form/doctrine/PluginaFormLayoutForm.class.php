@@ -19,15 +19,8 @@ abstract class PluginaFormLayoutForm extends BaseaFormLayoutForm
     
     $this->setWidget('type', new sfWidgetFormChoice(array('choices' => aFormLayout::getTypes())));
     $this->setWidget('form_id', new sfWidgetFormInputHidden());
+  }
     
-    $this->setDefault('form_id', $this->getpkForm()->getId());
-  }
-  
-  public function getpkForm()
-  {
-    return isset($this->options['a_form']) ? $this->options['a_form'] : $this->getObject()->getpkForm();
-  }
-  
   // public function doSave($con = null)
   // {
   //   echo "<pre>";

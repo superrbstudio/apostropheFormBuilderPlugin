@@ -19,17 +19,17 @@ class aFormBuilder extends BaseaFormSubmissionForm
     $this->setWidget('form_id', new sfWidgetFormInputHidden());
     $this->setDefault('form_id', $this->getOption('a_form')->getId());
 
-    $fieldWrapperForm = new sfForm();
+    $layoutWrapperForm = new sfForm();
     
     $embeddedObjects = $this->getEmbeddedObjects();
     
-    foreach ($this->getOption('a_form')->getAllFieldsByRank() as $field)
+    foreach ($this->getOption('a_form')->getAllFieldsByRank() as $layout)
     {
-      $this->legends[$field->getId()] = $field->getLabel();
-      $fieldWrapperForm->embedForm($field->getId(), $field->getForm($embeddedObjects[$field['id']], array('a_form_layout' => $field)));
+      $this->legends[$layout->getId()] = $layout->getLabel();
+      $layoutWrapperForm->embedForm($layout->getId(), $layout->getForm($embeddedObjects[$layout['id']], array('a_form_layout' => $layout)));
     }
 
-    $this->embedForm('fields', $fieldWrapperForm);
+    $this->embedForm('fields', $layoutWrapperForm);
 
     $this->widgetSchema->setNameFormat('form[%s]');
     
@@ -44,32 +44,31 @@ class aFormBuilder extends BaseaFormSubmissionForm
   public function getEmbeddedObjects()
   {
     $embeddedObjects = array();
-    foreach($this->getOption('a_form')->getAllFieldsByRank() as $field)
+    foreach($this->getOption('a_form')->getAllFieldsByRank() as $layout)
     {
-      $embeddedObjects[$field['id']] = array();
+      $embeddedObjects[$layout['id']] = array();
     }
     foreach($this->getObject()->aFormFieldSubmissions as $fieldSubmission)
     {
-      $embeddedObjects[$fieldSubmission['field_id']][] = $fieldSubmission;
+      $embeddedObjects[$fieldSubmission['layout_id']][] = $fieldSubmission;
     }
     return $embeddedObjects;
   }
   
   public function updateObjectEmbeddedForms($values, $forms = null)
   {
-    foreach($this->getEmbeddedForm('fields')->getEmbeddedForms() as $name => $fieldForms)
+    foreach($this->getEmbeddedForm('fields')->getEmbeddedForms() as $name => $layoutForms)
     {
-      $fieldForms->setOption('a_form_submission', $this->getObject());
-      $fieldForms->doUpdateObjects($values['fields'][$name]);
-      
+      $layoutForms->setOption('a_form_submission', $this->getObject());
+      $layoutForms->doUpdateObjects($values['fields'][$name]);
     }
   }
   
   public function saveEmbeddedForms($con = null, $form = null)
   {
-    foreach($this->getEmbeddedForm('fields')->getEmbeddedForms() as $name => $fieldForms)
+    foreach($this->getEmbeddedForm('fields')->getEmbeddedForms() as $name => $layoutForms)
     {
-      $fieldForms->save();
+      $layoutForms->save();
     }
   }
   

@@ -1,8 +1,23 @@
+a_form:
+  class: sfDoctrineRouteCollection
+  options:
+    model:                aForm
+    module:               aForm
+    prefix_path:          admin/a_form
+    column:               id
+    with_wildcard_routes: true
+    object_actions:
+      promoteField: post
+      demoteField:  post
+      editLayout: [get, post]
+
+
 a_form_submission_admin:
   class: sfDoctrineRouteCollection
   options:
     model:               aFormSubmission
-    module:              aFormSubmission
+    module:              aFormSubmissionAdmin
     prefix_path:         admin/a_form_submission
     column:              id
     with_wildcard_routes: true
+    

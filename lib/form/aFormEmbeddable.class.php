@@ -39,16 +39,17 @@ abstract class aFormEmbeddable extends sfForm
   
   public function doUpdateObjects($values)
   {
-    foreach ($this->objects as $name => &$object)
+    foreach ($this->getOption('a_form_layout')->aFormFields as $field)
     {
-      if(is_null($object))
+      if(is_null($this->objects[$field->name]))
       {
-        $object = new aFormFieldSubmission();
-        $object->setSubmissionId($this->getOption('a_form_submission'))->getId();
-        $object->setLayoutId($this->getOption('a_form_layout')->getId());
-        $object->setSubField($name);
+        $this->objects[$field->name] = new aFormFieldSubmission();
+        $this->objects[$field->name]->setSubmissionId($this->getOption('a_form_submission'))->getId();
+        $this->objects[$field->name]->setLayoutId($this->getOption('a_form_layout')->getId());
+        $this->objects[$field->name]->setFieldId($field->id);
+        $this->objects[$field->name]->setSubField($field->name);
       }
-      $object->setValue($values[$name]);
+      $this->objects[$field->name]->setValue($values[$field->name]);
     }
   }
     

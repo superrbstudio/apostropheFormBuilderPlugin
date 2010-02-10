@@ -59,30 +59,63 @@ abstract class BaseaFormActions extends sfActions
     $this->csv = stream_get_contents($out);
   }
   
-  public function executeNew(sfWebRequest $request)
+  public function executeEdit(sfRequest $request)
   {
-    $this->a_form = Doctrine::getTable('aForm')->createQuery()->fetchOne();
-    $this->form = new aFormBuilder(array(), array('a_form' => $this->a_form));
-    if($request->isMethod('POST'))
+    if($request->isXmlHttpRequest())
     {
-      $this->form->bind($request->getParameter('form'));
-      if($this->form->isValid())
-        $this->form->save();
+      $this->setLayout(false);
     }
-    $this->setTemplate('edit');
+    
+    $this->aForm = $this->getObject();
+    $this->aFormForm = new aFormForm($this->aForm);
   }
   
-  public function executeEdit(sfWebRequest $request)
+  public function executeEditLayout(sfRequest $request)
   {
-    $this->a_form = Doctrine::getTable('aForm')->createQuery()->fetchOne();
-    $this->a_form_submission = Doctrine::getTable('aFormSubmission')->find($request->getParameter('id'));
+    $this->a_form_layout = Doctrine::getTable('aFormLayout')->find($request->getParameter('layout_id'));
+    
+    $this->form = new aFormLayoutForm($this->a_form_layout);
 
-    $this->form = new aFormBuilder($this->a_form_submission, array('a_form' => $this->a_form));
-    if($request->isMethod('POST'))
-    {
-      $this->form->bind($request->getParameter('form'));
-      if($this->form->isValid())
-        $this->form->save();
-    }
+    return $this->renderPartial('aForm/aFormLayoutForm', array('a_form_layout' => $this->a_form_layout, 'a_form_layout_form' => $this->form));
   }
+  
+  
+  public function executeShow(sfWebRequest $request)
+  {
+    $this->a_form = $this->getObject();
+  }
+  
+  public function executeAddLayout(sfWebRequest $request)
+  {
+    $aForm = $this->getObject();
+    
+    $aFormLayoutForm = new aFormLayoutForm();
+    
+    $aFormLayoutForm->bind($request->getParameter($aFormLayoutForm->getName()));
+    if($aFormLayoutForm->isValid())
+    {
+      $aFormLayoutForm->save();
+    }
+    
+    return $this->renderComponent('aForm', 'aFormEdit', array('a_form' => $this->a_form, 'a_form_layout_form' => $this->form));
+  }
+  
+
+  /**
+   * getObject 
+   * helper method to retrieve a form object from the routing class and check if
+   * the user has permission to access the object.
+   * @return 
+   */
+  public function getObject()
+  {
+    $object = $this->getRoute()->getObject();
+    if(true)
+      return $object;
+    else
+      $this->forward404(); 
+  }
+  
+  
+  
 }

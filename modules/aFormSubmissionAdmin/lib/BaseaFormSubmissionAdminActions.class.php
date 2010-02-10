@@ -1,6 +1,6 @@
 <?php
-require_once dirname(__FILE__).'/aFormSubmissionGeneratorConfiguration.class.php';
-require_once dirname(__FILE__).'/aFormSubmissionGeneratorHelper.class.php';
+require_once dirname(__FILE__).'/aFormSubmissionAdminGeneratorConfiguration.class.php';
+require_once dirname(__FILE__).'/aFormSubmissionAdminGeneratorHelper.class.php';
 /**
  * Base actions for the apostropheFormBuilderPlugin aFormSubmissionPlugin module.
  * 
@@ -9,14 +9,15 @@ require_once dirname(__FILE__).'/aFormSubmissionGeneratorHelper.class.php';
  * @author      Your name here
  * @version     SVN: $Id: BaseActions.class.php 12534 2008-11-01 13:38:27Z Kris.Wallsmith $
  */
-abstract class BaseaFormSubmissionActions extends autoAFormSubmissionActions
+abstract class BaseaFormSubmissionAdminActions extends autoAFormSubmissionAdminActions
 {
   
   public function preExecute()
   {
     parent::preExecute();
     $this->a_form = Doctrine::getTable('aForm')->createQuery('f')
-    ->leftJoin('f.aFormLayouts ff INDEXBY ff.id')
+    ->leftJoin('f.aFormLayouts fl INDEXBY fl.id')
+    ->leftJoin('fl.aFormFields ff INDEXBY ff.id')
     ->fetchOne();  
   }
   
@@ -39,7 +40,7 @@ abstract class BaseaFormSubmissionActions extends autoAFormSubmissionActions
     
     $q2 = Doctrine_Query::create()->from('aFormSubmission f')
       ->select('f.*, fsss.*')
-      ->leftJoin('f.aFormFieldSubmissions fsss')
+      ->leftJoin('f.aFormFieldSubmissions fsss INDEXBY field_id')
       ->whereIn('f.id IN (SELECT sf.id FROM ('.$query->getDql().') as sf)');
     return $q2;
     return $query;
