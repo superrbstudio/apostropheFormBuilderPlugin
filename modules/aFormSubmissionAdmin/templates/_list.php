@@ -30,7 +30,7 @@
       </tfoot>
       <tbody>
         <?php $n=1; $total = count($pager); foreach ($pager as $i => $a_form_submission): $odd = fmod(++$i, 2) ? 'odd' : 'even' ?>
-          <tr class="a-admin-row <?php echo $odd ?> <?php echo ($n == $total)? 'last':'' ?>">
+					<tr class="a-admin-row <?php echo $odd ?> <?php echo ($n == $total)? 'last':'' ?>">
 						            	<?php include_partial('aFormSubmissionAdmin/list_td_batch_actions', array('a_form_submission' => $a_form_submission, 'helper' => $helper)) ?>
 						            	<?php include_partial('aFormSubmissionAdmin/list_td_tabular', array('a_form' => $a_form, 'a_form_submission' => $a_form_submission)) ?>
 						            	<?php include_partial('aFormSubmissionAdmin/list_td_actions', array('a_form_submission' => $a_form_submission, 'helper' => $helper)) ?>

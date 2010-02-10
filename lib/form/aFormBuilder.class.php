@@ -23,10 +23,16 @@ class aFormBuilder extends BaseaFormSubmissionForm
     
     $embeddedObjects = $this->getEmbeddedObjects();
     
-    foreach ($this->getOption('a_form')->getAllFieldsByRank() as $layout)
+    foreach ($this->getOption('a_form')->aFormLayouts as $aFormLayout)
     {
-      $this->legends[$layout->getId()] = $layout->getLabel();
-      $layoutWrapperForm->embedForm($layout->getId(), $layout->getForm($embeddedObjects[$layout['id']], array('a_form_layout' => $layout)));
+    	//TODO: Don't really need to use legends array here, templates should just get the embedded form label.
+    	$this->legends[$aFormLayout['id']] = $aFormLayout->getLabel();
+      $layoutWrapperForm->embedForm(
+			  $aFormLayout->getId(),
+		    $aFormLayout->getForm(
+			    $this->getObject()->getFieldSubmissionsForLayout($aFormLayout['id']), 
+					array('a_form_layout' => $aFormLayout)
+		  ));
     }
 
     $this->embedForm('fields', $layoutWrapperForm);

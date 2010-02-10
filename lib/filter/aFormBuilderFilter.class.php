@@ -55,7 +55,7 @@ class aFormBuilderFilter extends BaseaFormSubmissionFormFilter
       {
         $query->addSelect(sprintf("GROUP_CONCAT(IF(ffs.field_id = %s, ffs.value, null)) AS %s", $aFormField['id'], 'field_'.$aFormField['id']));
         if(isset($values[$aFormField['id']]))
-          $this->addFieldColumnQuery($query, 'field_'.$aFormLayout['id'], $values[$aFormLayout['id']]);
+          $this->addFieldColumnQuery($query, 'field_'.$aFormField['id'], $values[$aFormField['id']]);
       }
     }
     $query->addGroupBy('fs.id');

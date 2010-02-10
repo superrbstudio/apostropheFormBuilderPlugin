@@ -7,14 +7,14 @@ abstract class aFormEmbeddable extends sfForm
   public function __construct($objects = null, $options = array(), $CSRFSecret = null)
   {
     parent::__construct(array(), $options, $CSRFSecret);
-    if(is_array($objects))
-    {
+		if(is_array($objects))
+		{
       foreach($objects as $object)
       {
         $this->objects[$object->getSubField()] = $object;
         $this->setDefault($object->getSubField(), $object->getValue());
       }
-    }
+		}
   }
   
   public function getObjects()
@@ -64,10 +64,9 @@ abstract class aFormEmbeddable extends sfForm
     {
       throw new Exception("Saving a aFormEmbeddable object requires an instance of aFormLayout in the 'a_form_layout' option.");
     }
-    
-    foreach ($this->objects as $name => &$object)
+    foreach ($this->getOption('a_form_layout')->aFormFields as $field)
     {
-      $object->save();
+      $this->objects[$field->name]->save();
     }
   }
 }
