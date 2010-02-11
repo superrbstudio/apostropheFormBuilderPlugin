@@ -10,4 +10,8 @@
  */
 class aFormSubmissionAdminGeneratorHelper extends BaseAFormSubmissionAdminGeneratorHelper
 {
+	public function linkToExport($params)
+  {
+    return '<li class="a-admin-action-edit">'.link_to(__($params['label'], array(), 'a_admin'), $this->getUrlForAction('export'), array() ,array("class"=>"a-btn big")).'</li>';
+  }
 }

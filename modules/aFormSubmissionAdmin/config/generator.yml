@@ -15,9 +15,12 @@ generator:
       list:
         display: [ user ]
         object_actions: ~
-        actions: ~
+        actions:
+          _new: ~
+          _export: ~
       form:
         class: aFormBuilder
       filter:
         class: aFormBuilderFilter
-    
+      actions:
+        _export: { label: "Export" }

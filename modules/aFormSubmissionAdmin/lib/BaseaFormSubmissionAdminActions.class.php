@@ -84,5 +84,51 @@ abstract class BaseaFormSubmissionAdminActions extends autoAFormSubmissionAdminA
 
     $this->setTemplate('new');
   }
-  
+	
+	public function executeExport(sfWebRequest $request)
+	{
+		$query = $this->buildQuery();
+		$out = fopen('php://temp/maxmemory:'. (5*1024*1024), 'r+');
+		$this->result = $query->execute(array(), Doctrine::HYDRATE_ARRAY);
+		
+		$headers = array();
+		$headers[] = 'Timestamp';
+    $headers[] = 'IP Address';
+		foreach($this->a_form->aFormLayouts as $aFormLayout)
+		{
+			if(count($aFormLayout->aFormFields) == 1)
+			{
+				$headers[] = $aFormLayout->getLabel();
+			}
+			else
+			{
+				foreach($aFormLayout->aFormFields as $aFormField)
+				{
+					$headers[] = $aFormLayout->getLabel().' '.$aFormField->getName();
+				}
+			}
+		}
+		fputcsv($out, $headers);
+		
+		foreach($this->result as $submission)
+		{
+			$row = array();
+			$row[] = $submission['created_at'];
+      $row[] = $submission['ip_address'];
+			foreach($this->a_form->aFormLayouts as $aFormLayout)
+			{
+				foreach($aFormLayout->aFormFields as $aFormField)
+				{
+					$row[] = $submission['field_'.$aFormField->getId()];
+				}
+			}
+			fputcsv($out, $row);
+		}
+		rewind($out);
+
+    $this->getResponse()->setContentType('text/plain');
+    $this->getResponse()->setHttpHeader('Content-Disposition', 'attachment; filename='.urlencode($this->a_form->getName()).'.csv');
+    $this->getResponse()->setContent(stream_get_contents($out));
+		return sfView::NONE;
+	}
 }

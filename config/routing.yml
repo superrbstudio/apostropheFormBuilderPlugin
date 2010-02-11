@@ -55,4 +55,6 @@ a_form_submission_admin:
     prefix_path:         admin/a_form_submission_admin
     column:              id
     with_wildcard_routes: true
+    collection_actions:
+      export: [ get ]
     

@@ -9,56 +9,7 @@
  * @version     SVN: $Id: BaseActions.class.php 12534 2008-11-01 13:38:27Z Kris.Wallsmith $
  */
 abstract class BaseaFormActions extends sfActions
-{
-  public function executeExport(sfRequest $request)
-  {
-    $a_form = Doctrine::getTable('aForm')->find($request->getParameter('id'));
-
-    $out = fopen('php://temp/maxmemory:'. (5*1024*1024), 'r+');
-
-    $fields = $a_form->getAllFieldsByRank();
-    // generate headers
-    $headers = array();
-    foreach ($fields as $a_form_layout)
-    {
-      $a_form_layout_form = $a_form_layout->getForm();
-      
-      if (count($a_form_layout_form) == 1)
-      {
-        $headers[] = $a_form_layout->getLabel();
-      }
-      else
-      {
-        foreach ($a_form_layout_form as $key => $field)
-        {
-          $headers[] = $a_form_layout->getLabel().': '.$key;
-        }
-      }
-    }
-    $headers[] = 'Timestamp';
-    $headers[] = 'IP Address';
-    fputcsv($out, $headers);
-    
-    foreach ($a_form->getpkFormSubmissions() as $submission)
-    {
-      $row = array();
-      foreach ($submission->getpkFormFieldSubmissions() as $fieldSubmission)
-      {
-        $row[] = $fieldSubmission->getValue();
-      }
-      $row[] = $submission->getCreatedAt();
-      $row[] = $submission->getIpAddress();
-      fputcsv($out, $row);
-    }
-
-    rewind($out);
-
-    $this->getResponse()->setContentType('text/plain');
-    $this->getResponse()->setHttpHeader('Content-Disposition', 'attachment; filename='.urlencode($a_form->getName()).'.csv');
-
-    $this->csv = stream_get_contents($out);
-  }
-  
+{  
   public function executeEdit(sfRequest $request)
   {
     if($request->isXmlHttpRequest())
