@@ -2,7 +2,7 @@
 
 class aFormSelectCheckbox extends aFormEmbeddable
 {
-  protected $objects = array('select' => null);
+  protected $objects = array();
   
   public function configure()
   {
@@ -10,6 +10,7 @@ class aFormSelectCheckbox extends aFormEmbeddable
     {
       $this->setWidget($value, new sfWidgetFormInputCheckbox());
       $this->widgetSchema[$value]->setLabel($choice);
+			$this->objects[$value] = null;
     }
 
     foreach ($this->getChoices() as $value => $choice)

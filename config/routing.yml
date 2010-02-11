@@ -11,13 +11,48 @@ a_form:
       demoteField:  post
       editLayout: [get, post]
 
-
+a_form_submission_new:
+  url:      /admin/a_form_submission/new/:id
+  class:    sfDoctrineRoute
+  options:  { model: aForm, type: object }
+  param:    { module: aFormSubmission, action: new }
+  requirements:
+    id: \d+
+    sf_method: [ get ]
+    
+a_form_submission_create:
+  url:      /admin/a_form_submission/create/:id
+  class:    sfDoctrineRoute
+  options:  { model: aForm, type: object }
+  param:    { module: aFormSubmission, action: create }
+  requirements:
+    id: \d+
+    sf_method: [ post ]
+    
+a_form_submission_edit:
+  url:      /admin/a_form_submission/edit/:id
+  class:    sfDoctrineRoute
+  options:  { model: aFormSubmission, type: object }
+  param:    { module: aFormSubmission, action: edit }
+  requirements:
+    id: \d+
+    sf_method: [ get ]
+    
+a_form_submission_update:
+  url:      /admin/a_form_submission/update/:id
+  class:    sfDoctrineRoute
+  options:  { model: aFormSubmission, type: object }
+  param:    { module: aFormSubmission, action: update }
+  requirements:
+    id: \d+
+    sf_method: [ post ]
+  
 a_form_submission_admin:
   class: sfDoctrineRouteCollection
   options:
     model:               aFormSubmission
     module:              aFormSubmissionAdmin
-    prefix_path:         admin/a_form_submission
+    prefix_path:         admin/a_form_submission_admin
     column:              id
     with_wildcard_routes: true
     

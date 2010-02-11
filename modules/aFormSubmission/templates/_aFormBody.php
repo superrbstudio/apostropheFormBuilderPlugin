@@ -1,7 +1,7 @@
 <?php use_helper('jQuery') ?>
 
 <h3><?php //echo $a_form->getName() ?></h3>
-<?php echo $form['form_id'] ?>
+<?php echo $form->renderHiddenFields() ?>
 
 <?php echo $form->renderGlobalErrors() ?>
 <ul>

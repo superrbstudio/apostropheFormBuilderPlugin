@@ -17,6 +17,7 @@ abstract class BaseaFormSubmissionAdminActions extends autoAFormSubmissionAdminA
     parent::preExecute();
     $this->a_form = Doctrine::getTable('aForm')->createQuery('f')
     ->leftJoin('f.aFormLayouts fl INDEXBY fl.id')
+		->leftJoin('fl.aFormLayoutOptions flo INDEXBY flo.id')
     ->leftJoin('fl.aFormFields ff INDEXBY ff.id')
     ->fetchOne();  
   }

@@ -5,22 +5,17 @@ class aFormBuilder extends BaseaFormSubmissionForm
   protected
     $legends = array();
   
-  public function setup()
+  public function configure()
   {
-    parent::setup();
     if (!$this->getOption('a_form') instanceof aForm)
     {
-      if($this->isNew())
+      if($this->getObject()->isNew())
         throw new Exception("aFormBuilder requires an instance of aForm in the 'a_form' option.");
       else
         $this->setOption('a_form', $this->getObject()->aForm);
-    }
-
-    $this->setWidget('form_id', new sfWidgetFormInputHidden());
-    $this->setDefault('form_id', $this->getOption('a_form')->getId());
-
+    }	
     $layoutWrapperForm = new sfForm();
-    
+ 
     $embeddedObjects = $this->getEmbeddedObjects();
     
     foreach ($this->getOption('a_form')->aFormLayouts as $aFormLayout)
@@ -36,15 +31,35 @@ class aFormBuilder extends BaseaFormSubmissionForm
     }
 
     $this->embedForm('fields', $layoutWrapperForm);
-
     $this->widgetSchema->setNameFormat('form[%s]');
-    
-    $this->setValidator('form_id', new sfValidatorInteger(array('required' => true)));
-    
-    $this->useFields(array(
-      'form_id',
-      'fields'
-    ));
+		
+		$this->useFields(array('fields'));
+  }
+	
+  protected function updateDefaultsFromObject()
+  {
+    $defaults = $this->getDefaults();
+
+    // update defaults for the main object
+    if ($this->isNew())
+    {
+      $defaults = $this->getDefaults() + $this->getObject()->toArray(false);
+    }
+    else
+    {
+      $defaults = $this->getObject()->toArray(false) + $this->getDefaults();
+    }
+
+    foreach ($this->embeddedForms as $name => $form)
+    {
+      if ($form instanceof sfFormDoctrine)
+      {
+        $form->updateDefaultsFromObject();
+        $defaults[$name] = $form->getDefaults();
+      }
+    }
+
+    $this->setDefaults($defaults);
   }
   
   public function getEmbeddedObjects()

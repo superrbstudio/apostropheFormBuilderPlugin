@@ -3,7 +3,7 @@
 
 <div id="a-admin-container" class="<?php echo $sf_params->get('module') ?>">
 
-  <?php include_partial('aFormSubmissionAdmin/list_bar', array('filters' => $filters)) ?>
+  <?php include_partial('aFormSubmissionAdmin/list_bar', array('a_form' => $a_form, 'filters' => $filters)) ?>
   	
 	<div id="a-admin-subnav" class="subnav">
 		
