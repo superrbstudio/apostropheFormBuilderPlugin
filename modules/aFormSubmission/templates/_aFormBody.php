@@ -9,7 +9,7 @@
 <li class="a-form-row">
   <?php if (count($embedded_form) > 1): ?>
   <fieldset>
-    <legend><?php echo $form->getLegend($id) ?></legend>
+    <legend><?php echo $embedded_form->getWidget()->getLabel() ?></legend>
     <ul>
       <?php foreach ($embedded_form as $field): ?>
         <li>
