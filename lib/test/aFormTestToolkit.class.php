@@ -5,7 +5,7 @@
  * Mostly arrays of test data, both valid and invalid, for use with the individual
  * aFormLayout classes.
  */
-class aFormTestToolkit
+class aFormTestTools extends aTestTools
 {
   static public function getValidData($field = null)
   {
