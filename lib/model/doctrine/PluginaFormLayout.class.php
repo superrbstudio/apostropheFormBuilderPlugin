@@ -7,20 +7,9 @@ abstract class PluginaFormLayout extends BaseaFormLayout
 { 
   protected $form;
   
-  protected static $types = array(
-    'input' => 'Text Field',
-    'textarea' => 'Text Area', 
-    'select' => 'Select Menu', 
-    'select_radio' => 'Radio Select', 
-    'select_checkbox' => 'Check Box', 
-    // 'confirmation' => 'Confirmation Box', 
-    // 'email' => 'Email Field', 
-    'address' => 'Address Fields',
-  );
-  
   public static function getTypes()
   {
-    return self::$types;
+    return $this->getTable()->getTypes();
   }
    
   public function getFormClass()
@@ -87,16 +76,13 @@ abstract class PluginaFormLayout extends BaseaFormLayout
       }
     }
   }
-  
-  public function preDelete($event)
-  {
-    foreach ($this->getpkForm()->getpkFormFields() as $field)
-    {
-      if ($field->getRank() > $this->getRank())
-      {
-        $field->setRank($field->getRank() - 1);
-        $field->save();
-      }
-    }
-  }
+	
+	public function postDelete($event)
+	{
+		Doctrine_Query::create()
+		  ->update('aFormLayout')
+			->set('rank', 'rank + 1')
+			->where('aFormLayout.form_id = ? AND aFormLayout.rank > ?', array($this->getFormId(), $this->getRank()))
+			->execute();
+	}
 }

@@ -20,6 +20,7 @@ class PluginaFormLayoutTable extends Doctrine_Table
     return self::$types;
   }
 
+  //TODO: No need to sort every layout when one is moved can change to an update query
   public function doSort($order = array())
   {
     $fields = array();

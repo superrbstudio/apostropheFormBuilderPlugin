@@ -11,9 +11,10 @@ class aFormBuilder extends BaseaFormSubmissionForm
       else
         $this->setOption('a_form', $this->getObject()->aForm);
     }	
+		$this->setDefault('form_id', $this->getOption('a_form')->getId());
+		$this->setWidget('form_id' , new sfWidgetFormInputHidden());
+		
     $layoutWrapperForm = new sfForm();
- 
-    $embeddedObjects = $this->getEmbeddedObjects();
     
     foreach ($this->getOption('a_form')->aFormLayouts as $aFormLayout)
     {
@@ -25,23 +26,9 @@ class aFormBuilder extends BaseaFormSubmissionForm
     }
     $this->embedForm('fields', $layoutWrapperForm);
     $this->widgetSchema->setNameFormat('form[%s]');
-		$this->useFields(array('fields'));
+		$this->useFields(array('form_id', 'fields'));
   }
-	
-  public function getEmbeddedObjects()
-  {
-    $embeddedObjects = array();
-    foreach($this->getOption('a_form')->getAllFieldsByRank() as $layout)
-    {
-      $embeddedObjects[$layout['id']] = array();
-    }
-    foreach($this->getObject()->aFormFieldSubmissions as $fieldSubmission)
-    {
-      $embeddedObjects[$fieldSubmission['layout_id']][] = $fieldSubmission;
-    }
-    return $embeddedObjects;
-  }
-  
+	  
   public function updateObjectEmbeddedForms($values, $forms = null)
   {
     foreach($this->getEmbeddedForm('fields')->getEmbeddedForms() as $name => $layoutForms)

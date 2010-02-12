@@ -1,12 +1,12 @@
 aForm:
   a_form_0:
-    name: "Required fields"
-    description: "This is a test form with required fields."
+    name: "Optional fields"
+    description: "This is a test form with optional fields."
     email_to: "dan@punkave.com"
     thank_you: string
   a_form_1:
-    name: "Optional fields"
-    description: "This is a test form with optional fields."
+    name: "Required fields"
+    description: "This is a test form with required fields."
     email_to: "dan@punkave.com"
     thank_you: string
     
