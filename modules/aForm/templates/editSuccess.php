@@ -8,16 +8,8 @@
     'url' => 'aForm/editForm', 
     'update' => 'a-form-'.$aForm->getId(), 
     ), array('class' => 'a-form-settings-form')) ?>
-  <?php foreach ($aForm_form as $field): ?>
-  <?php if (!$field->isHidden()): ?><div class="a-form-row"><?php endif ?>
-  <?php echo $field->renderError() ?>
-  <?php echo (!$field->isHidden()) ? $field->renderLabel() : '' ?>
-  <?php echo $field ?>
-  <?php if (!$field->isHidden()): ?></div><?php endif ?>
-  <?php endforeach ?>
-  <input type="submit" name="submit" value="Submit" class="a-submit">
+  <?php include_partial('aForm/aFormForm', array('aFormForm' => $aFormForm)) ?>
   </form>
-  <?php echo link_to('Download CSV<span></span>', 'aForm/export?id='.$aForm->getId(), array('class' => 'a-btn b')) ?>
 </div>
 
 <div id="a-form-<?php echo $aForm->getId() ?>-fields" class="a-form-builder editing">

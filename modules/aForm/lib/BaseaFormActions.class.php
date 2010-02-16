@@ -9,8 +9,25 @@
  * @version     SVN: $Id: BaseActions.class.php 12534 2008-11-01 13:38:27Z Kris.Wallsmith $
  */
 abstract class BaseaFormActions extends sfActions
-{  
-  public function executeEdit(sfRequest $request)
+{ 
+  public function executeNew(sfWebRequest $request)
+  {
+    $this->aForm = new aForm();
+    $this->aFormForm = new aFormForm($this->aForm);
+  }
+  
+  public function executeCreate(sfWebRequest $request)
+  {
+    $aFormForm = new aFormForm();
+    $aFormForm->bind($request->getParameter($aFormForm->getName()));
+    if($aFormForm->isValid())
+    {
+      $aFormForm->save();
+      $this->redirect('@a_form_edit?id='.$aFormForm->getObject()->getId());
+    }
+  }
+ 
+  public function executeEdit(sfWebRequest $request)
   {
     if($request->isXmlHttpRequest())
     {
@@ -52,6 +69,12 @@ abstract class BaseaFormActions extends sfActions
     return $this->renderComponent('aForm', 'aFormEdit', array('a_form' => $this->a_form, 'a_form_layout_form' => $this->form));
   }
   
+  public function executeSortLayouts(sfRequest $request)
+  {
+    Doctrine::getTable('aFormLayout')->doSort($request->getParameter('a-form-field'));
+    
+    return sfView::NONE;
+  }
 
   /**
    * getObject 
