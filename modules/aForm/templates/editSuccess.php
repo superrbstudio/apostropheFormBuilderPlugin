@@ -1,5 +1,7 @@
 <?php use_helper('jQuery') ?>
 
+<?php slot('a-page-title', '<span>Form Builder :</span> Edit') ?>
+
 <h3 class="a-form-builder-name"><?php echo $aForm->getName() ?> 
 <?php echo link_to_function('Form Settings', '$("#a-form-settings-'.$aForm->getId().'").slideToggle()', array('class' => 'a-settings-button', )) ?></h3>
 
