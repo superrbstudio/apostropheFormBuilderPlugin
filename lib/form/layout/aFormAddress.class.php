@@ -18,7 +18,7 @@ class aFormAddress extends aFormEmbeddable
       'city'        => new sfWidgetFormInput(),
       'state'       => new sfWidgetFormInput(),
       'postal_code' => new sfWidgetFormInput(),
-      'country' => new sfWidgetFormInput(),
+      'country' => new sfWidgetFormI18nChoiceCountry(),
     ));
 
     $this->setValidators(array(

@@ -12,22 +12,7 @@
   'script' => true, 
 ), array('class' => 'a-btn edit', )) ?></li>
 
-<?php if ($a_form_layout->getType() != 'select_radio' && $a_form_layout->getType() != 'select_checkbox'): ?>
-<?php foreach ($a_form_layout->getForm() as $field): ?>
-<ul class="<?php echo $a_form_layout->getType() ?>">
-	<li class="label"><?php echo $field->renderLabel() ?></li> 
-  <li class="field"><?php echo $field->render(array('disabled' => 'true')) ?></li>
-</ul>
-<?php endforeach ?>
-<?php else: ?>
 <ul>
-	<li class="label">
-		<label><?php echo $a_form_layout->getLabel() ?></label>
-	</li>
+<?php include_partial('layout'.sfInflector::camelize($a_form_layout->getType()), 
+  array('a_form_layout' => $a_form_layout, 'form' => $a_form_layout->getForm(), 'disabled' => true)) ?>
 </ul>
-<?php endif ?>
-
-
-<?php if ($a_form_layout->usesOptions()): ?>
-<?php //include_component('aForm', 'aFormLayoutOptions', array('a_form_layout' => $a_form_layout)); ?>
-<?php endif ?>	

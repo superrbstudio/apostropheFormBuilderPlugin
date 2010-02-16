@@ -9,7 +9,7 @@ abstract class PluginaFormLayout extends BaseaFormLayout
   
   public static function getTypes()
   {
-    return $this->getTable()->getTypes();
+    return aFormLayoutTable::getTypes();
   }
    
   public function getFormClass()

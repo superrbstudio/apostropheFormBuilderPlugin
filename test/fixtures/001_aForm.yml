@@ -82,13 +82,3 @@ aFormLayout:
     help: Help text for textarea field
     required: <?php echo $i ?> 
 <?php endfor ?>
-
-aFormSubmission:
-  a_form_submission_0:
-    aForm: a_form_0
-    ip_address: 127.0.0.1
-    aFormFieldSubmissions:
-      a_form_field_submission_input:
-        aFormLayout: a_form_layout_input_0
-        sub_field:  input
-        value:      Dan Ordille

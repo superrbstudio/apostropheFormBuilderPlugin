@@ -1,7 +1,7 @@
 <?php
 
 class aFormBuilder extends BaseaFormSubmissionForm
-{  
+{
   public function configure()
   {
     if (!$this->getOption('a_form') instanceof aForm)

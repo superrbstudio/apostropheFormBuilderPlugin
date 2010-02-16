@@ -19,6 +19,7 @@ abstract class BaseaFormActions extends sfActions
     
     $this->aForm = $this->getObject();
     $this->aFormForm = new aFormForm($this->aForm);
+		$this->form = new aFormBuilder(array(), array('a_form' => $this->aForm));
   }
   
   public function executeEditLayout(sfRequest $request)

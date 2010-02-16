@@ -1,0 +1,76 @@
+<?php 
+function rand_str($length = 8, $chars = "abcdefghijklmnopqrstuvwxyz")
+{
+  $s = '';
+  for($i=0; $i<$length; $i++)
+  {
+    $s.= $chars[rand(0, strlen($chars)-1)];
+  }
+  return $s;
+}
+?>
+aForm:
+  a_form_0:
+    name: "Optional fields"
+    description: "This is a test form with optional fields."
+    email_to: "dan@punkave.com"
+    thank_you: string
+<?php
+$layouts = array(
+  "a_form_layout_name" => array(
+    "type" => 'input', "label" => "Name", "aFormFields" => array("input"), 
+    "aFormLayoutOptions" => array()
+  ),
+  "a_form_layout_color" => array(
+    "type" => 'select', "label" => "Color", "aFormFields" => array("select"), 
+    "aFormLayoutOptions" => array("Blue", "Red", "Yellow")
+  ),
+  "a_form_layout_speed" => array(
+    "type" => 'input', "label" => "Speed", "aFormFields" => array("input"), 
+    "aFormLayoutOptions" => array()
+  ),
+  "a_form_layout_address" => array(
+    "type" => 'address', "label" => "Address", "aFormFields" => array("street1", "street2", "city", "state", "postal_code", "country"),
+    "aFormLayoutOptions" => array()
+  )
+);
+?>
+aFormLayout:
+<?php foreach($layouts as $name => $layout): ?>
+  <?php echo $name ?>:
+    rank: 1
+    type: <?php echo $layout['type'] ?> 
+    label: <?php echo $layout['label'] ?> 
+    aForm: a_form_0 
+<?php if(count($layout['aFormLayoutOptions'])): ?>
+    aFormLayoutOptions:
+<?php foreach($layout['aFormLayoutOptions'] as $key => $option): ?>
+      <?php echo $name ?>_<?php echo $key ?>:
+        rank:  1
+        value: <?php echo $option ?> 
+        name:  <?php echo $option ?>_value
+<?php endforeach ?>
+<?php endif ?>
+    aFormFields:
+<?php foreach($layout['aFormFields'] as $field): ?>
+      <?php echo $name ?>_<?php echo $field?>:
+        name: <?php echo $field ?> 
+<?php endforeach ?>
+<?php endforeach ?>
+        
+aFormSubmission:
+<?php for($n=0; $n < 101; $n++): ?>
+  a_form_submission_<?php echo $n ?>:
+    ip_address: <?php echo rand(0,255) ?>.<?php echo rand(0,255) ?>.<?php echo rand(0,255) ?>.<?php echo rand(0,255) ?> 
+    aForm: a_form_0
+    aFormFieldSubmissions:
+<?php foreach($layouts as $name => $layout): ?>
+<?php foreach($layout['aFormFields'] as $field): ?>
+      a_form_field_submission_<?php echo $name.'_'.$field.'_'.$n ?>:
+        aFormLayout: <?php echo $name ?> 
+        aFormField: <?php echo $name ?>_<?php echo $field ?> 
+        sub_field: <?php echo $field ?> 
+        value: <?php echo rand_str() ?> 
+<?php endforeach ?>
+<?php endforeach ?>
+<?php endfor ?>

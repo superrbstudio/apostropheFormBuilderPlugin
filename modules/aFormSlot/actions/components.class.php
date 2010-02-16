@@ -12,7 +12,6 @@ class aFormSlotComponents extends BaseaFormSlotComponents
 	public function executeNormalView()
 	{	  
     $this->setup();
-    
 		$this->a_form = $this->slot->getAForm();
     $this->form = new aFormBuilder(array(), array('a_form' => $this->a_form));
 		

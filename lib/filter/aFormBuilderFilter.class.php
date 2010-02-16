@@ -9,7 +9,9 @@
  */
 class aFormBuilderFilter extends BaseaFormSubmissionFormFilter
 { 
-
+  /*TODO: This needs to be changed to only use LIKE queries for text input fields.  Other fields like choice, radio,
+   * etc should use different methods.
+   */
   public function addFieldColumnQuery($query, $field, $value)
   {
     $fieldName = $field;
@@ -39,7 +41,7 @@ class aFormBuilderFilter extends BaseaFormSubmissionFormFilter
         $this->setWidget($aFormField['id'], $form[$aFormField['name']]->getWidget());
         $this->getWidget($aFormField['id'])->setLabel($aFormField['name']);
         $this->setValidator($aFormField['id'], new sfValidatorString(array('required' => false)));
-      }      
+      }   
     }
   }
   

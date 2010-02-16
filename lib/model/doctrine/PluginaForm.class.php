@@ -9,14 +9,10 @@ abstract class PluginaForm extends BaseaForm
   
   public function getfieldCount()
   {
-    if(isset($this->fieldCount))
-      return $this->fieldCount;
-    $this->fieldCount = 0;
-    foreach($this->aFormLayouts as $aFormLayout)
-      foreach($aFormLayout->aFormFields as $aFormField)
-        $this->fieldCount++;
-    
-    return $this->fieldCount;
+    $count = 0;
+		foreach($this->aFormLayouts as $aFormLayout)
+		  $count = count($aFormLayout) + $count;
+	  return $count;
   }
   
   public function buildForm()
