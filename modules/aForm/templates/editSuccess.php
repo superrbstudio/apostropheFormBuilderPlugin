@@ -20,6 +20,8 @@
 
 <?php echo jq_sortable_element('#a-form-'.$aForm->getId().'-fields', array('url' => 'aForm/sortFields')) ?>
 
+<div id="add-layout-form-<?php echo $aForm->getId() ?>" class="a-form-builder adding" <?php if (!$aFormLayoutForm->hasErrors()): ?>style="display:none;"<?php endif ?>>
+<?php echo include_partial('aForm/aFormLayoutForm', array('aFormLayoutForm' => $aFormLayoutForm, 'aFormLayout' => $aFormLayout, 'aForm' => $aForm)); ?>
+</div>
 
-
-<?php echo jq_link_to_function('Add field<span></span>', "$('#add-field-form-".$aForm->getId()."').show();$(this).hide()", array('id' => 'add-field-button-'.$aForm->getId(), 'class' => 'a-btn')) ?>
+<?php echo jq_link_to_function('Add field<span></span>', "$('#add-layout-form-".$aForm->getId()."').show();$(this).hide()", array('id' => 'add-field-button-'.$aForm->getId(), 'class' => 'a-btn')) ?>

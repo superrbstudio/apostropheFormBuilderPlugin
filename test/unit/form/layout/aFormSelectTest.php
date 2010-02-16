@@ -17,7 +17,7 @@ $form = new aFormSelect(null, array('choices' => $choices, 'required' => 'true')
 $t->is_deeply($form->getValidator('select')->getOption('choices'), array_keys(get_choices($choices)), 'Select is validating your choices.');
 
 $form->disableLocalCSRFProtection();
-$form->bind(aFormTestTools::getValidData('select'));
+$form->bind(aFormTestToolkit::getValidData('select'));
 $t->ok($form->isValid(), 'Valid form is valid');
 
 function get_choices($choices)

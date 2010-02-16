@@ -37,7 +37,7 @@ $t->comment('Dynamic forms need to validate, bind and save correctly.');
 /**
  * Bind and save a valid form.
  */
-$valid = aFormTestTools::getValidData();
+$valid = aFormTestToolkit::getValidData();
 foreach($a_form->aFormLayouts as $field)
 {
   $values['fields'][$field->getId()] = $valid[$field->getType()];
@@ -58,7 +58,7 @@ $t->is($a_form_submission->getFormId(), $a_form->getId(), 'Submission was saved 
 $f = Doctrine::getTable('aForm')->findOneByName('Required fields');
 
 $form = new aFormBuilder(array(), array('a_form' => Doctrine::getTable('aForm')->findOneByName('Required fields')));
-$invalid = aFormTestTools::getInvalidData();
+$invalid = aFormTestToolkit::getInvalidData();
 foreach($a_form->aFormLayouts as $field)
 {
   $values['fields'][$field->getId()] = $invalid[$field->getType()];

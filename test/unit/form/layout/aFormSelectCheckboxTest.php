@@ -24,7 +24,7 @@ foreach ($choices as $key => $choice)
 }
 
 $form->disableLocalCSRFProtection();
-$form->bind(aFormTestTools::getValidData('select_checkbox'));
+$form->bind(aFormTestToolkit::getValidData('select_checkbox'));
 $t->ok($form->isValid(), 'Valid form is valid');
 
 function get_choices($choices)

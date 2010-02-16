@@ -20,5 +20,5 @@ $t->is($form->getValidator('postal_code')->getOption('max_length'), 255, 'Postal
 $t->is($form->getValidator('country')->getOption('max_length'), 255, 'Country is look for a 255 char string.');
 
 $form->disableLocalCSRFProtection();
-$form->bind(aFormTestTools::getValidData('address'));
+$form->bind(aFormTestToolkit::getValidData('address'));
 $t->ok($form->isValid(), 'Valid form is valid');

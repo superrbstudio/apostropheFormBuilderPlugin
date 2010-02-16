@@ -17,5 +17,5 @@ $form = new aFormSelectRadio(null, array('choices' => $choices, 'required' => 't
 $t->is_deeply($form->getValidator('radio')->getOption('choices'), array_keys($choices), 'Select radio is validating your choices.');
 
 $form->disableLocalCSRFProtection();
-$form->bind(aFormTestTools::getValidData('select_radio'));
+$form->bind(aFormTestToolkit::getValidData('select_radio'));
 $t->ok($form->isValid(), 'Valid form is valid');
