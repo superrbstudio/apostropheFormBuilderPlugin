@@ -62,6 +62,7 @@ abstract class BaseaFormActions extends sfActions
     {
       $this->setLayout(false);
     }
+    
     $this->aForm = $this->getObject();
     $this->aFormForm = new aFormForm($this->aForm);
 
@@ -79,6 +80,18 @@ abstract class BaseaFormActions extends sfActions
     }
 
     $this->setTemplate('edit');
+  }
+  
+  public function executeDeleteLayout(sfWebRequest $request)
+  {
+    $this->aForm = $this->getObject();
+    
+    $this->aFormLayout = Doctrine::getTable('aFormLayout')->findOneById($request->getParameter('layout_id'));
+    $this->forward404Unless($this->aFormLayout);
+    
+    $this->aFormLayout->delete();
+
+    return sfView::NONE;
   }
   
   public function executeSortLayouts(sfRequest $request)

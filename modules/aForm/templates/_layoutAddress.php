@@ -1,4 +1,4 @@
-<li><?php echo $a_form_layout['label'] ?></li>
+<li><?php echo $aFormLayout['label'] ?></li>
 <li class="address1">
   <span>
     <?php echo $form['street1']->renderLabel() ?>

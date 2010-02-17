@@ -1,13 +1,13 @@
 <?php use_helper('jQuery') ?>
 
 <?php echo jq_form_remote_tag(array(
-  'url' => ($a_form_layout->isNew()) ? '@a_form_addLayout?id='.$a_form->getId() : '@a_form_updateLayout?id='.$a_form->getId(),
-  'update' => ($a_form_layout->isNew()) ? 'a-form-'.$a_form->getId() : 'a-form-layout-'.$a_form_layout->getId(),
+  'url' => ($aFormLayout->isNew()) ? '@a_form_addLayout?id='.$aForm->getId() : '@a_form_updateLayout?id='.$aForm->getId(),
+  'update' => ($aFormLayout->isNew()) ? 'a-form-'.$aForm->getId() : 'a-form-layout-'.$aFormLayout->getId(),
   'script' => 'true', 
 ), array('class' => 'a-form-builder editing-field', )) ?>
 
 <ul class="a-form-layout">
-	<?php foreach ($a_form_layout_form as $field): ?>
+	<?php foreach ($aFormLayoutForm as $field): ?>
 		<?php if (!$field->isHidden()): ?><li class="a-form-row <?php echo strtolower($field->renderLabelName()) ?>"><?php endif ?>
 		<?php echo (!$field->isHidden()) ? $field->renderLabel() : '' ?>
 		<?php echo $field ?>
@@ -18,12 +18,12 @@
 
 <ul class="a-form-row submit">
 	<li><input type="submit" name="submit" value="Submit" class="a-submit"></li>
-  <?php if ($a_form_layout->isNew()): ?>
-  <li class="cancel"> or <?php echo jq_link_to_function('cancel', "$('#add-layout-button-".$a_form->getId()."').show();$('#add-layout-form-".$a_form->getId()."').hide()", array('class' => 'b')) ?></li>
+  <?php if ($aFormLayout->isNew()): ?>
+  <li class="cancel"> or <?php echo jq_link_to_function('cancel', "$('#add-layout-button-".$aForm->getId()."').show();$('#add-layout-form-".$aForm->getId()."').hide()", array('class' => 'b')) ?></li>
   <?php else: ?>
   <li class="cancel"> or <?php echo jq_link_to_remote('cancel', array(
-    'url' => 'aForm/showField?id='.$a_form_layout->getId(), 
-    'update' => 'a-form-layout-'.$a_form_layout->getId(),
+    'url' => 'aForm/showField?id='.$aFormLayout->getId(), 
+    'update' => 'a-form-layout-'.$aFormLayout->getId(),
   ), array('class' => 'b')) ?></li>
   <?php endif ?>
 </ul>
