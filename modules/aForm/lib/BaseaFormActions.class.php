@@ -75,7 +75,7 @@ abstract class BaseaFormActions extends sfActions
       $this->aFormLayoutForm->save();
       
       $this->aFormLayout = new aFormLayout();
-      $this->aFormLayoutForm = new aFormLayoutForm();
+      $this->aFormLayoutForm = new aFormLayoutForm($this->aFormLayout, array('a_form' => $this->aForm));    
     }
 
     $this->setTemplate('edit');
