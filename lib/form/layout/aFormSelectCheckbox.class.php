@@ -8,16 +8,13 @@ class aFormSelectCheckbox extends aFormEmbeddable
   {
     foreach ($this->getChoices() as $value => $choice)
     {
-      $this->setWidget($value, new sfWidgetFormInputCheckbox());
+      $this->setWidget($value, new sfWidgetFormInputCheckbox(array('value_attribute_value' => $value)));
       $this->widgetSchema[$value]->setLabel($choice);
 			$this->objects[$value] = null;
-    }
-
-    foreach ($this->getChoices() as $value => $choice)
-    {
-      $this->setValidator($value, new sfValidatorBoolean(array(
-        'true_values' =>  array('1'),
-        'false_values' => array('0', ' ', '')
+      $this->setValidator($value, new sfValidatorChoice(array(
+        'choices' => array($value, ''),
+        'multiple' => false,
+        'required' => false
       )));
     }
   }

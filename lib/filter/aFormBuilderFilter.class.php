@@ -37,7 +37,7 @@ class aFormBuilderFilter extends BaseaFormSubmissionFormFilter
     	$form = $aFormLayout->getForm();
       foreach($aFormLayout->aFormFields as $aFormField)
       {
-        $this->setWidget($aFormField['id'], $form[$aFormField['name']]->getWidget());
+        $this->setWidget($aFormField['id'], new sfWidgetFormInput());
         $this->getWidget($aFormField['id'])->setLabel($aFormField['name']);
         $this->setValidator($aFormField['id'], new sfValidatorString(array('required' => false)));
       }   
