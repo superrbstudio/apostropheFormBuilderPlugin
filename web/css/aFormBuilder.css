@@ -20,7 +20,7 @@ width: 100%;
 	width: 100%;
 	padding: 15px 0;
 	margin: 0;
-	border-bottom: 1px solid #efefef;
+	border-bottom: 1px solid #e5e5e5;
 }
 
 .a-form-builder.adding .a-form-row
@@ -60,7 +60,7 @@ width: 100%;
 .a-form-builder textarea
 { 
 	float: left;
-	margin-left: 17px;
+	margin-left: 20px;
 	padding: 3px;
 	font-family: Arial, sans-serif;
 	font-size: 11px;
@@ -77,7 +77,10 @@ width: 100%;
 
 .a-form-builder input.a-submit
 {
-	margin-left: 140px;
+	padding: 0 4px;
+	font-size: 12px;
+	border: none;
+	margin: 0;
 }
 
 .a-form-builder select,
@@ -123,6 +126,9 @@ display: none;
 
 .a-form-builder.editing .a-form-row .a-form-field
 {
+	float: left;
+	position: relative;
+	display: inline;
 	width: 580px;
 	margin: 0 0 0 10px;
 }
@@ -138,18 +144,32 @@ display: none;
 	float: left;
 	clear: both;
 	width: 100%;
+	margin: 0 0 5px 0;	
+}
+
+.a-form-builder.editing .a-form-row .a-form-field.select li.options li.option
+{
+	position: relative;
 	margin: 0 0 5px 0;
+	left: 20px;
+	width: 258px;		
 }
 
 .a-form-builder.editing .a-form-row .a-form-field li.options li.option input
 {
 	line-height: 20px;
 	margin-top: 3px;
+	width: 100px;
 }
 
 .a-form-builder.editing .a-form-row .a-form-field li.options li.option label
 {
-	width: 198px;
+	width: 100px;
+}
+
+.a-form-builder.editing .a-form-row .a-form-field li.options li.option span
+{
+	color: #999;
 }
 
 .a-form-builder.editing .a-form-row .a-form-field li.options li.option.new label input
@@ -168,6 +188,18 @@ margin: 0 0 0 -5px;
 .a-form-builder.editing .a-form-row .a-form-field li.options .a-submit
 {
 	margin: 10px 0 0;
+}
+
+
+.a-form-builder.editing .a-form-row .a-form-field.select select
+{
+	margin-bottom: 5px;
+}
+
+.a-form-builder.editing .a-form-row .a-form-field.select li.options li.option label
+{
+	margin: 0 5px 0 0;
+	width: auto
 }
 
 .a-form-builder.adding .drag
@@ -310,7 +342,7 @@ width: 70px;
 
 .a-form-builder .a-form-row ul.select_checkbox .checkbox
 {
-	margin: 0 0 5px 17px;
+	margin: 0 0 5px 20px;
 }
 
 .a-form-builder .a-form-row .radio_list li input,
@@ -423,4 +455,72 @@ background: url(/apostrophePlugin/images/a-special-caution.png) top left repeat-
 	-opera-box-shadow:rgba(0,0,0,0.25) 0px 0px 10px;
 	-khtml-box-shadow:rgba(0,0,0,0.25) 0px 0px 10px;	
 	box-shadow:rgba(0,0,0,0.25) 0px 0px 10px;	
+}
+
+
+/* Overrides to make the Form Admin List View Take up ALL of the space*/
+
+.a-form-admin.index #content-wrapper
+{
+	width: 100%;
+	margin: 20px 0;
+}
+
+.a-form-admin.index #content
+{
+	width: 100%;
+	overflow: hidden;
+	margin-right: 20px;
+}
+
+.a-form-admin.index #content .column-two,
+.a-form-admin.index #content .column-two .column-padding
+{
+}
+
+.a-form-admin.index #content h2
+{
+	margin: 0 0 20px 20px;
+}
+
+.a-form-admin.index #content .column-one
+{
+	float: left;
+	clear: none;
+	width: 220px;
+	margin: 0 0 0 20px;
+}
+
+.a-form-admin.index #content .column-two
+{
+	float: right;
+	width: 99%;
+	margin-left: -270px;
+	left: -1%;
+}
+
+.a-form-admin.index #content .column-two .box.survey
+{
+	display:block;
+	float:none;
+	width: auto;
+	margin-left:270px;
+	overflow:hidden;
+}
+
+.a-form-admin.index #content .column-two .column-padding
+{
+	margin: 10px;
+	width: auto !important;
+}
+
+.a-form-admin.index #a-admin-container,
+.a-form-admin.index #a-admin-container #a-admin-content
+{
+	width: 100%;
+}
+
+.a-form-admin.index #a-admin-container .a-admin-row.even
+{
+	background-color: #eee;
 }

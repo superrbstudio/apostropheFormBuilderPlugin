@@ -9,7 +9,7 @@ generator:
     plural:                ~
     route_prefix:          a_form_submission_admin
     with_doctrine_route:   1
-    
+    # body_class: some-body-class # TODO: Make this work! # make theme name a body class
     
     config:
       list:
