@@ -33,8 +33,8 @@
 </form>
 
 <?php if ($aFormLayout->isNew()): ?>
-	<script type="text/javascript" charset="utf-8">
-		aSelfInputLabel('#a_form_layout_label','Label Name');
-		alert('dong');
-	</script>	
+<script type="text/javascript" charset="utf-8">
+	aSelfInputLabel('#a_form_layout_label','Label Name');
+	alert('dong');
+</script>	
 <?php endif ?>

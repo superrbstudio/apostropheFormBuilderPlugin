@@ -7,15 +7,18 @@ a_form:
     column:               id
     with_wildcard_routes: true
     object_actions:
-      promoteLayout: post
-      demotelayout:  post
-      editLayout:    [get, post]
+      showLayout:    get
       addLayout:     post
       updateLayout:  put
+      editLayout:    [get, post]
       deleteLayout:  post
-      showLayout:    get
-      edit:          [get, post]
       sortLayouts:   post
+      showLayoutOption:    get
+      addLayoutOption:     post
+      updateLayoutOption:  put
+      editLayoutOption:    [get, post]
+      deleteLayoutOption:  post
+      sortLayoutOptions:   post
 
 a_form_submission_new:
   url:      /admin/a_form_submission/new/:id

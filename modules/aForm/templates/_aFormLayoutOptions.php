@@ -23,28 +23,28 @@
   <input type="submit" value="save" class="a-submit" />
 
 <?php if ($a_form_layout->getType() == 'select'): ?>
-	<script type="text/javascript">
-			$('.a-form-field-options.select input').focus(function(){
-					$(this).parent().siblings().css('background','none');
-					$(this).parent().css('background-color','#eee');
-			});
-	</script>
+<script type="text/javascript">
+		$('.a-form-field-options.select input').focus(function(){
+				$(this).parent().siblings().css('background','none');
+				$(this).parent().css('background-color','#eee');
+		});
+</script>
 <?php endif ?>
 
 <?php if ($a_form_layout->getType() == 'select_radio'): ?>	
-	<script type="text/javascript">
-		var radios = $('.a-form-field-options.select_radio input[type="text"]');
-		radios.parent().find('input[type="radio"]').remove();
-		radios.before('<input type="radio" class="radio" disabled="disabled" />');
-	</script>
+<script type="text/javascript">
+	var radios = $('.a-form-field-options.select_radio input[type="text"]');
+	radios.parent().find('input[type="radio"]').remove();
+	radios.before('<input type="radio" class="radio" disabled="disabled" />');
+</script>
 <?php endif ?>
 
 <?php if ($a_form_layout->getType() == 'select_checkbox'): ?>	
-	<script type="text/javascript">
-		var checkboxes = $('.a-form-field-options.select_checkbox input[type="text"]');
-		checkboxes.parent().find('input[type="checkbox"]').remove();
-		checkboxes.before('<input type="checkbox" class="checkbox" disabled="disabled" />');
-	</script>
+<script type="text/javascript">
+	var checkboxes = $('.a-form-field-options.select_checkbox input[type="text"]');
+	checkboxes.parent().find('input[type="checkbox"]').remove();
+	checkboxes.before('<input type="checkbox" class="checkbox" disabled="disabled" />');
+</script>
 <?php endif ?>
 
 </form>

@@ -12,7 +12,7 @@ abstract class BaseaFormActions extends sfActions
 { 
   public function preExecute()
   {
-    if($this->getRequest()->isXmlHttpRequest())
+    if ($this->getRequest()->isXmlHttpRequest())
     {
       $this->setLayout(false);
     }
@@ -34,7 +34,7 @@ abstract class BaseaFormActions extends sfActions
     $aFormForm = new aFormForm();
     $aFormForm->bind($request->getParameter($aFormForm->getName()));
 
-    if($aFormForm->isValid())
+    if ($aFormForm->isValid())
     {
       $aFormForm->save();
       $this->redirect('@a_form_edit?id='.$aFormForm->getObject()->getId());
@@ -54,9 +54,22 @@ abstract class BaseaFormActions extends sfActions
   
   public function executeUpdate(sfWebRequest $request)
   {
+    $aForm = $this->getRoute()->getObject();
     
+    $aFormForm = new aFormForm($aForm);
+    $aFormForm->bind($request->getParameter($aFormForm->getName()));
+
+    if ($aFormForm->isValid())
+    {
+      $aFormForm->save();
+      $this->redirect('@a_form_edit?id='.$aFormForm->getObject()->getId());
+    }
   }
   
+  /**
+   * aFormLayout actions.
+   * These should be refactored into their own module ASAP.
+   */
   public function executeShowLayout(sfWebRequest $request)
   {
     $this->aForm = $this->getObject();
@@ -65,9 +78,10 @@ abstract class BaseaFormActions extends sfActions
     $this->aFormLayout = Doctrine::getTable('aFormLayout')->find($request->getParameter('layout_id'));    
     $this->forward404Unless($this->aFormLayout);
 
-    $this->aFormLayoutForm = new aFormLayoutForm($this->aFormLayout);
-
-    return $this->renderPartial('aForm/aFormLayoutEdit', array('aForm' => $this->aForm, 'aFormLayout' => $this->aFormLayout, 'aFormLayoutForm' => $this->aFormLayoutForm));
+    return $this->renderPartial('aForm/aFormLayoutEdit', array(
+      'aForm'       => $this->aForm,
+      'aFormLayout' => $this->aFormLayout,
+    ));
   }
   
   public function executeAddLayout(sfWebRequest $request)
@@ -80,7 +94,7 @@ abstract class BaseaFormActions extends sfActions
     
     $this->aFormLayout = $this->aFormLayoutForm->getObject();
 
-    if($this->aFormLayoutForm->isValid())
+    if ($this->aFormLayoutForm->isValid())
     {
       $this->aFormLayoutForm->save();
       
@@ -106,7 +120,10 @@ abstract class BaseaFormActions extends sfActions
     {
       $this->aFormLayout = $this->aFormLayoutForm->save();
       
-      return $this->renderPartial('aForm/aFormLayoutEdit', array('aForm' => $this->aForm, 'aFormLayout' => $this->aFormLayout, 'aFormLayoutForm' => $this->aFormLayoutForm));
+      return $this->renderPartial('aForm/aFormLayoutEdit', array(
+        'aForm'       => $this->aForm,
+        'aFormLayout' => $this->aFormLayout,
+      ));
     }
   }
   
@@ -119,7 +136,11 @@ abstract class BaseaFormActions extends sfActions
 
     $this->aFormLayoutForm = new aFormLayoutForm($this->aFormLayout);
 
-    return $this->renderPartial('aForm/aFormLayoutForm', array('aForm' => $this->aForm, 'aFormLayout' => $this->aFormLayout, 'aFormLayoutForm' => $this->aFormLayoutForm));
+    return $this->renderPartial('aForm/aFormLayoutForm', array(
+      'aForm'           => $this->aForm,
+      'aFormLayout'     => $this->aFormLayout,
+      'aFormLayoutForm' => $this->aFormLayoutForm
+    ));
   }
   
   public function executeDeleteLayout(sfWebRequest $request)
@@ -134,11 +155,132 @@ abstract class BaseaFormActions extends sfActions
     return sfView::NONE;
   }
   
-  public function executeSortLayouts(sfRequest $request)
+  public function executeSortLayouts(sfWebRequest $request)
   {
     $aForm = $this->getObject();
     $order = $request->getParameter('a-form-layout');
     Doctrine::getTable('aFormLayout')->doSort($order);
+    
+    return sfView::NONE;
+  }
+
+  /**
+   * aFormLayoutOption actions.
+   * These should be refactored into their own module just like the aFormLayout actions.
+   */
+  public function executeShowLayoutOption(sfWebRequest $request)
+  {
+    $this->aForm = $this->getObject();
+    $this->aFormForm = new aFormForm($this->aForm, array('a_form' => $this->aForm));
+
+    $this->aFormLayout = Doctrine::getTable('aFormLayout')->find($request->getParameter('layout_id'));    
+    $this->forward404Unless($this->aFormLayout);
+
+    $this->aFormLayoutOption = Doctrine::getTable('aFormLayout')->find($request->getParameter('layout_option_id'));    
+    $this->forward404Unless($this->aFormLayoutOption);
+
+    $this->aFormLayoutOptionForm = new aFormLayoutOptionForm($this->aFormLayoutOption);
+
+    return $this->renderPartial('aForm/aFormLayoutEdit', array(
+      'aForm'             => $this->aForm,
+      'aFormLayout'       => $this->aFormLayout,
+      'aFormLayoutOption' => $this->aFormLayoutOption, 
+    ));
+  }
+  
+  public function executeAddLayoutOption(sfWebRequest $request)
+  {
+    $this->aForm = $this->getObject();
+    $this->aFormForm = new aFormForm($this->aForm);
+
+    $this->aFormLayout = Doctrine::getTable('aFormLayout')->find($request->getParameter('layout_id'));    
+    $this->forward404Unless($this->aFormLayout);
+
+    $this->aFormLayoutOptionForm = new aFormLayoutOptionForm();
+    $this->aFormLayoutOptionForm->bind($request->getParameter($this->aFormLayoutOptionForm->getName()));
+    
+    $this->aFormLayoutOption = $this->aFormLayoutOptionForm->getObject();
+
+    if ($this->aFormLayoutOptionForm->isValid())
+    {
+      $this->aFormLayoutOptionForm->save();
+      
+      $this->aFormLayoutOption = new aFormLayoutOption();
+      $this->aFormLayoutOptionForm = new aFormLayoutForm($this->aFormLayout, array('a_form' => $this->aForm));    
+    }
+
+    return $this->renderPartial('aForm/aFormLayoutEdit', array(
+      'aForm'       => $this->aForm,
+      'aFormLayout' => $this->aFormLayout,
+    ));
+  }
+  
+  public function executeUpdateLayoutOption(sfWebRequest $request)
+  {
+    $this->aForm = $this->getObject();
+
+    $this->aFormLayout = Doctrine::getTable('aFormLayout')->find($request->getParameter('layout_id'));
+    $this->forward404Unless($this->aFormLayout);
+    
+    $this->aFormLayoutOption = Doctrine::getTable('aFormLayout')->find($request->getParameter('layout_option_id'));    
+    $this->forward404Unless($this->aFormLayoutOption);
+
+    $this->aFormLayoutOptionForm = new aFormLayoutOptionForm($this->aFormLayoutOption);
+
+    $this->aFormLayoutOptionForm->bind($request->getParameter($this->aFormLayoutOptionForm->getName()));
+
+    if ($this->aFormLayoutForm->isValid())
+    {
+      $this->aFormLayout = $this->aFormLayoutForm->save();
+      
+      return $this->renderPartial('aForm/aFormLayoutEdit', array(
+        'aForm'             => $this->aForm,
+        'aFormLayout'       => $this->aFormLayout,
+        'aFormLayoutOption' => $this->aFormLayoutOption, 
+      ));
+    }
+  }
+  
+  public function executeEditLayoutOption(sfWebRequest $request)
+  {    
+    $this->aForm = $this->getObject();
+
+    $this->aFormLayout = Doctrine::getTable('aFormLayout')->find($request->getParameter('layout_id'));
+    $this->forward404Unless($this->aFormLayout);
+    
+    $this->aFormLayoutOption = Doctrine::getTable('aFormLayout')->find($request->getParameter('layout_option_id'));    
+    $this->forward404Unless($this->aFormLayoutOption);
+
+    $this->aFormLayoutOptionForm = new aFormLayoutOptionForm($this->aFormLayoutOption);
+
+    return $this->renderPartial('aForm/aFormLayoutEdit', array(
+      'aForm'                 => $this->aForm,
+      'aFormLayout'           => $this->aFormLayout,
+      'aFormLayoutOption'     => $this->aFormLayoutOption, 
+      'aFormLayoutOptionForm' => $this->aFormLayoutOptionForm, 
+    ));
+  }
+  
+  public function executeDeleteLayoutOption(sfWebRequest $request)
+  {
+    $this->aForm = $this->getObject();
+    
+    $this->aFormLayoutOption = Doctrine::getTable('aFormLayout')->find($request->getParameter('layout_option_id'));    
+    $this->forward404Unless($this->aFormLayoutOption);
+    
+    $this->aFormLayoutOption->delete();
+
+    return sfView::NONE;
+  }
+  
+  public function executeSortLayoutOptions(sfWebRequest $request)
+  {
+    $this->aForm = $this->getObject();
+    
+    $this->aFormLayout = Doctrine::getTable('aFormLayout')->find($request->getParameter('layout_id'));
+    
+    $order = $request->getParameter('a-form-layout-optiont');
+    Doctrine::getTable('aFormLayoutOption')->doSort($order);
     
     return sfView::NONE;
   }
@@ -153,7 +295,7 @@ abstract class BaseaFormActions extends sfActions
   {
     $object = $this->getRoute()->getObject();
 
-    if(true)
+    if (true)
     {
       return $object;
     }
