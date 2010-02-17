@@ -68,12 +68,6 @@ abstract class PluginaFormLayout extends BaseaFormLayout
     if ($this->isNew())
     {
       $this->setRank(Doctrine::getTable('aForm')->getMaxRank($this->getFormId()) + 1);
-      foreach($this->getForm()->getObjects() as $name => $object)
-      {
-        $field = new aFormField();
-        $field->setName($name);
-        $this->aFormFields[] = $field;
-      }
     }
   }
 	
