@@ -404,7 +404,6 @@ background: url(/apostrophePlugin/images/a-special-caution.png) top left repeat-
 	margin-left: 10px;
 }
 
-
 /* == */
 /* == ERRORS */
 /* == */
@@ -430,6 +429,7 @@ background: url(/apostrophePlugin/images/a-special-caution.png) top left repeat-
 	background: #fff;
 	padding: 15px 10px !important;
 	margin-left: -10px !important;
+	border: none !important;
 	-moz-box-shadow:rgba(0,0,0,0.25) 0px 0px 10px;
 	-webkit-box-shadow:rgba(0,0,0,0.25) 0px 0px 10px;
 	-opera-box-shadow:rgba(0,0,0,0.25) 0px 0px 10px;
