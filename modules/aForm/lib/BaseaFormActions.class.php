@@ -10,6 +10,11 @@
  */
 abstract class BaseaFormActions extends sfActions
 { 
+	public function executeIndex()
+	{
+		$this->aForms = Doctrine::getTable('aForm')->createQuery()->execute();
+	}
+	
   public function executeNew(sfWebRequest $request)
   {
     $this->aForm = new aForm();
@@ -67,6 +72,7 @@ abstract class BaseaFormActions extends sfActions
       $this->aFormLayoutForm->save();
       $this->aFormLayout = $this->aFormLayoutForm->getObject();
     }
+
     $this->setTemplate('edit');
   }
   
@@ -93,7 +99,4 @@ abstract class BaseaFormActions extends sfActions
     else
       $this->forward404(); 
   }
-  
-  
-  
 }
