@@ -9,10 +9,11 @@ a_form:
     object_actions:
       promoteField: post
       demoteField:  post
-      editLayout: [get, post]
-      addLayout: post
-      edit: [ get, post ]
-      sortLayouts: post
+      editLayout:   [get, post]
+      addLayout:    post
+      updateLayout: post
+      edit:         [ get, post ]
+      sortLayouts:  post
 
 a_form_submission_new:
   url:      /admin/a_form_submission/new/:id

@@ -12,7 +12,7 @@ abstract class BaseaFormActions extends sfActions
 { 
 	public function executeIndex()
 	{
-		$this->aForms = Doctrine::getTable('aForm')->createQuery()->execute();
+		$this->aForms = $this->getRoute()->getObjects();
 	}
 	
   public function executeNew(sfWebRequest $request)
@@ -67,10 +67,15 @@ abstract class BaseaFormActions extends sfActions
 
     $this->aFormLayoutForm = new aFormLayoutForm();
     $this->aFormLayoutForm->bind($request->getParameter($this->aFormLayoutForm->getName()));
+    
+    $this->aFormLayout = $this->aFormLayoutForm->getObject();
+
     if($this->aFormLayoutForm->isValid())
     {
       $this->aFormLayoutForm->save();
-      $this->aFormLayout = $this->aFormLayoutForm->getObject();
+      
+      $this->aFormLayout = new aFormLayout();
+      $this->aFormLayoutForm = new aFormLayoutForm();
     }
 
     $this->setTemplate('edit');

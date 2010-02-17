@@ -1,5 +1,7 @@
 <?php use_helper('jQuery') ?>
-<div id="a-form-<?php echo $aForm->getId() ?>" >
+
+<?php if (!$sf_request->isXmlHttpRequest()): ?><div id="a-form-<?php echo $aForm->getId() ?>" ><?php endif ?>  
+
 <?php slot('a-page-title', '<span>Form Builder :</span> Edit') ?>
 
 <h3 class="a-form-builder-name"><?php echo $aForm->getName() ?> 
@@ -25,8 +27,8 @@
 <?php echo include_partial('aForm/aFormLayoutForm', array('a_form_layout_form' => $aFormLayoutForm, 'a_form_layout' => $aFormLayout, 'a_form' => $aForm)); ?>
 </div>
 
-
+<?php if (!$aFormLayoutForm->hasErrors()): ?>
 <?php echo jq_link_to_function('Add field<span></span>', "$('#add-layout-form-".$aForm->getId()."').show();$(this).hide()", array('id' => 'add-layout-button-'.$aForm->getId(), 'class' => 'a-btn')) ?>
+<?php endif ?>
 
-
-</div>
+<?php if (!$sf_request->isXmlHttpRequest()): ?></div><?php endif ?>
