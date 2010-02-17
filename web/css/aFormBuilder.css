@@ -31,8 +31,8 @@ width: 100%;
 	display: block;
 	float: left;
 	width: 100%;
-	margin: 0 0 15px 0;
-	padding-bottom: 15px;
+	padding: 15px 0;
+	margin: 0;
 	border-bottom: 1px solid #efefef;
 }
 
@@ -423,4 +423,16 @@ background: url(/apostrophePlugin/images/a-special-caution.png) top left repeat-
 	-moz-border-radius: 10px !important;
 	-webkit-border-radius: 10px !important;
 	border-radius: 10px !important;
+}
+
+.ui-sortable-helper
+{
+	background: #fff;
+	padding: 15px 10px !important;
+	margin-left: -10px !important;
+	-moz-box-shadow:rgba(0,0,0,0.25) 0px 0px 10px;
+	-webkit-box-shadow:rgba(0,0,0,0.25) 0px 0px 10px;
+	-opera-box-shadow:rgba(0,0,0,0.25) 0px 0px 10px;
+	-khtml-box-shadow:rgba(0,0,0,0.25) 0px 0px 10px;	
+	box-shadow:rgba(0,0,0,0.25) 0px 0px 10px;	
 }
