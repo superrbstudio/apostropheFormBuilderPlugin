@@ -10,7 +10,9 @@ a_form:
       promoteField: post
       demoteField:  post
       editLayout: [get, post]
+      addLayout: post
       edit: [ get, post ]
+      sortLayouts: post
 
 a_form_submission_new:
   url:      /admin/a_form_submission/new/:id

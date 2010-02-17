@@ -14,10 +14,9 @@ class aFormBuilderFilter extends BaseaFormSubmissionFormFilter
    */
   public function addFieldColumnQuery($query, $field, $value)
   {
-    $fieldName = $field;
     if ('' != $value)
     {
-      $query->addHaving(sprintf('%s LIKE ?', $fieldName), '%'.$value.'%');
+      $query->addHaving(sprintf('%s LIKE ?', $field), '%'.$value.'%');
     }
   }
  

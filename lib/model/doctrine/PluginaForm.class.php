@@ -42,13 +42,6 @@ abstract class PluginaForm extends BaseaForm
   
   public function getMaxRank()
   {
-    $q = Doctrine_Query::create()
-      ->select('max(ff.rank) as max')
-      ->from('aFormLayout ff')
-      ->innerJoin('ff.aForm f WITH f.id = ?', $this->getId());
-
-    $result = $q->fetchOne();
-        
-    return $result['max'];
+    return $this->getTable()->getMaxRank($this->getId());
   }
 }

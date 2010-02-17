@@ -1,5 +1,5 @@
 <?php use_helper('jQuery') ?>
-
+<div id="a-form-<?php echo $aForm->getId() ?>" >
 <?php slot('a-page-title', '<span>Form Builder :</span> Edit') ?>
 
 <h3 class="a-form-builder-name"><?php echo $aForm->getName() ?> 
@@ -18,10 +18,15 @@
 <?php echo include_partial('aForm/aFormLayouts', array('a_form' => $aForm)); ?>
 </div>
 
-<?php echo jq_sortable_element('#a-form-'.$aForm->getId().'-fields', array('url' => 'aForm/sortFields')) ?>
+<?php echo jq_sortable_element('#a-form-'.$aForm->getId().'-fields', array('url' => '@a_form_sortLayouts?id='.$aForm->getId())) ?>
+
 
 <div id="add-layout-form-<?php echo $aForm->getId() ?>" class="a-form-builder adding" <?php if (!$aFormLayoutForm->hasErrors()): ?>style="display:none;"<?php endif ?>>
-<?php echo include_partial('aForm/aFormLayoutForm', array('aFormLayoutForm' => $aFormLayoutForm, 'aFormLayout' => $aFormLayout, 'aForm' => $aForm)); ?>
+<?php echo include_partial('aForm/aFormLayoutForm', array('a_form_layout_form' => $aFormLayoutForm, 'a_form_layout' => $aFormLayout, 'a_form' => $aForm)); ?>
 </div>
 
-<?php echo jq_link_to_function('Add field<span></span>', "$('#add-layout-form-".$aForm->getId()."').show();$(this).hide()", array('id' => 'add-field-button-'.$aForm->getId(), 'class' => 'a-btn')) ?>
+
+<?php echo jq_link_to_function('Add field<span></span>', "$('#add-layout-form-".$aForm->getId()."').show();$(this).hide()", array('id' => 'add-layout-button-'.$aForm->getId(), 'class' => 'a-btn')) ?>
+
+
+</div>

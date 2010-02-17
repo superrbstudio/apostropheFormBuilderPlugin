@@ -19,13 +19,12 @@ abstract class PluginaFormLayoutForm extends BaseaFormLayoutForm
     
     $this->setWidget('type', new sfWidgetFormChoice(array('choices' => aFormLayout::getTypes())));
     $this->setWidget('form_id', new sfWidgetFormInputHidden());
+    $this->setDefault('form_id', $this->getAForm()->getId());
+  }
+  
+  public function getAForm()
+  {
+    return isset($this->options['a_form']) ? $this->options['a_form'] : $this->getObject()->getAForm();
   }
     
-  // public function doSave($con = null)
-  // {
-  //   echo "<pre>";
-  //   print_r($this->widgetSchema);
-  //   echo "</pre>";
-  //   exit();
-  // }
 }

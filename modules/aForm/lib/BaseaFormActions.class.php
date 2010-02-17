@@ -33,9 +33,12 @@ abstract class BaseaFormActions extends sfActions
     {
       $this->setLayout(false);
     }
-    
     $this->aForm = $this->getObject();
     $this->aFormForm = new aFormForm($this->aForm);
+    
+    $this->aFormLayout = new aFormLayout();
+    $this->aFormLayoutForm = new aFormLayoutForm($this->aFormLayout, array('a_form' => $this->aForm));    
+   
 		$this->form = new aFormBuilder(array(), array('a_form' => $this->aForm));
   }
   
@@ -48,30 +51,30 @@ abstract class BaseaFormActions extends sfActions
     return $this->renderPartial('aForm/aFormLayoutForm', array('a_form_layout' => $this->a_form_layout, 'a_form_layout_form' => $this->form));
   }
   
-  
-  public function executeShow(sfWebRequest $request)
-  {
-    $this->a_form = $this->getObject();
-  }
-  
   public function executeAddLayout(sfWebRequest $request)
   {
-    $aForm = $this->getObject();
-    
-    $aFormLayoutForm = new aFormLayoutForm();
-    
-    $aFormLayoutForm->bind($request->getParameter($aFormLayoutForm->getName()));
-    if($aFormLayoutForm->isValid())
+    if($request->isXmlHttpRequest())
     {
-      $aFormLayoutForm->save();
+      $this->setLayout(false);
     }
-    
-    return $this->renderComponent('aForm', 'aFormEdit', array('a_form' => $this->a_form, 'a_form_layout_form' => $this->form));
+    $this->aForm = $this->getObject();
+    $this->aFormForm = new aFormForm($this->aForm);
+
+    $this->aFormLayoutForm = new aFormLayoutForm();
+    $this->aFormLayoutForm->bind($request->getParameter($this->aFormLayoutForm->getName()));
+    if($this->aFormLayoutForm->isValid())
+    {
+      $this->aFormLayoutForm->save();
+      $this->aFormLayout = $this->aFormLayoutForm->getObject();
+    }
+    $this->setTemplate('edit');
   }
   
   public function executeSortLayouts(sfRequest $request)
   {
-    Doctrine::getTable('aFormLayout')->doSort($request->getParameter('a-form-field'));
+    $aForm = $this->getObject();
+    $order = $request->getParameter('a-form-layout');
+    Doctrine::getTable('aFormLayout')->doSort($order);
     
     return sfView::NONE;
   }
