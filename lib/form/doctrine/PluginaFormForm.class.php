@@ -14,7 +14,12 @@ abstract class PluginaFormForm extends BaseaFormForm
     parent::setup();
     
     unset(
-      $this['created_at'], $this['updated_at'], $this['description']
+      $this['created_at'],
+      $this['updated_at'],
+      $this['description'],
+      $this['email_to'],
+      $this['thank_you'],
+      $this['deleted_at']
     );
 
 		$this->widgetSchema->setLabels(array(

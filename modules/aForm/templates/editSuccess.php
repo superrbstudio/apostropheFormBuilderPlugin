@@ -1,5 +1,7 @@
 <?php use_helper('jQuery') ?>
 
+<?php include_partial('aForm/subnav') ?>
+
 <?php if (!$sf_request->isXmlHttpRequest()): ?><div id="a-form-<?php echo $aForm->getId() ?>" ><?php endif ?>  
 
 <?php slot('a-page-title', '<span>Form Builder :</span> Edit') ?>

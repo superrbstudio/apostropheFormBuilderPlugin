@@ -1,3 +1,5 @@
+<?php include_partial('aForm/subnav') ?>
+
 <ul>
 <?php foreach ($aForms as $aForm): ?>
 	<li><?php echo link_to($aForm->getName(), 'a_form_edit', $aForm) ?></li>
