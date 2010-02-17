@@ -8,8 +8,8 @@
   'method' => 'post', 
 ), array('class' => 'a-btn icon icon-only a-delete', 'title' => 'Delete', )) ?></li>
 <li class="edit"><?php echo jq_link_to_remote('Edit<span></span>', array(
-  'update' => 'a-form-field-'.$aFormLayout->getId(),
-  'url' => 'aForm/editLayout?id='.$aFormLayout->getFormId().'&layout_id='.$aFormLayout->getId(),
+  'update' => 'a-form-layout-'.$aFormLayout->getId(),
+  'url' => '@a_form_editLayout?id='.$aFormLayout->getFormId().'&layout_id='.$aFormLayout->getId(),
   'script' => true, 
 ), array('class' => 'a-btn icon icon-only a-edit', 'title' => 'Edit', )) ?></li>
 

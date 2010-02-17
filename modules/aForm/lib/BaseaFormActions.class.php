@@ -10,6 +10,14 @@
  */
 abstract class BaseaFormActions extends sfActions
 { 
+  public function preExecute()
+  {
+    if($this->getRequest()->isXmlHttpRequest())
+    {
+      $this->setLayout(false);
+    }
+  }
+
 	public function executeIndex()
 	{
 		$this->aForms = $this->getRoute()->getObjects();
@@ -25,6 +33,7 @@ abstract class BaseaFormActions extends sfActions
   {
     $aFormForm = new aFormForm();
     $aFormForm->bind($request->getParameter($aFormForm->getName()));
+
     if($aFormForm->isValid())
     {
       $aFormForm->save();
@@ -33,11 +42,7 @@ abstract class BaseaFormActions extends sfActions
   }
  
   public function executeEdit(sfWebRequest $request)
-  {
-    if($request->isXmlHttpRequest())
-    {
-      $this->setLayout(false);
-    }
+  {    
     $this->aForm = $this->getObject();
     $this->aFormForm = new aFormForm($this->aForm);
     
@@ -47,22 +52,26 @@ abstract class BaseaFormActions extends sfActions
 		$this->form = new aFormBuilder(array(), array('a_form' => $this->aForm));
   }
   
-  public function executeEditLayout(sfRequest $request)
+  public function executeUpdate(sfWebRequest $request)
   {
-    $this->a_form_layout = Doctrine::getTable('aFormLayout')->find($request->getParameter('layout_id'));
     
-    $this->form = new aFormLayoutForm($this->a_form_layout);
+  }
+  
+  public function executeShowLayout(sfWebRequest $request)
+  {
+    $this->aForm = $this->getObject();
+    $this->aFormForm = new aFormForm($this->aForm, array('a_form' => $this->aForm));
 
-    return $this->renderPartial('aForm/aFormLayoutForm', array('a_form_layout' => $this->a_form_layout, 'a_form_layout_form' => $this->form));
+    $this->aFormLayout = Doctrine::getTable('aFormLayout')->find($request->getParameter('layout_id'));    
+    $this->forward404Unless($this->aFormLayout);
+
+    $this->aFormLayoutForm = new aFormLayoutForm($this->aFormLayout);
+
+    return $this->renderPartial('aForm/aFormLayoutEdit', array('aForm' => $this->aForm, 'aFormLayout' => $this->aFormLayout, 'aFormLayoutForm' => $this->aFormLayoutForm));
   }
   
   public function executeAddLayout(sfWebRequest $request)
   {
-    if($request->isXmlHttpRequest())
-    {
-      $this->setLayout(false);
-    }
-    
     $this->aForm = $this->getObject();
     $this->aFormForm = new aFormForm($this->aForm);
 
@@ -82,11 +91,42 @@ abstract class BaseaFormActions extends sfActions
     $this->setTemplate('edit');
   }
   
+  public function executeUpdateLayout(sfWebRequest $request)
+  {
+    $this->aForm = $this->getObject();
+
+    $this->aFormLayout = Doctrine::getTable('aFormLayout')->find($request->getParameter('layout_id'));
+    $this->forward404Unless($this->aFormLayout);
+    
+    $this->aFormLayoutForm = new aFormLayoutForm($this->aFormLayout);
+
+    $this->aFormLayoutForm->bind($request->getParameter($this->aFormLayoutForm->getName()));
+
+    if ($this->aFormLayoutForm->isValid())
+    {
+      $this->aFormLayout = $this->aFormLayoutForm->save();
+      
+      return $this->renderPartial('aForm/aFormLayoutEdit', array('aForm' => $this->aForm, 'aFormLayout' => $this->aFormLayout, 'aFormLayoutForm' => $this->aFormLayoutForm));
+    }
+  }
+  
+  public function executeEditLayout(sfWebRequest $request)
+  {    
+    $this->aForm = $this->getObject();
+
+    $this->aFormLayout = Doctrine::getTable('aFormLayout')->find($request->getParameter('layout_id'));
+    $this->forward404Unless($this->aFormLayout);
+
+    $this->aFormLayoutForm = new aFormLayoutForm($this->aFormLayout);
+
+    return $this->renderPartial('aForm/aFormLayoutForm', array('aForm' => $this->aForm, 'aFormLayout' => $this->aFormLayout, 'aFormLayoutForm' => $this->aFormLayoutForm));
+  }
+  
   public function executeDeleteLayout(sfWebRequest $request)
   {
     $this->aForm = $this->getObject();
     
-    $this->aFormLayout = Doctrine::getTable('aFormLayout')->findOneById($request->getParameter('layout_id'));
+    $this->aFormLayout = Doctrine::getTable('aFormLayout')->find($request->getParameter('layout_id'));
     $this->forward404Unless($this->aFormLayout);
     
     $this->aFormLayout->delete();
@@ -112,9 +152,14 @@ abstract class BaseaFormActions extends sfActions
   public function getObject()
   {
     $object = $this->getRoute()->getObject();
+
     if(true)
+    {
       return $object;
+    }
     else
+    {
       $this->forward404(); 
+    }
   }
 }

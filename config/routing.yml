@@ -13,6 +13,7 @@ a_form:
       addLayout:     post
       updateLayout:  put
       deleteLayout:  post
+      showLayout:    get
       edit:          [get, post]
       sortLayouts:   post
 
