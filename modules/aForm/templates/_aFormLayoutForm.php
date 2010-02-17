@@ -14,7 +14,9 @@
 	<?php echo $field->renderError() ?>
 	<?php if (!$field->isHidden()): ?></li><?php endif ?>
 <?php endforeach ?>
+<?php if(!$aFormLayout->isNew()): ?>
 <input type="hidden" name="sf_method" value="put" />
+<?php endif ?>
 </ul>
 
 <ul class="a-form-row submit">
