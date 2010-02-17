@@ -12,6 +12,23 @@ width: 100%;
 	margin: 10px 0;
 }
 
+.a-form-builder .a-form-row
+{
+	position: relative;
+	display: block;
+	float: left;
+	width: 100%;
+	padding: 15px 0;
+	margin: 0;
+	border-bottom: 1px solid #efefef;
+}
+
+.a-form-builder.adding .a-form-row
+{ /* Adding */
+	padding-bottom:0;
+	border-bottom:none;
+}
+
 .a-form-builder .a-form-row li
 {
 	float: left;
@@ -25,23 +42,6 @@ width: 100%;
 	float: right;
 }
 
-.a-form-builder .a-form-row
-{
-	position: relative;
-	display: block;
-	float: left;
-	width: 100%;
-	padding: 15px 0;
-	margin: 0;
-	border-bottom: 1px solid #efefef;
-}
-
-.a-form-builder.adding .a-form-row
-{
-	padding-bottom:0;
-	border-bottom:none;
-}
-
 .a-form-builder label
 {
 	float: left;
@@ -50,7 +50,7 @@ width: 100%;
 }
 
 .a-form-builder.editing label
-{
+{ /* Editing */
 	width: 100px;
 	margin-left: 20px;
 }
@@ -58,7 +58,7 @@ width: 100%;
 .a-form-builder input,
 .a-form-builder select,
 .a-form-builder textarea
-{ /* Widths for form elements will be set with jQuery */
+{ 
 	float: left;
 	margin-left: 17px;
 	padding: 3px;
@@ -71,7 +71,7 @@ width: 100%;
 
 .a-form-builder.editing input,
 .a-form-builder.editing textarea
-{
+{ /* Editing */
 	width: 198px;
 }
 
@@ -94,66 +94,11 @@ display: none !important;
 }
 
 .a-form-builder.editing select
-{
+{ /* Editing */
 	width: 204px !important;
 }
 
-/* == */
-/* == form field options == */
-/* == */
 
-.a-form-builder .a-form-field-options
-{
-	float: left;
-	margin-left: 120px;
-}
-
-.a-form-builder .a-form-field-options.select
-{
-	margin: 0 0 5px 140px;
-	width: 138px;
-	float: left;
-	display: block;
-	border: 1px solid #e2e2e2;
-}
-
-.a-form-builder .a-form-field-options.select_radio,
-.a-form-builder .a-form-field-options.select_checkbox
-{
-	margin-left: 89px;
-}
-
-.a-form-builder .a-form-field-options li
-{
-	display: block;
-	float: left;
-	width: 100%;
-/*	margin: 0 0 5px 0;*/
-	padding: 3px;
-}
-
-.a-form-builder .a-form-field-options.select li
-{
- width: 132px;	
-}
-
-.a-form-builder .a-form-field-options li input
-{
-	width: 118px;
-}
-
-.a-form-builder .a-form-field-options.select li input
-{
-	margin: 0;
-	border: none;
-	padding: 0;
-	width: 132px;
-	background: none;
-}
-
-/* == */
-/* == adding fields / editing fields == */
-/* == */
 
 .a-form-builder.editing-field,
 .a-form-builder.adding
@@ -180,6 +125,49 @@ display: none;
 {
 	width: 580px;
 	margin: 0 0 0 10px;
+}
+
+.a-form-builder.editing .a-form-row .a-form-field li.options
+{
+	float: left;
+	width: 278px;
+}
+
+.a-form-builder.editing .a-form-row .a-form-field li.options li.option
+{
+	float: left;
+	clear: both;
+	width: 100%;
+	margin: 0 0 5px 0;
+}
+
+.a-form-builder.editing .a-form-row .a-form-field li.options li.option input
+{
+	line-height: 20px;
+	margin-top: 3px;
+}
+
+.a-form-builder.editing .a-form-row .a-form-field li.options li.option label
+{
+	width: 198px;
+}
+
+.a-form-builder.editing .a-form-row .a-form-field li.options li.option.new label input
+{
+width: 100%;
+margin: 0 0 0 -5px;	
+}
+
+.a-form-builder.editing .a-form-row .a-form-field li.options li.option a.a-delete,
+.a-form-builder.editing .a-form-row .a-form-field li.options li.option a.a-add,
+.a-form-builder.editing .a-form-row .a-form-field li.options .a-submit
+{
+	float: right;
+}
+
+.a-form-builder.editing .a-form-row .a-form-field li.options .a-submit
+{
+	margin: 10px 0 0;
 }
 
 .a-form-builder.adding .drag
