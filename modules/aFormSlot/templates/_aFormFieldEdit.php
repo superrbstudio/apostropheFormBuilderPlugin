@@ -1,6 +1,6 @@
 <?php use_helper('jQuery') ?>
 
-<li class="drag"><?php echo jq_link_to_function('Drag','',array('class' => 'a-btn icon drag', )) ?></li>
+<li class="drag"><?php echo jq_link_to_function('Drag','',array('class' => 'a-btn icon a-drag nobg alt', )) ?></li>
 <li class="delete"><?php echo jq_link_to_remote('Delete', array(
   'url' => 'aForm/deleteField?id='.$a_form_layout->getId(),
   'confirm' => 'Are you sure you want to delete this field? If you do, you will no longer be able to retrieve the data from this column.',  

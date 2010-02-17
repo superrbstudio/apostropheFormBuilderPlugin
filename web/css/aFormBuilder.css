@@ -1,9 +1,15 @@
+.a-form,
 .a-form-builder
 {
 position: relative;
 display:block;
 float:left;
 width: 100%;
+}
+
+.a-form-builder
+{
+	margin: 10px 0;
 }
 
 .a-form-builder .a-form-row li
@@ -15,6 +21,7 @@ width: 100%;
 .a-form-builder .a-form-row li.edit,
 .a-form-builder .a-form-row li.delete
 {
+	margin-left: 2px;
 	float: right;
 }
 
@@ -35,23 +42,11 @@ width: 100%;
 	border-bottom:none;
 }
 
-.a-form-builder a.drag
-{
-	margin: 0;
-	float: left;
-	position: absolute;
-	top:0;
-	left:0;
-	cursor: move;
-}
-
 .a-form-builder label
 {
 	float: left;
 	width: 120px;
 	height: 100%;
-	margin-top:3px;
-/*	line-height: 20px;*/
 }
 
 .a-form-builder.editing label
@@ -179,6 +174,12 @@ display: none !important;
 .a-form-builder.adding label
 {
 display: none;
+}
+
+.a-form-builder.editing .a-form-row .a-form-field
+{
+	width: 580px;
+	margin: 0 0 0 10px;
 }
 
 .a-form-builder.adding .drag
@@ -344,6 +345,12 @@ line-height: 20px;
 margin: 0;
 }
 
+.a-form-builder.editing .a-form-row .a-form-field.address li
+{
+	clear: both;
+	margin-bottom: 10px;
+}
+
 /* == */
 /* == Form Builder Settings == */
 /* == */
@@ -409,4 +416,11 @@ background: url(/apostrophePlugin/images/a-special-caution.png) top left repeat-
 	width: 278px;
 	margin: 0 0 10px 0;
 	margin-left: 140px;
+}
+
+.a-drag.nobg
+{
+	-moz-border-radius: 10px !important;
+	-webkit-border-radius: 10px !important;
+	border-radius: 10px !important;
 }
