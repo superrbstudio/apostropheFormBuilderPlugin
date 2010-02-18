@@ -38,7 +38,7 @@
 <ul class="a-form-list">
   <li>
     <ul class="a-form-list-item">
-    	<li><?php echo link_to('Fill out this form', 'a_form_submission_new', $aForm, array('class' => 'a-btn', )) ?></li>
+	  	<li><?php echo link_to('Fill out this form', '@a_form_submission_sequence_new?form_id='. $aForm->getId(), array('class' => 'a-btn', )) ?></li>
       <li><?php echo link_to('See the data', '@a_form_submission_admin?form_id='. $aForm->getId(), array('class' => 'a-btn')) ?></li>
     </ul>
   </li>

@@ -13,8 +13,8 @@
   'script' => true, 
 ), array('class' => 'a-btn icon icon-only a-edit', 'title' => 'Edit', )) ?></li>
 
-<li class="a-form-field <?php echo $aFormLayout->getType() ?>">
-	<ul>
+<li>
+	<ul class="a-form-field <?php echo $aFormLayout->getType() ?>">
 		<?php include_partial('layout'.sfInflector::camelize($aFormLayout->getType()), array('aFormLayout' => $aFormLayout, 'form' => $aFormLayout->getForm(), 'disabled' => true)) ?>
 	</ul>
 </li>
