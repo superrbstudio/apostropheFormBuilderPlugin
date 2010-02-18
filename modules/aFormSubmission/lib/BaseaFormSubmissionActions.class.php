@@ -121,23 +121,25 @@ abstract class BaseaFormSubmissionActions extends sfActions
     $this->aFormLayout = $this->aForm->aFormLayouts[$request->getParameter('layout_rank')];
     $this->forward404Unless($this->aForm);
     $this->forward404Unless($this->aFormLayout);
-    
     $this->form = $this->aFormLayout->getForm(
       $this->aFormSubmission->getFieldSubmissionsForLayout($this->aFormLayout->getId()), 
       array('a_form_layout' => $this->aFormLayout, 'a_form_submission' => $this->aFormSubmission)
     );
+    //TODO: Figure out why I can't set this in the setup method
+    $this->form->getWidgetSchema()->setNameFormat('layout[%s]');
     $this->pos = $request->getParameter('layout_rank');
     if($request->isMethod('POST'))
     {
-      if(true)
+      $this->form->bind($request->getParameter('layout'));
+      if($this->form->isValid())
       {
-        $this->form->updateObjects($this->form->getValues());
+        $this->form->doUpdateObjects($this->form->getValues());
         $this->form->save();
-        /*$this->redirect('@a_form_submission_sequence'.
+        $this->redirect('@a_form_submission_sequence'.
           '?id='.$this->aFormSubmission->getId().
           '&form_id='.$this->aForm->getId().
-          '&layout_rank='.$this->pos+1
-        );*/
+          '&layout_rank='.($this->pos+1)
+        );
       }
     }
     

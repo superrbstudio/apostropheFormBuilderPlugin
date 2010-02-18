@@ -16,7 +16,13 @@ abstract class aFormEmbeddable extends sfForm
       }
 		}
   }
-    
+  
+  public function setup()
+  {
+    parent::setup();
+    $this->widgetSchema->setNameFormat('layout[%s]');
+  }
+      
   public function getObjects()
   {
     return $this->objects;
