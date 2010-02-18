@@ -535,15 +535,35 @@ display: none;
 
 /* Styling the Yes No Widget */
 
-.a-form-builder .a-form-row .a-form-field.yesNo .radio_list li
-{
-	margin: 0;
-}
-
-.a-form-builder .a-form-row .a-form-field.yesNo .radio_list.filling-out input,
-.a-form-builder .a-form-row .a-form-field.yesNo .radio_list.filling-out label
+.a-form-field.yesNo .radio_list input,
+.a-form-field.yesNo .radio_list label
 {
 	display: none;
 }
 
+.a-form-builder .a-form-field.yesNo .radio_list li
+{
+	width: auto;
+	margin: 0 20px 0 0;
+}
 
+.a-form-builder.filling-out .a-form-field.yesNo .radio_list
+{
+	float: left;
+	clear: both;
+	width: 100%;
+}
+
+.a-form-builder.filling-out .a-form-field.yesNo .radio_list li
+{
+	float: left;
+}
+
+
+/* Filling Out - sequenceSuccess */
+
+.filling-out .a-form-field label
+{
+	font-size: 24px;
+	width: 100%;
+}
