@@ -1,3 +1,7 @@
+<?php if ($aFormLayout->getRequired()): ?>
+<div class="a-form-field-required">Required</div>
+<?php endif ?>
+
 <li class="address"><label><?php echo $aFormLayout['label'] ?></label></li>
 <li class="address1">
   <?php echo $form['street1']->renderLabel() ?>

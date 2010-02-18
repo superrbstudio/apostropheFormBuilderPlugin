@@ -124,6 +124,31 @@ display: none !important;
 display: none;
 }
 
+.a-form-field-required
+{
+float: right;
+font-size: 11px;
+background-color: #944;
+color: #fff;
+width: 14px;
+height: 14px;
+line-height: 14px;
+margin: 3px 0;
+overflow: hidden;
+text-indent: -9999px;
+-moz-border-radius: 7px !important;
+-webkit-border-radius: 7px !important;
+border-radius: 7px !important;
+}
+
+.a-form-field-required:hover
+{
+	text-indent: 0;
+	width: auto;
+	padding: 0 4px;
+	cursor: default;
+}
+
 .a-form-builder.editing .a-form-row .a-form-field
 {
 	float: left;
@@ -374,7 +399,7 @@ margin: 0;
 
 .a-form-builder.editing .a-form-row .a-form-field.address li
 {
-	clear: both;
+	clear: left;
 	margin-bottom: 10px;
 }
 
@@ -398,6 +423,8 @@ display: none;
 	-webkit-border-radius: 10px !important;
 	border-radius: 10px !important;
 }
+
+
 
 .a-add-layout-button
 {
@@ -445,18 +472,22 @@ display: none;
 
 .a-form-admin.index #content .column-one
 {
+	position: relative;
 	float: left;
 	clear: none;
 	width: 220px;
 	margin: 0 0 0 20px;
+	z-index: 2;
 }
 
 .a-form-admin.index #content .column-two
 {
+	position: relative;
 	float: right;
 	width: 99%;
 	margin-left: -270px;
 	left: -1%;
+	z-index: 1;
 }
 
 .a-form-admin.index #content .column-two .box.survey

@@ -11,3 +11,7 @@
 	</div>
 	<button type="submit" class="a-btn a-submit">Save Options</button>
 </li>
+
+<?php if ($aFormLayout->getRequired()): ?>
+<div class="a-form-field-required">Required</div>
+<?php endif ?>

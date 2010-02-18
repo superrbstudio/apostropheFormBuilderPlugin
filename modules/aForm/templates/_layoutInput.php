@@ -1,6 +1,8 @@
 <li class="input">
-  <span>
     <?php echo $form['input']->renderLabel() ?>
     <?php echo $form['input']->render(array('disabled' => $disabled)) ?>
-  </span>
 </li>
+
+<?php if ($aFormLayout->getRequired()): ?>
+<div class="a-form-field-required">Required</div>
+<?php endif ?>
