@@ -393,6 +393,7 @@ display: none;
 
 .a-drag.nobg
 {
+	position: relative;
 	-moz-border-radius: 10px !important;
 	-webkit-border-radius: 10px !important;
 	border-radius: 10px !important;
