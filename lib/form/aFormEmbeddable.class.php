@@ -64,6 +64,7 @@ abstract class aFormEmbeddable extends sfForm
     {
       throw new Exception("Saving a aFormEmbeddable object requires an instance of aFormLayout in the 'a_form_layout' option.");
     }
+    
     foreach ($this->getOption('a_form_layout')->aFormFields as $field)
     {
       $this->objects[$field->name]->save();

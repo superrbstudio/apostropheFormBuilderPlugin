@@ -121,15 +121,24 @@ abstract class BaseaFormSubmissionActions extends sfActions
     $this->aFormLayout = $this->aForm->aFormLayouts[$request->getParameter('layout_rank')];
     $this->forward404Unless($this->aForm);
     $this->forward404Unless($this->aFormLayout);
-    $this->form = $this->aFormLayout->getForm();
+    
+    $this->form = $this->aFormLayout->getForm(
+      $this->aFormSubmission->getFieldSubmissionsForLayout($this->aFormLayout->getId()), 
+      array('a_form_layout' => $this->aFormLayout, 'a_form_submission' => $this->aFormSubmission)
+    );
     $this->pos = $request->getParameter('layout_rank');
-  }
-  
-  public function executeSequenceSubmit(sfWebRequest $request)
-	{
-	  $aFormSubmission = $this->getRoute()->getObject();
-
-	}
-	
-	
+    if($request->isMethod('POST'))
+    {
+      if(true)
+      {
+        $this->form->updateObjects($this->form->getValues());
+        $this->form->save();
+        /*$this->redirect('@a_form_submission_sequence'.
+          '?id='.$this->aFormSubmission->getId().
+          '&form_id='.$this->aForm->getId().
+          '&layout_rank='.$this->pos+1
+        );*/
+      }
+    }
+  }	
 }
