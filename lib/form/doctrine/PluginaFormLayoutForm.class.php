@@ -29,13 +29,13 @@ abstract class PluginaFormLayoutForm extends BaseaFormLayoutForm
   
   public function save($con = null)
   {
-    
+    parent::save();
     foreach($this->getObject()->getForm()->getObjects() as $name => $object)
     {
       $field = new aFormField();
       $field->setName($name);
       $this->getObject()->aFormFields[] = $field;
     }
-    parent::save();
+    
   }
 }

@@ -10,14 +10,12 @@ class PluginaFormLayoutTable extends Doctrine_Table
     'select' => 'Select Menu', 
     'select_radio' => 'Radio Select', 
     'select_checkbox' => 'Check Box', 
-    // 'confirmation' => 'Confirmation Box', 
-    // 'email' => 'Email Field', 
     'address' => 'Address Fields',
   );
   
   public static function getTypes()
   {
-    return self::$types;
+    return array_merge(sfConfig::get('app_aFormBuilder_layouts'), self::$types);
   }
 
   public function doSort($order = array())
