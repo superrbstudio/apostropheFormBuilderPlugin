@@ -29,6 +29,7 @@ abstract class PluginaFormLayoutForm extends BaseaFormLayoutForm
   
   public function save($con = null)
   {
+    //TODO: Redo some of this to make cleaner
     parent::save();
     foreach($this->getObject()->getForm()->getObjects() as $name => $object)
     {
@@ -36,6 +37,7 @@ abstract class PluginaFormLayoutForm extends BaseaFormLayoutForm
       $field->setName($name);
       $this->getObject()->aFormFields[] = $field;
     }
-    $this->getObject()->save();    
+    $this->getObject()->save();
+    return $this->getObject();    
   }
 }
