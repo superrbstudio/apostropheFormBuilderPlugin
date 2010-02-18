@@ -63,7 +63,7 @@ width: 100%;
 	margin-left: 20px;
 	padding: 3px;
 	font-family: Arial, sans-serif;
-	font-size: 11px;
+	font-size: 12px;
 	border: 1px solid #ddd;
 	vertical-align: middle;	
 	width: 278px;
@@ -210,46 +210,49 @@ display: none;
 	display: none;
 }
 
-.a-form-builder.editing-field .a-form-row.type,
-.a-form-builder.adding .a-form-row.type
+.a-form-builder.editing-field .a-form-layout
+{
+	float: left;
+}
+
+.a-form-builder.editing-field .a-form-field.type,
+.a-form-builder.adding .a-form-field.type
 {
 position: absolute;
-left: 140px;
+left: 170px;
 top: 0;
-width: 120px;	
+width: 200px;	
 }
 
-.a-form-builder.adding .a-form-row.label
+.a-form-builder.editing-field .a-form-field.label,
+.a-form-builder.adding .a-form-field.label
 {
-width: 110px;
-}
-
-.a-form-builder.editing-field .a-form-row.label
-{
-width: 90px;
+width: 100px;
 margin-left: 20px;	
 }
 
-.a-form-builder.editing-field .a-form-row.type select,
-.a-form-builder.adding .a-form-row.type select,
-.a-form-builder.editing-field .a-form-row.label input,
-.a-form-builder.adding .a-form-row.label input
+.a-form-builder.editing-field .a-form-field.type select,
+.a-form-builder.adding .a-form-field.type select,
+.a-form-builder.editing-field .a-form-field.label input,
+.a-form-builder.adding .a-form-field.label input
 {
 	margin: 0;
 	width: 100% !important;
 }
 
-.a-form-builder.editing-field .a-form-row.required,
-.a-form-builder.adding .a-form-row.required
+.a-form-builder.editing-field .a-form-field.required,
+.a-form-builder.adding .a-form-field.required
 {
 position: absolute;
-left: 265px;
+left: 380px;
 top: 0;
 width: 70px;
+height: 22px;
+padding: 0;
 }
 
-.a-form-builder.editing-field .a-form-row.required label,
-.a-form-builder.adding .a-form-row.required label
+.a-form-builder.editing-field .a-form-field.required label,
+.a-form-builder.adding .a-form-field.required label
 {
 	display: block;
 	width: auto;
@@ -257,39 +260,40 @@ width: 70px;
 	position: absolute;
 	top: 0;
 	left: 20px;
-	margin: 3px 0;
+	line-height: 22px;
+	margin: 0;
 }
 
-.a-form-builder.editing-field .a-form-row.required input,
-.a-form-builder.adding .a-form-row.required input
+.a-form-builder.editing-field .a-form-field.required input,
+.a-form-builder.adding .a-form-field.required input
 {
 	margin:3px 0;
 }
 
-.a-form-builder.editing-field .a-form-row.submit,
-.a-form-builder.adding .a-form-row.submit
+.a-form-builder.editing-field .a-form-field.submit,
+.a-form-builder.adding .a-form-field.submit
 {
 	position: absolute;
 	top: 0;
 	right: 0;
-	width: 100px;
+	width: 105px;
 }
 
-.a-form-builder.editing-field .a-form-row.submit li,
-.a-form-builder.adding .a-form-row.submit li
+.a-form-builder.editing-field .a-form-field.submit li,
+.a-form-builder.adding .a-form-field.submit li
 {
 	float: left;
 	display: inline;
 }
 
-.a-form-builder.editing-field .a-form-row.submit li.cancel,
-.a-form-builder.adding .a-form-row.submit li.cancel
+.a-form-builder.editing-field .a-form-field.submit li.cancel,
+.a-form-builder.adding .a-form-field.submit li.cancel
 {
-	margin:3px 0 0 3px;
+	margin: 0 0 0 3px;
 }
 
-.a-form-builder.editing-field .a-form-row.submit .a-submit,
-.a-form-builder.adding .a-form-row.submit .a-submit
+.a-form-builder.editing-field .a-form-field.submit .a-submit,
+.a-form-builder.adding .a-form-field.submit .a-submit
 {
 	margin: 0;
 }
@@ -392,6 +396,11 @@ display: none;
 	-moz-border-radius: 10px !important;
 	-webkit-border-radius: 10px !important;
 	border-radius: 10px !important;
+}
+
+.a-add-layout-button
+{
+	margin: 20px 0;
 }
 
 .ui-sortable-helper

@@ -30,7 +30,7 @@
 </div>
 
 <?php if (!$aFormLayoutForm->hasErrors()): ?>
-<?php echo jq_link_to_function('Add field<span></span>', "$('#add-layout-form-".$aForm->getId()."').show();$(this).hide()", array('id' => 'add-layout-button-'.$aForm->getId(), 'class' => 'a-btn')) ?>
+<?php echo jq_link_to_function('Add field<span></span>', "$('#add-layout-form-".$aForm->getId()."').show();$(this).hide();$('#a_form_layout_label').focus();", array('id' => 'add-layout-button-'.$aForm->getId(), 'class' => 'a-btn a-add-layout-button big icon a-add')) ?>
 <?php endif ?>
 
 <?php if (!$sf_request->isXmlHttpRequest()): ?></div><?php endif ?>

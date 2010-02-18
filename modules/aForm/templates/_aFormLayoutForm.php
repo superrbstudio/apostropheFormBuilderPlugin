@@ -8,7 +8,7 @@
 
 <ul class="a-form-layout">
 <?php foreach ($aFormLayoutForm as $field): ?>
-	<?php if (!$field->isHidden()): ?><li class="a-form-row <?php echo strtolower($field->renderLabelName()) ?>"><?php endif ?>
+	<?php if (!$field->isHidden()): ?><li class="a-form-field <?php echo strtolower($field->renderLabelName()) ?>"><?php endif ?>
 	<?php echo (!$field->isHidden()) ? $field->renderLabel() : '' ?>
 	<?php echo $field ?>
 	<?php echo $field->renderError() ?>
@@ -19,7 +19,7 @@
 <?php endif ?>
 </ul>
 
-<ul class="a-form-row submit">
+<ul class="a-form-field submit">
 	<li><input type="submit" name="submit" value="Submit" class="a-submit"></li>
   <?php if ($aFormLayout->isNew()): ?>
   <li class="cancel"> or <?php echo jq_link_to_function('cancel', "$('#add-layout-button-".$aForm->getId()."').show();$('#add-layout-form-".$aForm->getId()."').hide()", array('class' => 'b')) ?></li>
@@ -36,6 +36,6 @@
 
 <?php if ($aFormLayout->isNew()): ?>
 <script type="text/javascript" charset="utf-8">
-	// aSelfInputLabel('#a_form_layout_label','Label Name');
+	aInputSelfLabel('#a_form_layout_label','Field Name');
 </script>	
 <?php endif ?>
