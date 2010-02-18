@@ -20,6 +20,12 @@ a_form:
       deleteLayoutOption:  post
       sortLayoutOptions:   post
 
+a_form_submission:
+  url:      /admin/a_form_submission
+  param:    { module: aFormSubmission, action: index }
+  requirements:
+    sf_method: [ get ]
+
 a_form_submission_new:
   url:      /admin/a_form_submission/new/:id
   class:    sfDoctrineRoute

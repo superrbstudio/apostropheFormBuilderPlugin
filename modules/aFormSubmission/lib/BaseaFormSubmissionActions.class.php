@@ -11,6 +11,18 @@
  */
 abstract class BaseaFormSubmissionActions extends sfActions
 {
+  /**
+   * Action that lists all for submissions
+	 * @param sfWebRequest $request
+	 * @return 
+   */
+  public function executeIndex(sfWebRequest $request)
+  {
+    $this->aFormSubmissions = Doctrine::getTable('aFormSubmission')
+      ->createQuery('fs')
+      ->execute();
+  }
+  
 	/**
 	 * Action that renders a new form submission
 	 * @param sfWebRequest $request
