@@ -49,7 +49,8 @@ class aFormBuilderFilter extends BaseaFormSubmissionFormFilter
     $query = Doctrine_Query::create()
       ->from('aFormSubmission fs, aFormFieldSubmission ffs')
       ->addSelect('fs.*')
-      ->where('fs.id = ffs.submission_id');
+      ->where('fs.id = ffs.submission_id')
+      ->andWhere('fs.form_id = ?', $this->getOption('a_form')->getId());
     foreach($this->getOption('a_form')->aFormLayouts as $aFormLayout)
     {
       foreach($aFormLayout->aFormFields as $aFormField)
