@@ -16,7 +16,7 @@ abstract class aFormEmbeddable extends sfForm
       }
 		}
   }
-  
+    
   public function getObjects()
   {
     return $this->objects;

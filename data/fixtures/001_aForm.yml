@@ -18,27 +18,27 @@ aForm:
 <?php
 $layouts = array(
   "a_form_layout_name" => array(
-    "type" => 'input', "label" => "Name", "aFormFields" => array("input"), 
+    "type" => 'input', "label" => "Name", "aFormFields" => array("input"), 'rank' => 1,
     "aFormLayoutOptions" => array()
   ),
   "a_form_layout_color" => array(
-    "type" => 'select', "label" => "Color", "aFormFields" => array("select"), 
+    "type" => 'select', "label" => "Color", "aFormFields" => array("select"), 'rank' => 2,
     "aFormLayoutOptions" => array("Blue", "Red", "Yellow")
   ),
   "a_form_layout_speed" => array(
-    "type" => 'input', "label" => "Speed", "aFormFields" => array("input"), 
+    "type" => 'input', "label" => "Speed", "aFormFields" => array("input"), 'rank' => 3,
     "aFormLayoutOptions" => array()
   ),
   "a_form_layout_address" => array(
     "type" => 'address', "label" => "Address", "aFormFields" => array("street1", "street2", "city", "state", "postal_code", "country"),
-    "aFormLayoutOptions" => array()
+    'rank' => 4, "aFormLayoutOptions" => array()
   )
 );
 ?>
 aFormLayout:
 <?php foreach($layouts as $name => $layout): ?>
   <?php echo $name ?>:
-    rank: 1
+    rank: <?php echo $layout['rank'] ?> 
     type: <?php echo $layout['type'] ?> 
     label: <?php echo $layout['label'] ?> 
     aForm: a_form_0 

@@ -55,7 +55,37 @@ a_form_submission_update:
   requirements:
     id: \d+
     sf_method: [ post ]
-  
+
+a_form_submission_secuence_new:
+  url:      /admin/a_form_submission/secuence_new/:form_id
+  class:    sfRoute
+  param:    { module: aFormSubmission, action: newSequence }
+  requirements:
+    form_id: \d+
+    sf_method: get
+
+a_form_submission_sequence:
+  url:      /admin/a_form_submission/secuence/:id/:form_id/:layout_rank
+  class:    sfDoctrineRoute
+  options:  { model: aFormSubmission, type: object }
+  param:    { module: aFormSubmission, action: sequence }
+  requirements:
+    id: \d+
+    form_id: \d+
+    layout_rank: \d+
+    sf_method: get 
+    
+a_form_submission_sequence_submit:
+  url:      /admin/a_form_submission/secuence_submit/:id/:form_id/:layout_id
+  class:    sfDoctrineRoute
+  options:  { model: aFormSubmission, type: object }
+  param:    { module: aFormSubmission, action: sequence }
+  requirements:
+    id: \d+
+    form_id: \d+
+    layout_id: \d+
+    sf_method: post
+    
 a_form_submission_admin:
   class: sfDoctrineRouteCollection
   options:

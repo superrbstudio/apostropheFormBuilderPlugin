@@ -81,7 +81,43 @@ abstract class BaseaFormSubmissionActions extends sfActions
 		}
 		return false;
 	}
-	
+  
+  public function executeNewSequence(sfWebRequest $request)
+  {
+    //TODO: Refactor into model
+    $aForm = Doctrine::getTable('aForm')->createQuery('f')
+      ->leftJoin('f.aFormLayouts fl INDEXBY fl.rank')
+      ->where('f.id = ?', $request->getParameter('form_id'))
+      ->orderBy('fl.rank')
+      ->fetchOne();
+    $aFormSubmission = new aFormSubmission();
+    $aFormSubmission->setFormId($aForm->getId());
+    $aFormSubmission->save();
+    //TODO: Make sure form has layouts
+    $this->redirect('@a_form_submission_sequence?id='.$aFormSubmission->getId().'&form_id='.$aForm->getId().'&layout_rank=1');
+  }
+  
+  public function executeSequence(sfWebRequest $request)
+  {
+    $this->aFormSubmission = $this->getRoute()->getObject();
+    //TODO: Refactor into model
+    $this->aForm = Doctrine::getTable('aForm')->createQuery('f')
+      ->leftJoin('f.aFormLayouts fl INDEXBY fl.rank')
+      ->where('f.id = ?', $request->getParameter('form_id'))
+      ->orderBy('fl.rank')
+      ->fetchOne();
+    $this->aFormLayout = $this->aForm->aFormLayouts[$request->getParameter('layout_rank')];
+    $this->forward404Unless($this->aForm);
+    $this->forward404Unless($this->aFormLayout);
+    $this->form = $this->aFormLayout->getForm();
+    $this->pos = $request->getParameter('layout_rank');
+  }
+  
+  public function executeSequenceSubmit(sfWebRequest $request)
+	{
+	  $aFormSubmission = $this->getRoute()->getObject();
+
+	}
 	
 	
 }

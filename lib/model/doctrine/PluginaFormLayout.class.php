@@ -65,7 +65,7 @@ abstract class PluginaFormLayout extends BaseaFormLayout
   
   public function preSave($event)
   {
-    if ($this->isNew())
+    if ($this->isNew() && is_null($this->getRank()))
     {
       $this->setRank(Doctrine::getTable('aForm')->getMaxRank($this->getFormId()) + 1);
     }

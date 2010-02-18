@@ -15,5 +15,4 @@ class PluginaFormTable extends Doctrine_Table
     $result = $q->fetchOne();
     return $result['max'];
   }
-
 }
