@@ -35,4 +35,13 @@
 <?php echo jq_link_to_function('Add field<span></span>', "$('#add-layout-form-".$aForm->getId()."').show();$(this).hide();$('#a_form_layout_label').focus();", array('id' => 'add-layout-button-'.$aForm->getId(), 'class' => 'a-btn a-add-layout-button big icon a-add')) ?>
 <?php endif ?>
 
+<ul class="a-form-list">
+  <li>
+    <ul class="a-form-list-item">
+    	<li><?php echo link_to('Fill out this form', 'a_form_submission_new', $aForm, array('class' => 'a-btn', )) ?></li>
+      <li><?php echo link_to('See the data', '@a_form_submission_admin?form_id='. $aForm->getId(), array('class' => 'a-btn')) ?></li>
+    </ul>
+  </li>
+</ul>
+
 <?php if (!$sf_request->isXmlHttpRequest()): ?></div><?php endif ?>

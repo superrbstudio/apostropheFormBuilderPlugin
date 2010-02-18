@@ -125,6 +125,14 @@ abstract class BaseaFormActions extends sfActions
         'aFormLayout' => $this->aFormLayout,
       ));
     }
+    else
+    {
+      return $this->renderPartial('aForm/aFormLayoutForm', array(
+        'aForm'           => $this->aForm,
+        'aFormLayout'     => $this->aFormLayout,
+        'aFormLayoutForm' => $this->aFormLayoutForm
+      ));
+    }
   }
   
   public function executeEditLayout(sfWebRequest $request)

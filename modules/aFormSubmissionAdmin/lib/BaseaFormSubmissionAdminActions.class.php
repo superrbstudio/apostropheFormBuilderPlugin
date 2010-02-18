@@ -16,22 +16,26 @@ abstract class BaseaFormSubmissionAdminActions extends autoAFormSubmissionAdminA
   {
     parent::preExecute();
     
+    if ($form_id = $this->getRequest()->getParameter('form_id'))
+    {
+      $this->setFilters(array_merge($this->configuration->getFilterDefaults(), array('form_id' => $form_id)));      
+    }
+    
+    $filters = $this->getFilters();
+    
     $q = Doctrine::getTable('aForm')->createQuery('f')
       ->leftJoin('f.aFormLayouts fl INDEXBY fl.id')
   		->leftJoin('fl.aFormLayoutOptions flo INDEXBY flo.id')
       ->leftJoin('fl.aFormFields ff INDEXBY ff.id');
 
-    if ($form_id = $this->getRequest()->getParameter('form_id'))
+    if ($filters['form_id'])
     {
-      $q->addWhere('f.id = ?', $form_id);
-
-      $this->setFilters($this->configuration->getFilterDefaults());      
-      
-      // add the shit to the session
-      
+      $q->addWhere('f.id = ?', $filters['form_id']);
     }
-      
+
     $this->a_form = $q->fetchOne();
+    
+    $this->forward404Unless($this->a_form);
   }
   
   protected function buildQuery()
