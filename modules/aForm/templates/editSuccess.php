@@ -1,10 +1,12 @@
+<?php slot('body_class','a-form-builder edit') ?>
+
+<?php slot('a-page-title', '<span>Form Builder :</span> Edit') ?>
+
 <?php use_helper('jQuery') ?>
 
 <?php include_partial('aForm/subnav') ?>
 
 <?php if (!$sf_request->isXmlHttpRequest()): ?><div id="a-form-<?php echo $aForm->getId() ?>" ><?php endif ?>  
-
-<?php slot('a-page-title', '<span>Form Builder :</span> Edit') ?>
 
 <h3 class="a-form-builder-name"><?php echo $aForm->getName() ?> 
 <?php echo link_to_function('Form Settings', '$("#a-form-settings-'.$aForm->getId().'").slideToggle()', array('class' => 'a-settings-button', )) ?></h3>

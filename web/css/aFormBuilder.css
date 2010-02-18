@@ -1,5 +1,5 @@
 .a-form,
-.a-form-builder
+div.a-form-builder
 {
 position: relative;
 display:block;
@@ -7,7 +7,7 @@ float:left;
 width: 100%;
 }
 
-.a-form-builder
+div.a-form-builder
 {
 	margin: 10px 0;
 }
@@ -47,6 +47,7 @@ width: 100%;
 	float: left;
 	width: 120px;
 	height: 100%;
+	text-transform: none !important;
 }
 
 .a-form-builder.editing label
@@ -514,4 +515,25 @@ display: none;
 .a-form-admin.index #a-admin-container .a-admin-row.even
 {
 	background-color: #eee;
+}
+
+
+/* admin/a_form */
+
+.a-form-list,
+.a-form-list .a-form-list-item
+{
+	position: relative;
+	float: left;
+	clear: both;
+	display: inline;
+	width: 100%;
+/*	margin: 0 0 10px 0;*/
+}
+
+.a-form-list .a-form-list-item li
+{
+	float: left;
+	display: inline;
+	margin: 0 5px 0 0;
 }
