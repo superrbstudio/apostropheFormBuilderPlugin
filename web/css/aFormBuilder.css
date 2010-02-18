@@ -552,6 +552,7 @@ display: none;
 	float: left;
 	clear: both;
 	width: 100%;
+	margin: 20px 0 0;
 }
 
 .a-form-builder.filling-out .a-form-field.yesNo .radio_list li
@@ -566,4 +567,9 @@ display: none;
 {
 	font-size: 24px;
 	width: 100%;
+}
+
+.filling-out form input.a-submit
+{
+	display: none;
 }
