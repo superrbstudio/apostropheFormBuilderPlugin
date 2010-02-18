@@ -359,11 +359,6 @@ padding: 0;
 	margin: 0 0 10px 0;
 }
 
-.a-form-builder .a-form-row .a-form-field.yesNo .radio_list li
-{
-	margin: 0;
-}
-
 .a-form-builder .a-form-row .checkbox
 {
 	float: left;
@@ -537,3 +532,18 @@ display: none;
 	display: inline;
 	margin: 0 5px 0 0;
 }
+
+/* Styling the Yes No Widget */
+
+.a-form-builder .a-form-row .a-form-field.yesNo .radio_list li
+{
+	margin: 0;
+}
+
+.a-form-builder .a-form-row .a-form-field.yesNo .radio_list.filling-out input,
+.a-form-builder .a-form-row .a-form-field.yesNo .radio_list.filling-out label
+{
+	display: none;
+}
+
+
