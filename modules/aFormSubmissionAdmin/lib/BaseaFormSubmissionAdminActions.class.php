@@ -15,11 +15,23 @@ abstract class BaseaFormSubmissionAdminActions extends autoAFormSubmissionAdminA
   public function preExecute()
   {
     parent::preExecute();
-    $this->a_form = Doctrine::getTable('aForm')->createQuery('f')
-    ->leftJoin('f.aFormLayouts fl INDEXBY fl.id')
-		->leftJoin('fl.aFormLayoutOptions flo INDEXBY flo.id')
-    ->leftJoin('fl.aFormFields ff INDEXBY ff.id')
-    ->fetchOne();  
+    
+    $q = Doctrine::getTable('aForm')->createQuery('f')
+      ->leftJoin('f.aFormLayouts fl INDEXBY fl.id')
+  		->leftJoin('fl.aFormLayoutOptions flo INDEXBY flo.id')
+      ->leftJoin('fl.aFormFields ff INDEXBY ff.id');
+
+    if ($form_id = $this->getRequest()->getParameter('form_id'))
+    {
+      $q->addWhere('f.id = ?', $form_id);
+
+      $this->setFilters($this->configuration->getFilterDefaults());      
+      
+      // add the shit to the session
+      
+    }
+      
+    $this->a_form = $q->fetchOne();
   }
   
   protected function buildQuery()
