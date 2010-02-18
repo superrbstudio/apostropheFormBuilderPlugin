@@ -36,6 +36,6 @@ abstract class PluginaFormLayoutForm extends BaseaFormLayoutForm
       $field->setName($name);
       $this->getObject()->aFormFields[] = $field;
     }
-    
+    $this->getObject()->save();    
   }
 }
