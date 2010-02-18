@@ -135,6 +135,10 @@ abstract class BaseaFormSubmissionActions extends sfActions
       {
         $this->form->doUpdateObjects($this->form->getValues());
         $this->form->save();
+        if($this->pos == count($this->aForm->aFormLayouts))
+        {
+          $this->redirect('@a_form_submission_admin?form_id='.$this->aForm->getId());
+        }
         $this->redirect('@a_form_submission_sequence'.
           '?id='.$this->aFormSubmission->getId().
           '&form_id='.$this->aForm->getId().
