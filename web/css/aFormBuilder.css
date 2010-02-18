@@ -155,16 +155,21 @@ display: none;
 	width: 258px;		
 }
 
+.a-form-builder.editing .a-form-row .a-form-field li.options li.option input[type="checkbox"],
+.a-form-builder.editing .a-form-row .a-form-field li.options li.option input[type="radio"]
+{
+	margin-top: 3px;
+	width: auto;
+}
 .a-form-builder.editing .a-form-row .a-form-field li.options li.option input
 {
-	line-height: 20px;
-	margin-top: 3px;
-	width: 100px;
+	margin: 0;
+	width: 92px;
 }
 
 .a-form-builder.editing .a-form-row .a-form-field li.options li.option label
 {
-	width: 100px;
+	width: 105px;
 }
 
 .a-form-builder.editing .a-form-row .a-form-field li.options li.option span
@@ -174,8 +179,6 @@ display: none;
 
 .a-form-builder.editing .a-form-row .a-form-field li.options li.option.new label input
 {
-width: 100%;
-margin: 0 0 0 -5px;	
 }
 
 .a-form-builder.editing .a-form-row .a-form-field li.options li.option a.a-delete,
@@ -371,62 +374,9 @@ margin: 0;
 	margin-bottom: 10px;
 }
 
-/* == */
-/* == Form Builder Settings == */
-/* == */
-
-.aForm .a-form-builder-name
-{
-	float: left;
-	display: inline;
-	width: auto;
-	position: relative;
-}
-
-.aForm a.a-settings-button {
-float: left;
-display: block;
-height: 20px;
-width: 20px;
-margin: 0;
-overflow: hidden;
-text-indent: -9999px;
-background: url(/apostrophePlugin/images/a-icon-settings.png) no-repeat 0 0;
-position: absolute;
-right: -24px;
-top: 2px;
-}
-
-
-.aForm a.a-settings-button:hover
-{
-	background-position: 0 -20px;
-}
-
-.a-form-settings {
+a.a-settings-button {
 display: none;
-float: left;
-width: 100%;
-margin-bottom: 20px;
-padding: 0 0 10px;
-border: 1px solid #e2e2e2;
-background: url(/apostrophePlugin/images/a-special-caution.png) top left repeat-x;
 }
-
-.a-form-settings-form
-{
-	margin-top:22px;
-}
-
-.a-form-builder .a-form-settings-form label
-{
-	width: 110px;
-	margin-left: 10px;
-}
-
-/* == */
-/* == ERRORS */
-/* == */
 
 .error_list
 {
