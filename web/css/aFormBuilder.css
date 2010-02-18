@@ -347,10 +347,6 @@ padding: 0;
 
 .a-form-builder .a-form-row .radio_list
 {
-	float: left;
-	width: 278px;
-	margin-left: 140px;
-	clear: both;
 }
 
 
@@ -358,9 +354,13 @@ padding: 0;
 {
 	float: left;
 	position: relative;
-	width: 100%;
-	clear: both;
+	width: 90px;
 	margin: 0 0 10px 0;
+}
+
+.a-form-builder .a-form-row .a-form-field.yesNo .radio_list li
+{
+	margin: 0;
 }
 
 .a-form-builder .a-form-row .checkbox
@@ -386,13 +386,13 @@ padding: 0;
 	margin: 3px 0 !important;
 }
 
-.a-form-builder .a-form-row .radio_list li label,
-.a-form-builder .a-form-row .checkbox label
+.a-form-builder.editing .a-form-row .a-form-field li.options li.option .radio_list li label,
+.a-form-builder.editing .a-form-row .a-form-field li.options li.option .checkbox label
 {
 width: auto;
 position: absolute;
 top: 0;
-left: 30px;
+left: 20px;
 line-height: 20px;
 margin: 0;
 }
