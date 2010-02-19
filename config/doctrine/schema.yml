@@ -28,6 +28,8 @@ aForm:
       type: string(255)
     thank_you:
       type: string
+    action:
+      type: string(255)
 
 aFormLayout:
   tableName: a_form_layout
@@ -129,6 +131,8 @@ aFormFieldSubmission:
       type: string(255)
     value:
       type: string
+    skipped:
+      type: boolean
   relations:
     aFormSubmission:
       class: aFormSubmission
