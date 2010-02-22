@@ -70,6 +70,13 @@ abstract class PluginaFormLayout extends BaseaFormLayout
       $this->setRank(Doctrine::getTable('aForm')->getMaxRank($this->getFormId()) + 1);
     }
   }
+  
+  public function setType($value)
+  {
+    if(!$this->isNew())
+      return false;
+    return $this->_set('type', $value);
+  }
 	
 	public function postDelete($event)
 	{
