@@ -108,11 +108,19 @@ aFormSubmission:
       notnull: true
     ip_address:
       type: string(255)
+    user_id:
+      type: integer
   relations:
     aForm:
       class: aForm
       foreign: id
       local: form_id
+      onDelete: CASCADE
+      foreignAlias: aFormSubmissions
+    User:
+      class: sfGuardUser
+      foreign: id
+      local: user_id
       onDelete: CASCADE
       foreignAlias: aFormSubmissions
 
