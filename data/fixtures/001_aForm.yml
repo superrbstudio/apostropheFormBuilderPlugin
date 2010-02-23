@@ -18,20 +18,20 @@ aForm:
 <?php
 $layouts = array(
   "a_form_layout_name" => array(
-    "type" => 'input', "label" => "Name", "aFormFields" => array("input"), 'rank' => 1,
+    "type" => 'input', "label" => "Name", "aFormFields" => array("input"), 'rank' => 0,
     "aFormLayoutOptions" => array()
   ),
   "a_form_layout_color" => array(
-    "type" => 'select', "label" => "Color", "aFormFields" => array("select"), 'rank' => 2,
+    "type" => 'select', "label" => "Color", "aFormFields" => array("select"), 'rank' => 1,
     "aFormLayoutOptions" => array("Blue", "Red", "Yellow")
   ),
   "a_form_layout_speed" => array(
-    "type" => 'input', "label" => "Speed", "aFormFields" => array("input"), 'rank' => 3,
+    "type" => 'input', "label" => "Speed", "aFormFields" => array("input"), 'rank' => 2,
     "aFormLayoutOptions" => array()
   ),
   "a_form_layout_address" => array(
     "type" => 'address', "label" => "Address", "aFormFields" => array("street1", "street2", "city", "state", "postal_code", "country"),
-    'rank' => 4, "aFormLayoutOptions" => array()
+    'rank' => 3, "aFormLayoutOptions" => array()
   )
 );
 ?>

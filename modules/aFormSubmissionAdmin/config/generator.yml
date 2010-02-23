@@ -13,7 +13,7 @@ generator:
     
     config:
       list:
-        display: [ id, ip_address, user_id ]
+        display: [ id, ip_address ]
         object_actions: ~
         actions:
           _new: ~

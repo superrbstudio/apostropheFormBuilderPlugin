@@ -27,17 +27,17 @@ abstract class PluginaFormLayoutForm extends BaseaFormLayoutForm
     return isset($this->options['a_form']) ? $this->options['a_form'] : $this->getObject()->getAForm();
   }
   
-  public function save($con = null)
+  public function doUpdateObject($values)
   {
-    //TODO: Redo some of this to make cleaner
-    parent::save();
-    foreach($this->getObject()->getForm()->getObjects() as $name => $object)
+    parent::doUpdateObject($values);
+    if($this->getObject()->isNew())
     {
-      $field = new aFormField();
-      $field->setName($name);
-      $this->getObject()->aFormFields[] = $field;
+      foreach($this->getObject()->getForm()->getObjects() as $name => $object)
+      {
+        $field = new aFormField();
+        $field->setName($name);
+        $this->getObject()->aFormFields[] = $field;
+      }
     }
-    $this->getObject()->save();
-    return $this->getObject();    
   }
 }

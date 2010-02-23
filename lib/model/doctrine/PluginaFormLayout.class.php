@@ -65,9 +65,13 @@ abstract class PluginaFormLayout extends BaseaFormLayout
   
   public function preSave($event)
   {
-    if ($this->isNew())
+    if($this->isNew() && (!isset($this->rank) || is_null($this->rank)))
     {
-      $this->setRank(Doctrine::getTable('aForm')->getMaxRank($this->getFormId()) + 1);
+      $max = Doctrine::getTable('aForm')->getMaxRank($this->getFormId());
+      if(is_null($max))
+        $this->setRank(0);
+      else
+        $this->setRank($max + 1);
     }
   }
   
@@ -82,7 +86,7 @@ abstract class PluginaFormLayout extends BaseaFormLayout
 	{
 		Doctrine_Query::create()
 		  ->update('aFormLayout')
-			->set('rank', 'rank + 1')
+			->set('rank', 'rank - 1')
 			->where('aFormLayout.form_id = ? AND aFormLayout.rank > ?', array($this->getFormId(), $this->getRank()))
 			->execute();
 	}

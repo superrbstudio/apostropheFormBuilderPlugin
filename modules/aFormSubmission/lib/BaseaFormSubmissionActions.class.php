@@ -97,11 +97,7 @@ abstract class BaseaFormSubmissionActions extends sfActions
   public function executeNewSequence(sfWebRequest $request)
   {
     //TODO: Refactor into model
-    $aForm = Doctrine::getTable('aForm')->createQuery('f')
-      ->leftJoin('f.aFormLayouts fl INDEXBY fl.rank')
-      ->where('f.id = ?', $request->getParameter('form_id'))
-      ->orderBy('fl.rank')
-      ->fetchOne();
+    $aForm = $this->getRoute()->getObject();
     $aFormSubmission = new aFormSubmission();
     $aFormSubmission->setFormId($aForm->getId());
     $aFormSubmission->save();
@@ -118,7 +114,7 @@ abstract class BaseaFormSubmissionActions extends sfActions
       ->where('f.id = ?', $request->getParameter('form_id'))
       ->orderBy('fl.rank')
       ->fetchOne();
-    $this->aFormLayout = $this->aForm->aFormLayouts[$request->getParameter('layout_rank')];
+    $this->aFormLayout = $this->aForm->aFormLayouts[$request->getParameter('layout_rank')-1];
     $this->forward404Unless($this->aForm);
     $this->forward404Unless($this->aFormLayout);
     $this->form = $this->aFormLayout->getForm(
@@ -137,6 +133,7 @@ abstract class BaseaFormSubmissionActions extends sfActions
         $this->form->save();
         if($this->pos == count($this->aForm->aFormLayouts))
         {
+          //TODO: This is where post actions would go
           $this->redirect('@a_form_submission_admin?form_id='.$this->aForm->getId());
         }
         $this->redirect('@a_form_submission_sequence'.
