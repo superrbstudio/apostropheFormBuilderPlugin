@@ -42,7 +42,6 @@ aFormLayout:
       notnull: true
     rank:
       type: integer
-      default: 1
     type:
       type: string(255)
       notnull: true
