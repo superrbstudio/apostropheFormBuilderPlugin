@@ -64,7 +64,7 @@ a_form_submission_update:
     sf_method: [ post ]
 
 a_form_submission_sequence_new:
-  url:      /admin/a_form_submission/sequence_new/:form_id
+  url:      /admin/a_form_submission/sequence_new/:id
   class:    sfDoctrineRoute
   options:  { model: aForm, type: object }
   param:    { module: aFormSubmission, action: newSequence }
