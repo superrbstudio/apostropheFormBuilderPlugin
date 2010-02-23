@@ -19,7 +19,8 @@ abstract class PluginaFormForm extends BaseaFormForm
       $this['description'],
       $this['email_to'],
       $this['thank_you'],
-      $this['deleted_at']
+      $this['deleted_at'],
+      $this['action']
     );
 
 		$this->widgetSchema->setLabels(array(

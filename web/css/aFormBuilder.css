@@ -569,7 +569,7 @@ display: none;
 	width: 100%;
 }
 
-.filling-out form input.a-submit
+.filling-out form.yesNo input.a-submit
 {
 	display: none;
 }
