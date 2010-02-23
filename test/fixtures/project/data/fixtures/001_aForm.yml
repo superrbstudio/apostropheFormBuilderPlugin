@@ -19,6 +19,19 @@ aFormLayout:
     label: address
     help: Help text for address field
     required: <?php echo $i ?> 
+    aFormFields:
+      a_form_layout_address_<?php echo $i ?>_street1:
+        name: street1
+      a_form_layout_address_<?php echo $i ?>_street2:
+        name: street2
+      a_form_layout_address_<?php echo $i ?>_city:
+        name: city
+      a_form_layout_address_<?php echo $i ?>_state:
+        name: state
+      a_form_layout_address_<?php echo $i ?>_postal_code:
+        name: postal_code
+      a_form_layout_address_<?php echo $i ?>_country:
+        name: country
   a_form_layout_input_<?php echo $i ?>:
     aForm: a_form_<?php echo $i ?> 
     rank: 1
@@ -26,6 +39,9 @@ aFormLayout:
     label: input
     help: Help text for input field
     required: <?php echo $i ?> 
+    aFormFields:
+      a_form_layout_input_<?php echo $i ?>:
+        name: input
   a_form_layout_select_<?php echo $i ?>:
     aForm: a_form_<?php echo $i ?> 
     rank: 1
@@ -42,6 +58,9 @@ aFormLayout:
         rank:  2
         value: S2
         name:  Select Option 2 
+    aFormFields:
+      a_form_layout_select_<?php echo $i ?>:
+        name: select
   a_form_layout_select_checkbox_<?php echo $i ?>:
     aForm: a_form_<?php echo $i ?> 
     rank: 1
@@ -58,6 +77,11 @@ aFormLayout:
         rank:  2
         value: CB2
         name:  Checkbox Option 2 
+    aFormFields:
+      a_form_layout_select_checkbox_<?php echo $i ?>_CB1:
+        name: CB1
+      a_form_layout_select_checkbox_<?php echo $i ?>_CB2:
+        name: CB2
   a_form_layout_select_radio_<?php echo $i ?>:
     aForm: a_form_<?php echo $i ?> 
     rank: 1
@@ -74,6 +98,9 @@ aFormLayout:
         rank:  2
         value: R2
         name:  Radio Option 2 
+    aFormFields:
+      a_form_layout_select_checkbox_<?php echo $i ?>_radio:
+        name: radio
   a_form_layout_textarea_<?php echo $i ?>:
     aForm: a_form_<?php echo $i ?> 
     rank: 1
@@ -81,4 +108,7 @@ aFormLayout:
     label: textarea
     help: Help text for textarea field
     required: <?php echo $i ?> 
+    aFormFields:
+      a_form_layout_select_checkbox_<?php echo $i ?>_textarea:
+        name: textarea
 <?php endfor ?>

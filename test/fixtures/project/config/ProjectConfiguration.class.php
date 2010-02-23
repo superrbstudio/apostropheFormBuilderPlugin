@@ -12,8 +12,7 @@ class ProjectConfiguration extends sfProjectConfiguration
 {
   public function setup()
   {
-    $this->setPlugins(array('apostropheFormBuilderPlugin'));
-
+    $this->enableAllPluginsExcept(array('sfPropelPlugin'));
     $this->setPluginPath('apostropheFormBuilderPlugin', dirname(__FILE__).'/../../../..');
   }
 }

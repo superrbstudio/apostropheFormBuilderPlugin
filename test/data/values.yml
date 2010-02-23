@@ -14,8 +14,8 @@ valid:
   select:
     select: S1
   select_checkbox:
-    CB1: 1
-    CB2: 1
+    CB1: CB1
+    CB2: CB2
   select_radio:
     radio: R1
   textarea:

@@ -46,7 +46,10 @@ $values[$form->getCSRFFieldName()] = $form->getCSRFToken();
 $values['form_id'] = $a_form->getId();
 $form->bind($values);
 $t->ok($form->isValid(), 'Form was bound with optional fields is valid.');
-
+foreach($form as $field)
+{
+  echo $field->renderError();
+}
 $t->ok($form->save(), 'Form was saved.');
 
 $a_form_submission = Doctrine::getTable('aFormSubmission')->findOneBy('id', $form->getObject()->getId());
