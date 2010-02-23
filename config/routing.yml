@@ -19,6 +19,7 @@ a_form:
       editLayoutOption:    [get, post]
       deleteLayoutOption:  post
       sortLayoutOptions:   post
+      index: get
 
 a_form_submission:
   url:      /admin/a_form_submission
@@ -64,10 +65,11 @@ a_form_submission_update:
 
 a_form_submission_sequence_new:
   url:      /admin/a_form_submission/sequence_new/:form_id
-  class:    sfRoute
+  class:    sfDoctrineRoute
+  options:  { model: aForm, type: object }
   param:    { module: aFormSubmission, action: newSequence }
   requirements:
-    form_id: \d+
+    id: \d+
     sf_method: get
 
 a_form_submission_sequence:
