@@ -14,6 +14,22 @@ aFormSlot:
       onDelete: SET NULL
       type: one
 
+aChartSlot:
+  inheritance:
+    extends: aSlot
+    type: column_aggregation
+    keyField: type
+    keyValue: 'aChart'
+  columns:
+    form_id:
+      type: integer
+  relations:
+    aForm:
+      local: form_id
+      foreign: id
+      onDelete: SET NULL
+      type: one
+
 aForm:
   tableName: a_form
   actAs:
