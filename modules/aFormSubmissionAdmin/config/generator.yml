@@ -23,5 +23,6 @@ generator:
         class: aFormBuilder
       filter:
         class: aFormBuilderFilter
+        display: [ user_id ]
       actions:
         _export: { label: "Export" }

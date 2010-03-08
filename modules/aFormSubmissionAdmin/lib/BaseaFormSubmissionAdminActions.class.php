@@ -18,6 +18,7 @@ abstract class BaseaFormSubmissionAdminActions extends autoAFormSubmissionAdminA
     
     if ($form_id = $this->getRequest()->getParameter('form_id'))
     {
+      $this->setSort($this->configuration->getDefaultSort());
       $this->setFilters(array_merge($this->configuration->getFilterDefaults(), array('form_id' => $form_id)));      
     }
     
@@ -27,12 +28,11 @@ abstract class BaseaFormSubmissionAdminActions extends autoAFormSubmissionAdminA
       ->leftJoin('f.aFormLayouts fl INDEXBY fl.id')
   		->leftJoin('fl.aFormLayoutOptions flo INDEXBY flo.id')
       ->leftJoin('fl.aFormFields ff INDEXBY ff.id');
-
+    
     if ($filters['form_id'])
     {
       $q->addWhere('f.id = ?', $filters['form_id']);
     }
-
     $this->a_form = $q->fetchOne();
     
     $this->forward404Unless($this->a_form);

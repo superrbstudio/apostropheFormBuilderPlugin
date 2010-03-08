@@ -27,7 +27,21 @@
 	          )) ?]
 					</div>
 	        [?php endforeach; ?]
-
+          [?php foreach($a_form->aFormLayouts as $aFormLayout): ?]
+          [?php if(count($aFormLayout->aFormFields) > 1): ?]          
+          <div class="a-form-row">[?php echo $aFormLayout->getLabel() ?]</div>
+          [?php endif ?]
+          [?php foreach($aFormLayout->aFormFields as $aFormField): ?]
+          [?php $name = $aFormField->getId(); $field = $form[$name]; ?]
+          <div class="a-form-row" id="a-admin-filters-[?php echo str_replace("_","-",$name) ?]">
+          [?php echo $form[$name]->renderLabel() ?]
+            <div class="a-admin-filter-field">
+              [?php echo $form[$name]->renderError() ?]
+              [?php echo $form[$name]->render() ?]
+            </div>
+          </div>
+          [?php endforeach ?]
+          [?php endforeach ?]
         [?php echo $form->renderHiddenFields() ?]
 				<div class="a-form-row submit">
 					<ul class="a-controls a-admin-filter-controls">

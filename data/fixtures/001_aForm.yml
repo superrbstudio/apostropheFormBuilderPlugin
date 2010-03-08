@@ -59,7 +59,7 @@ aFormLayout:
 <?php endforeach ?>
         
 aFormSubmission:
-<?php for($n=0; $n < 101; $n++): ?>
+<?php for($n=0; $n < 10; $n++): ?>
   a_form_submission_<?php echo $n ?>:
     ip_address: <?php echo rand(0,255) ?>.<?php echo rand(0,255) ?>.<?php echo rand(0,255) ?>.<?php echo rand(0,255) ?> 
     aForm: a_form_0

@@ -12,7 +12,7 @@
 			[?php include_partial('<?php echo $this->getModuleName() ?>/list_actions', array('helper' => $helper)) ?]		
 		</ul>
 		<?php if ($this->configuration->hasFilterForm()): ?>
-		  [?php include_partial('<?php echo $this->getModuleName() ?>/filters', array('form' => $filters, 'configuration' => $configuration)) ?]
+		  [?php include_partial('<?php echo $this->getModuleName() ?>/filters', array('form' => $filters, 'a_form' => $a_form, 'configuration' => $configuration)) ?]
 		<?php endif; ?>
 
 		[?php include_partial('<?php echo $this->getModuleName() ?>/flashes') ?]

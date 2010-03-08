@@ -9,6 +9,8 @@
  */
 class aFormBuilderFilter extends BaseaFormSubmissionFormFilter
 { 
+  protected $filterLayoutFields;
+  
   /*TODO: This needs to be changed to only use LIKE queries for text input fields.  Other fields like choice, radio,
    * etc should use different methods.
    */
@@ -23,7 +25,7 @@ class aFormBuilderFilter extends BaseaFormSubmissionFormFilter
   public function setup()
   {
     parent::setup();
-		unset($this['form_id'], $this['ip_address'], $this['created_at'], $this['updated_at'], $this['deleted_at']);
+		//unset($this['form_id'], $this['ip_address'], $this['created_at'], $this['updated_at'], $this['deleted_at']);
     if (!$this->getOption('a_form') instanceof aForm)
     {
       throw new Exception("aFormBuilderFilter requires an instance of aForm in the 'a_form' option.");
@@ -38,9 +40,11 @@ class aFormBuilderFilter extends BaseaFormSubmissionFormFilter
       foreach($aFormLayout->aFormFields as $aFormField)
       {
         $this->setWidget($aFormField['id'], new sfWidgetFormInput());
-        $this->getWidget($aFormField['id'])->setLabel($aFormField['name']);
+        $label = count($aFormLayout->aFormFields) > 1? $aFormField['name'] : $aFormLayout->getLabel();
+        $this->getWidget($aFormField['id'])->setLabel($label);
         $this->setValidator($aFormField['id'], new sfValidatorString(array('required' => false)));
-      }   
+        $this->filterLayoutFields[$aFormLayout->getId()][] = $this[$aFormField['id']];
+      }
     }
   }
   
