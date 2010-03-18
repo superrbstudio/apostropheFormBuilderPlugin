@@ -47,7 +47,7 @@ aForm:
     action:
       type: string(255)
 
-aFormLayout:
+aFormFieldset:
   tableName: a_form_layout
   actAs:
     Sluggable:
@@ -77,12 +77,12 @@ aFormLayout:
       foreign: id
       local: form_id
       onDelete: CASCADE
-      foreignAlias: aFormLayouts
+      foreignAlias: aFormFieldsets
 
-aFormLayoutOption:
+aFormFieldsetOption:
   tableName: a_form_layout_option
   columns:
-    layout_id:
+    fieldset_id:
       type: integer
     name:
       type: string(255)
@@ -92,25 +92,25 @@ aFormLayoutOption:
       type: integer
       default: 1
   relations:
-    aFormLayout:
-      class: aFormLayout
+    aFormFieldset:
+      class: aFormFieldset
       foreign: id
-      local: layout_id
+      local: fieldset_id
       onDelete: CASCADE
-      foreignAlias: aFormLayoutOptions
+      foreignAlias: aFormFieldsetOptions
       
 aFormField:
   tableName: a_form_field
   columns:
-    layout_id:
+    fieldset_id:
       type: integer
     name:
       type: string
   relations:
-    aFormLayout:
-      class: aFormLayout
+    aFormFieldset:
+      class: aFormFieldset
       foreign: id
-      local: layout_id
+      local: fieldset_id
       onDelete: CASCADE
       foreignAlias: aFormFields
     
@@ -146,7 +146,7 @@ aFormFieldSubmission:
     submission_id:
       type: integer
       notnull: true
-    layout_id:
+    fieldset_id:
       type: integer
     field_id:
       type: integer
@@ -163,10 +163,10 @@ aFormFieldSubmission:
       local: submission_id
       onDelete: CASCADE
       foreignAlias: aFormFieldSubmissions
-    aFormLayout:
-      class: aFormLayout
+    aFormFieldset:
+      class: aFormFieldset
       foreign: id
-      local: layout_id
+      local: fieldset_id
       onDelete: CASCADE
       foreignAlias: aFormFieldSubmissions
     aFormField:
