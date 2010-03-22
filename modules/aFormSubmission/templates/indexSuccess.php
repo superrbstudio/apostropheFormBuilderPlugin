@@ -3,7 +3,7 @@
   <li><?php echo link_to('Submission on '. $aFormSubmission->getCreatedAt(), 'a_form_submission_sequence', array(
     'id' => $aFormSubmission->getId(),
     'form_id' => $aFormSubmission->getFormId(),
-    'layout_rank' => 1,   
+    'fieldset_rank' => 1,   
     )) ?></li>
 <?php endforeach ?>
 </ul>

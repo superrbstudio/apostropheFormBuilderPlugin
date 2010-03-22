@@ -10,9 +10,9 @@ aForm:
     email_to: "dan@punkave.com"
     thank_you: string
     
-aFormLayout:
+aFormFieldset:
 <?php for($i=0;$i<=1;$i++): ?>
-  a_form_layout_address_<?php echo $i ?>:
+  a_form_fieldset_address_<?php echo $i ?>:
     aForm: a_form_<?php echo $i ?> 
     rank: 1
     type: address
@@ -20,19 +20,19 @@ aFormLayout:
     help: Help text for address field
     required: <?php echo $i ?> 
     aFormFields:
-      a_form_layout_address_<?php echo $i ?>_street1:
+      a_form_fieldset_address_<?php echo $i ?>_street1:
         name: street1
-      a_form_layout_address_<?php echo $i ?>_street2:
+      a_form_fieldset_address_<?php echo $i ?>_street2:
         name: street2
-      a_form_layout_address_<?php echo $i ?>_city:
+      a_form_fieldset_address_<?php echo $i ?>_city:
         name: city
-      a_form_layout_address_<?php echo $i ?>_state:
+      a_form_fieldset_address_<?php echo $i ?>_state:
         name: state
-      a_form_layout_address_<?php echo $i ?>_postal_code:
+      a_form_fieldset_address_<?php echo $i ?>_postal_code:
         name: postal_code
-      a_form_layout_address_<?php echo $i ?>_country:
+      a_form_fieldset_address_<?php echo $i ?>_country:
         name: country
-  a_form_layout_input_<?php echo $i ?>:
+  a_form_fieldset_input_<?php echo $i ?>:
     aForm: a_form_<?php echo $i ?> 
     rank: 1
     type: input
@@ -40,16 +40,16 @@ aFormLayout:
     help: Help text for input field
     required: <?php echo $i ?> 
     aFormFields:
-      a_form_layout_input_<?php echo $i ?>:
+      a_form_fieldset_input_<?php echo $i ?>:
         name: input
-  a_form_layout_select_<?php echo $i ?>:
+  a_form_fieldset_select_<?php echo $i ?>:
     aForm: a_form_<?php echo $i ?> 
     rank: 1
     type: select
     label: select
     help: Help text for select field
     required: <?php echo $i ?> 
-    aFormLayoutOptions:
+    aFormFieldsetOptions:
       af_<?php echo $i ?>_select_option_1:
         rank:  1
         value: S1
@@ -59,16 +59,16 @@ aFormLayout:
         value: S2
         name:  Select Option 2 
     aFormFields:
-      a_form_layout_select_<?php echo $i ?>:
+      a_form_fieldset_select_<?php echo $i ?>:
         name: select
-  a_form_layout_select_checkbox_<?php echo $i ?>:
+  a_form_fieldset_select_checkbox_<?php echo $i ?>:
     aForm: a_form_<?php echo $i ?> 
     rank: 1
     type: select_checkbox
     label: select_checkbox
     help: Help text for select_checkbox field
     required: <?php echo $i ?> 
-    aFormLayoutOptions:
+    aFormFieldsetOptions:
       af_<?php echo $i ?>_checkbox_option_1:
         rank:  1
         value: CB1
@@ -78,18 +78,18 @@ aFormLayout:
         value: CB2
         name:  Checkbox Option 2 
     aFormFields:
-      a_form_layout_select_checkbox_<?php echo $i ?>_CB1:
+      a_form_fieldset_select_checkbox_<?php echo $i ?>_CB1:
         name: CB1
-      a_form_layout_select_checkbox_<?php echo $i ?>_CB2:
+      a_form_fieldset_select_checkbox_<?php echo $i ?>_CB2:
         name: CB2
-  a_form_layout_select_radio_<?php echo $i ?>:
+  a_form_fieldset_select_radio_<?php echo $i ?>:
     aForm: a_form_<?php echo $i ?> 
     rank: 1
     type: select_radio
     label: select_radio
     help: Help text for select_radio field
     required: <?php echo $i ?> 
-    aFormLayoutOptions:
+    aFormFieldsetOptions:
       af_<?php echo $i ?>_radio_option_1:
         rank:  1
         value: R1
@@ -99,9 +99,9 @@ aFormLayout:
         value: R2
         name:  Radio Option 2 
     aFormFields:
-      a_form_layout_select_checkbox_<?php echo $i ?>_radio:
+      a_form_fieldset_select_checkbox_<?php echo $i ?>_radio:
         name: radio
-  a_form_layout_textarea_<?php echo $i ?>:
+  a_form_fieldset_textarea_<?php echo $i ?>:
     aForm: a_form_<?php echo $i ?> 
     rank: 1
     type: textarea
@@ -109,6 +109,6 @@ aFormLayout:
     help: Help text for textarea field
     required: <?php echo $i ?> 
     aFormFields:
-      a_form_layout_select_checkbox_<?php echo $i ?>_textarea:
+      a_form_fieldset_select_checkbox_<?php echo $i ?>_textarea:
         name: textarea
 <?php endfor ?>

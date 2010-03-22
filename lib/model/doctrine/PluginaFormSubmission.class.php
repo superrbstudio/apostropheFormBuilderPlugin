@@ -6,12 +6,12 @@
 abstract class PluginaFormSubmission extends BaseaFormSubmission
 {
 	
-	public function getFieldSubmissionsForLayout($layout_id)
+	public function getFieldSubmissionsForFieldset($fieldset_id)
 	{
 		$aFieldSubmissions = array();
 		foreach($this->aFormFieldSubmissions as $aFieldSubmission)
 		{
-			if($aFieldSubmission['layout_id'] == $layout_id)
+			if($aFieldSubmission['fieldset_id'] == $fieldset_id)
 			{
 				$aFieldSubmissions[] = $aFieldSubmission;
 			}

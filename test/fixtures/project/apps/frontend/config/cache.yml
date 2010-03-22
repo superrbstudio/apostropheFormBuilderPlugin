@@ -3,5 +3,5 @@
 
 default:
   enabled:     false
-  with_layout: false
+  with_fieldset: false
   lifetime:    86400

@@ -101,8 +101,8 @@ abstract class BaseaFormSubmissionActions extends sfActions
     $aFormSubmission = new aFormSubmission();
     $aFormSubmission->setFormId($aForm->getId());
     $aFormSubmission->save();
-    //TODO: Make sure form has layouts
-    $this->redirect('@a_form_submission_sequence?id='.$aFormSubmission->getId().'&form_id='.$aForm->getId().'&layout_rank=1');
+    //TODO: Make sure form has fieldsets
+    $this->redirect('@a_form_submission_sequence?id='.$aFormSubmission->getId().'&form_id='.$aForm->getId().'&fieldset_rank=1');
   }
   
   public function executeSequence(sfWebRequest $request)
@@ -110,28 +110,28 @@ abstract class BaseaFormSubmissionActions extends sfActions
     $this->aFormSubmission = $this->getRoute()->getObject();
     //TODO: Refactor into model
     $this->aForm = Doctrine::getTable('aForm')->createQuery('f')
-      ->leftJoin('f.aFormLayouts fl INDEXBY fl.rank')
+      ->leftJoin('f.aFormFieldsets fl INDEXBY fl.rank')
       ->where('f.id = ?', $request->getParameter('form_id'))
       ->orderBy('fl.rank')
       ->fetchOne();
-    $this->aFormLayout = $this->aForm->aFormLayouts[$request->getParameter('layout_rank')-1];
+    $this->aFormFieldset = $this->aForm->aFormFieldsets[$request->getParameter('fieldset_rank')-1];
     $this->forward404Unless($this->aForm);
-    $this->forward404Unless($this->aFormLayout);
-    $this->form = $this->aFormLayout->getForm(
-      $this->aFormSubmission->getFieldSubmissionsForLayout($this->aFormLayout->getId()), 
-      array('a_form_layout' => $this->aFormLayout, 'a_form_submission' => $this->aFormSubmission)
+    $this->forward404Unless($this->aFormFieldset);
+    $this->form = $this->aFormFieldset->getForm(
+      $this->aFormSubmission->getFieldSubmissionsForFieldset($this->aFormFieldset->getId()), 
+      array('a_form_fieldset' => $this->aFormFieldset, 'a_form_submission' => $this->aFormSubmission)
     );
     //TODO: Figure out why I can't set this in the setup method
-    $this->form->getWidgetSchema()->setNameFormat('layout[%s]');
-    $this->pos = $request->getParameter('layout_rank');
+    $this->form->getWidgetSchema()->setNameFormat('fieldset[%s]');
+    $this->pos = $request->getParameter('fieldset_rank');
     if($request->isMethod('POST'))
     {
-      $this->form->bind($request->getParameter('layout'));
+      $this->form->bind($request->getParameter('fieldset'));
       if($this->form->isValid())
       {
         $this->form->doUpdateObjects($this->form->getValues());
         $this->form->save();
-        if($this->pos == count($this->aForm->aFormLayouts))
+        if($this->pos == count($this->aForm->aFormFieldsets))
         {
           //TODO: This is where post actions would go
           $this->redirect('@a_form_submission_admin?form_id='.$this->aForm->getId());
@@ -139,7 +139,7 @@ abstract class BaseaFormSubmissionActions extends sfActions
         $this->redirect('@a_form_submission_sequence'.
           '?id='.$this->aFormSubmission->getId().
           '&form_id='.$this->aForm->getId().
-          '&layout_rank='.($this->pos+1)
+          '&fieldset_rank='.($this->pos+1)
         );
       }
     }

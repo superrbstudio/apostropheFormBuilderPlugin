@@ -9,7 +9,7 @@ class PluginaFormTable extends Doctrine_Table
   {
     $q = Doctrine_Query::create()
       ->select('max(ff.rank) as max')
-      ->from('aFormLayout ff')
+      ->from('aFormFieldset ff')
       ->innerJoin('ff.aForm f WITH f.id = ?', $id);
 
     $result = $q->fetchOne();

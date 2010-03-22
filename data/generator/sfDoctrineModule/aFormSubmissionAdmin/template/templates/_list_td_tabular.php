@@ -7,8 +7,8 @@
 EOF
 , strtolower($field->getType()), $name, $this->renderField($field)), $field->getConfig()) ?>
 <?php endforeach; ?>
-[?php foreach($a_form->aFormLayouts as $aFormLayout): ?]
-  [?php foreach($aFormLayout->aFormFields as $field): ?]
+[?php foreach($a_form->aFormFieldsets as $aFormFieldset): ?]
+  [?php foreach($aFormFieldset->aFormFields as $field): ?]
     <td class="a-admin-foreignkey a-admin-list-td-user_id">
       [?php $column = 'field_'.$field['id']; echo $a_form_submission->$column ?]
     </td>

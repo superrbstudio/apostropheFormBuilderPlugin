@@ -3,7 +3,7 @@
 /**
  * A collection of static methods useful for helping get things tested easily.
  * Mostly arrays of test data, both valid and invalid, for use with the individual
- * aFormLayout classes.
+ * aFormFieldset classes.
  */
 class aFormTestToolkit extends aTestTools
 {

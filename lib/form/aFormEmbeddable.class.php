@@ -20,7 +20,7 @@ abstract class aFormEmbeddable extends sfForm
   public function setup()
   {
     parent::setup();
-    $this->widgetSchema->setNameFormat('layout[%s]');
+    $this->widgetSchema->setNameFormat('fieldset[%s]');
   }
       
   public function getObjects()
@@ -45,13 +45,13 @@ abstract class aFormEmbeddable extends sfForm
   
   public function doUpdateObjects($values)
   {
-    foreach ($this->getOption('a_form_layout')->aFormFields as $field)
+    foreach ($this->getOption('a_form_fieldset')->aFormFields as $field)
     {
       if(is_null($this->objects[$field->name]))
       {
         $this->objects[$field->name] = new aFormFieldSubmission();
         $this->objects[$field->name]->setSubmissionId($this->getOption('a_form_submission'))->getId();
-        $this->objects[$field->name]->setLayoutId($this->getOption('a_form_layout')->getId());
+        $this->objects[$field->name]->setFieldsetId($this->getOption('a_form_fieldset')->getId());
         $this->objects[$field->name]->setFieldId($field->id);
         $this->objects[$field->name]->setSubField($field->name);
       }
@@ -66,12 +66,12 @@ abstract class aFormEmbeddable extends sfForm
       throw new Exception("Saving a aFormEmbeddable object requires an instance of aFormSubmission in the 'a_form_submission' option.");
     }
 
-    if (!$this->getOption('a_form_layout') instanceof aFormLayout)
+    if (!$this->getOption('a_form_fieldset') instanceof aFormFieldset)
     {
-      throw new Exception("Saving a aFormEmbeddable object requires an instance of aFormLayout in the 'a_form_layout' option.");
+      throw new Exception("Saving a aFormEmbeddable object requires an instance of aFormFieldset in the 'a_form_fieldset' option.");
     }
     
-    foreach ($this->getOption('a_form_layout')->aFormFields as $field)
+    foreach ($this->getOption('a_form_fieldset')->aFormFields as $field)
     {
       $this->objects[$field->name]->save();
     }

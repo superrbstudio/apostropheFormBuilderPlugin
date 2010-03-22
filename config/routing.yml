@@ -7,18 +7,18 @@ a_form:
     column:               id
     with_wildcard_routes: true
     object_actions:
-      showLayout:    get
-      addLayout:     post
-      updateLayout:  put
-      editLayout:    [get, post]
-      deleteLayout:  post
-      sortLayouts:   post
-      showLayoutOption:    get
-      addLayoutOption:     post
-      updateLayoutOption:  put
-      editLayoutOption:    [get, post]
-      deleteLayoutOption:  post
-      sortLayoutOptions:   post
+      showFieldset:    get
+      addFieldset:     post
+      updateFieldset:  put
+      editFieldset:    [get, post]
+      deleteFieldset:  post
+      sortFieldsets:   post
+      showFieldsetOption:    get
+      addFieldsetOption:     post
+      updateFieldsetOption:  put
+      editFieldsetOption:    [get, post]
+      deleteFieldsetOption:  post
+      sortFieldsetOptions:   post
       index: get
 
 a_form_submission:
@@ -73,25 +73,25 @@ a_form_submission_sequence_new:
     sf_method: get
 
 a_form_submission_sequence:
-  url:      /admin/a_form_submission/sequence/:id/:form_id/:layout_rank
+  url:      /admin/a_form_submission/sequence/:id/:form_id/:fieldset_rank
   class:    sfDoctrineRoute
   options:  { model: aFormSubmission, type: object }
   param:    { module: aFormSubmission, action: sequence }
   requirements:
     id: \d+
     form_id: \d+
-    layout_rank: \d+
+    fieldset_rank: \d+
     sf_method: [ get, post ] 
     
 a_form_submission_sequence_submit:
-  url:      /admin/a_form_submission/sequence_submit/:id/:form_id/:layout_id
+  url:      /admin/a_form_submission/sequence_submit/:id/:form_id/:fieldset_id
   class:    sfDoctrineRoute
   options:  { model: aFormSubmission, type: object }
   param:    { module: aFormSubmission, action: sequence }
   requirements:
     id: \d+
     form_id: \d+
-    layout_id: \d+
+    fieldset_id: \d+
     sf_method: post
     
 a_form_submission_admin:

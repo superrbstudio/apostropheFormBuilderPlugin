@@ -1,32 +1,32 @@
 <?php use_helper('jQuery') ?>
 
 <?php echo jq_form_remote_tag(array(
-  'url' => ($aFormLayout->isNew()) ? '@a_form_addLayout?id='.$aForm->getId() : '@a_form_updateLayout?id='.$aForm->getId().'&layout_id='.$aFormLayout->getId(),
-  'update' => ($aFormLayout->isNew()) ? 'a-form-'.$aForm->getId() : 'a-form-layout-'.$aFormLayout->getId(),
+  'url' => ($aFormFieldset->isNew()) ? '@a_form_addFieldset?id='.$aForm->getId() : '@a_form_updateFieldset?id='.$aForm->getId().'&fieldset_id='.$aFormFieldset->getId(),
+  'update' => ($aFormFieldset->isNew()) ? 'a-form-'.$aForm->getId() : 'a-form-fieldset-'.$aFormFieldset->getId(),
   'script' => 'true', 
 ), array('class' => 'a-form-builder editing-field', )) ?>
 
-<ul class="a-form-layout">
-<?php foreach ($aFormLayoutForm as $field): ?>
+<ul class="a-form-fieldset">
+<?php foreach ($aFormFieldsetForm as $field): ?>
 	<?php if (!$field->isHidden()): ?><li class="a-form-field <?php echo strtolower($field->renderLabelName()) ?>"><?php endif ?>
 	<?php echo (!$field->isHidden()) ? $field->renderLabel() : '' ?>
 	<?php echo $field ?>
 	<?php echo $field->renderError() ?>
 	<?php if (!$field->isHidden()): ?></li><?php endif ?>
 <?php endforeach ?>
-<?php if(!$aFormLayout->isNew()): ?>
+<?php if(!$aFormFieldset->isNew()): ?>
 <input type="hidden" name="sf_method" value="put" />
 <?php endif ?>
 </ul>
 
 <ul class="a-form-field submit">
 	<li><input type="submit" name="submit" value="Submit" class="a-submit"></li>
-  <?php if ($aFormLayout->isNew()): ?>
-  <li class="cancel"> or <?php echo jq_link_to_function('cancel', "$('#add-layout-button-".$aForm->getId()."').show();$('#add-layout-form-".$aForm->getId()."').hide()", array('class' => 'b')) ?></li>
+  <?php if ($aFormFieldset->isNew()): ?>
+  <li class="cancel"> or <?php echo jq_link_to_function('cancel', "$('#add-fieldset-button-".$aForm->getId()."').show();$('#add-fieldset-form-".$aForm->getId()."').hide()", array('class' => 'b')) ?></li>
   <?php else: ?>
   <li class="cancel"> or <?php echo jq_link_to_remote('cancel', array(
-    'url' => '@a_form_showLayout?id='.$aForm->getId().'&layout_id='.$aFormLayout->getId(), 
-    'update' => 'a-form-layout-'.$aFormLayout->getId(),
+    'url' => '@a_form_showFieldset?id='.$aForm->getId().'&fieldset_id='.$aFormFieldset->getId(), 
+    'update' => 'a-form-fieldset-'.$aFormFieldset->getId(),
     'method' => 'get', 
   ), array('class' => 'b')) ?></li>
   <?php endif ?>
@@ -34,8 +34,8 @@
 
 </form>
 
-<?php if ($aFormLayout->isNew()): ?>
+<?php if ($aFormFieldset->isNew()): ?>
 <script type="text/javascript" charset="utf-8">
-	aInputSelfLabel('#a_form_layout_label','Field Name');
+	aInputSelfLabel('#a_form_fieldset_label','Field Name');
 </script>	
 <?php endif ?>

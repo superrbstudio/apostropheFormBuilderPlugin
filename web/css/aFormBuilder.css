@@ -236,7 +236,7 @@ border-radius: 7px !important;
 	display: none;
 }
 
-.a-form-builder.editing-field .a-form-layout
+.a-form-builder.editing-field .a-form-fieldset
 {
 	float: left;
 }
@@ -422,7 +422,7 @@ display: none;
 
 
 
-.a-add-layout-button
+.a-add-fieldset-button
 {
 	margin: 20px 0;
 }

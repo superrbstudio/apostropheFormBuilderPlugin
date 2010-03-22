@@ -1,10 +1,10 @@
 <th class="a-admin-text a-admin-list-th-field" colspan="<?php echo count($this->configuration->getValue('list.display'))+1 ?>"></th>
 
-[?php foreach($a_form->aFormLayouts as $aFormLayout): ?]
-    [?php $form = $aFormLayout->getForm() ?]
-    [?php foreach($aFormLayout->aFormFields as $aFormField): ?]
-      [?php $label = $aFormLayout->getLabel() ?]
-      [?php if(count($aFormLayout->aFormFields) > 1)
+[?php foreach($a_form->aFormFieldsets as $aFormFieldset): ?]
+    [?php $form = $aFormFieldset->getForm() ?]
+    [?php foreach($aFormFieldset->aFormFields as $aFormField): ?]
+      [?php $label = $aFormFieldset->getLabel() ?]
+      [?php if(count($aFormFieldset->aFormFields) > 1)
         $label = $form[$aFormField['name']]->renderLabelName(); ?]
       <th class="a-admin-text a-admin-list-th-field">
       [?php if ('field_'.$aFormField['id'] == $sort[0]): ?]

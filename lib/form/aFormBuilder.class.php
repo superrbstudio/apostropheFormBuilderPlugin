@@ -14,35 +14,35 @@ class aFormBuilder extends BaseaFormSubmissionForm
 		$this->setDefault('form_id', $this->getOption('a_form')->getId());
 		$this->setWidget('form_id' , new sfWidgetFormInputHidden());
 		
-    $layoutWrapperForm = new sfForm();
+    $fieldsetWrapperForm = new sfForm();
     
-    foreach ($this->getOption('a_form')->aFormLayouts as $aFormLayout)
+    foreach ($this->getOption('a_form')->aFormFieldsets as $aFormFieldset)
     {
-      $layoutWrapperForm->embedForm($aFormLayout->getId(), $aFormLayout->getForm(
-        $this->getObject()->getFieldSubmissionsForLayout($aFormLayout['id']), 
-        array('a_form_layout' => $aFormLayout)
+      $fieldsetWrapperForm->embedForm($aFormFieldset->getId(), $aFormFieldset->getForm(
+        $this->getObject()->getFieldSubmissionsForFieldset($aFormFieldset['id']), 
+        array('a_form_fieldset' => $aFormFieldset)
       ));
-			$layoutWrapperForm[$aFormLayout->getId()]->getWidget()->setLabel($aFormLayout->getLabel());
+			$fieldsetWrapperForm[$aFormFieldset->getId()]->getWidget()->setLabel($aFormFieldset->getLabel());
     }
-    $this->embedForm('fields', $layoutWrapperForm);
+    $this->embedForm('fields', $fieldsetWrapperForm);
     $this->widgetSchema->setNameFormat('form[%s]');
 		$this->useFields(array('form_id', 'fields'));
   }
 	  
   public function updateObjectEmbeddedForms($values, $forms = null)
   {
-    foreach($this->getEmbeddedForm('fields')->getEmbeddedForms() as $name => $layoutForms)
+    foreach($this->getEmbeddedForm('fields')->getEmbeddedForms() as $name => $fieldsetForms)
     {
-      $layoutForms->setOption('a_form_submission', $this->getObject());
-      $layoutForms->doUpdateObjects($values['fields'][$name]);
+      $fieldsetForms->setOption('a_form_submission', $this->getObject());
+      $fieldsetForms->doUpdateObjects($values['fields'][$name]);
     }
   }
   
   public function saveEmbeddedForms($con = null, $form = null)
   {
-    foreach($this->getEmbeddedForm('fields')->getEmbeddedForms() as $name => $layoutForms)
+    foreach($this->getEmbeddedForm('fields')->getEmbeddedForms() as $name => $fieldsetForms)
     {
-      $layoutForms->save();
+      $fieldsetForms->save();
     }
   }
      

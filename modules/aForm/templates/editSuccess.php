@@ -21,18 +21,18 @@
 </div>
 
 <div id="a-form-<?php echo $aForm->getId() ?>-fields" class="a-form-builder editing">
-<?php echo include_partial('aForm/aFormLayouts', array('aForm' => $aForm)); ?>
+<?php echo include_partial('aForm/aFormFieldsets', array('aForm' => $aForm)); ?>
 </div>
 
-<?php echo jq_sortable_element('#a-form-'.$aForm->getId().'-fields', array('url' => '@a_form_sortLayouts?id='.$aForm->getId())) ?>
+<?php echo jq_sortable_element('#a-form-'.$aForm->getId().'-fields', array('url' => '@a_form_sortFieldsets?id='.$aForm->getId())) ?>
 
 
-<div id="add-layout-form-<?php echo $aForm->getId() ?>" class="a-form-builder adding" <?php if (!$aFormLayoutForm->hasErrors()): ?>style="display:none;"<?php endif ?>>
-	<?php echo include_partial('aForm/aFormLayoutForm', array('aFormLayoutForm' => $aFormLayoutForm, 'aFormLayout' => $aFormLayout, 'aForm' => $aForm)); ?>
+<div id="add-fieldset-form-<?php echo $aForm->getId() ?>" class="a-form-builder adding" <?php if (!$aFormFieldsetForm->hasErrors()): ?>style="display:none;"<?php endif ?>>
+	<?php echo include_partial('aForm/aFormFieldsetForm', array('aFormFieldsetForm' => $aFormFieldsetForm, 'aFormFieldset' => $aFormFieldset, 'aForm' => $aForm)); ?>
 </div>
 
-<?php if (!$aFormLayoutForm->hasErrors()): ?>
-<?php echo jq_link_to_function('Add field<span></span>', "$('#add-layout-form-".$aForm->getId()."').show();$(this).hide();$('#a_form_layout_label').focus();", array('id' => 'add-layout-button-'.$aForm->getId(), 'class' => 'a-btn a-add-layout-button big icon a-add')) ?>
+<?php if (!$aFormFieldsetForm->hasErrors()): ?>
+<?php echo jq_link_to_function('Add field<span></span>', "$('#add-fieldset-form-".$aForm->getId()."').show();$(this).hide();$('#a_form_fieldset_label').focus();", array('id' => 'add-fieldset-button-'.$aForm->getId(), 'class' => 'a-btn a-add-fieldset-button big icon a-add')) ?>
 <?php endif ?>
 
 <ul class="a-form-list">

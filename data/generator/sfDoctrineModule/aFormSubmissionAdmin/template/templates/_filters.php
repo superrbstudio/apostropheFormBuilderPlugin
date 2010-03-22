@@ -27,11 +27,11 @@
 	          )) ?]
 					</div>
 	        [?php endforeach; ?]
-          [?php foreach($a_form->aFormLayouts as $aFormLayout): ?]
-          [?php if(count($aFormLayout->aFormFields) > 1): ?]          
-          <div class="a-form-row">[?php echo $aFormLayout->getLabel() ?]</div>
+          [?php foreach($a_form->aFormFieldsets as $aFormFieldset): ?]
+          [?php if(count($aFormFieldset->aFormFields) > 1): ?]          
+          <div class="a-form-row">[?php echo $aFormFieldset->getLabel() ?]</div>
           [?php endif ?]
-          [?php foreach($aFormLayout->aFormFields as $aFormField): ?]
+          [?php foreach($aFormFieldset->aFormFields as $aFormField): ?]
           [?php $name = $aFormField->getId(); $field = $form[$name]; ?]
           <div class="a-form-row" id="a-admin-filters-[?php echo str_replace("_","-",$name) ?]">
           [?php echo $form[$name]->renderLabel() ?]

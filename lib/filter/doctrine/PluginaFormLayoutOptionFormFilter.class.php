@@ -1,12 +1,12 @@
 <?php
 
 /**
- * PluginaFormLayoutOption form.
+ * PluginaFormFieldsetOption form.
  *
  * @package    filters
- * @subpackage aFormLayoutOption *
+ * @subpackage aFormFieldsetOption *
  * @version    SVN: $Id: sfDoctrineFormTemplate.php 6174 2007-11-27 06:22:40Z fabien $
  */
-abstract class PluginaFormLayoutOptionFormFilter extends BaseaFormLayoutOptionFormFilter
+abstract class PluginaFormFieldsetOptionFormFilter extends BaseaFormFieldsetOptionFormFilter
 {
 }

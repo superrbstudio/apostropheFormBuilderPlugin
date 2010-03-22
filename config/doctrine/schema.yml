@@ -48,7 +48,7 @@ aForm:
       type: string(255)
 
 aFormFieldset:
-  tableName: a_form_layout
+  tableName: a_form_fieldset
   actAs:
     Sluggable:
       fields: [label]
@@ -80,7 +80,7 @@ aFormFieldset:
       foreignAlias: aFormFieldsets
 
 aFormFieldsetOption:
-  tableName: a_form_layout_option
+  tableName: a_form_fieldset_option
   columns:
     fieldset_id:
       type: integer

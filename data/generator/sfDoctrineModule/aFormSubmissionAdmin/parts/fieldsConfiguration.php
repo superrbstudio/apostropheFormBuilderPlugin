@@ -6,8 +6,8 @@
 
   public function getListLayout()
   {
-    return '<?php echo isset($this->config['list']['layout']) ? $this->config['list']['layout'] : 'tabular' ?>';
-<?php unset($this->config['list']['layout']) ?>
+    return '<?php echo isset($this->config['list']['fieldset']) ? $this->config['list']['fieldset'] : 'tabular' ?>';
+<?php unset($this->config['list']['fieldset']) ?>
   }
 
   public function getListTitle()

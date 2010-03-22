@@ -19,11 +19,11 @@
 
 <?php endforeach; ?>
 
-[?php foreach($a_form->aFormLayouts as $aFormLayout): ?]
+[?php foreach($a_form->aFormFieldsets as $aFormFieldset): ?]
 [?php slot('a-admin.current-header') ?]
-[?php if(count($aFormLayout->aFormFields) > 1): ?]
-  <th class="a-admin-text a-admin-list-th-field" style="text-align:center;" colspan="[?php echo count($aFormLayout->aFormFields); ?]">
-    [?php echo $aFormLayout['label'] ?]
+[?php if(count($aFormFieldset->aFormFields) > 1): ?]
+  <th class="a-admin-text a-admin-list-th-field" style="text-align:center;" colspan="[?php echo count($aFormFieldset->aFormFields); ?]">
+    [?php echo $aFormFieldset['label'] ?]
   </th>
 [?php else: ?]
 <th colspan="1"></th>

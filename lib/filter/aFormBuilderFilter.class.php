@@ -9,7 +9,7 @@
  */
 class aFormBuilderFilter extends BaseaFormSubmissionFormFilter
 { 
-  protected $filterLayoutFields;
+  protected $filterFieldsetFields;
   
   /*TODO: This needs to be changed to only use LIKE queries for text input fields.  Other fields like choice, radio,
    * etc should use different methods.
@@ -34,16 +34,16 @@ class aFormBuilderFilter extends BaseaFormSubmissionFormFilter
 		/*TODO: This is a temporary fix, the ideal solution would be to handle the filter form in the same manner
 		 * as the regular form, embedding subFilters into this form.  This will provide the functionality for now though
 		 */
-    foreach($this->getOption('a_form')->aFormLayouts as $aFormLayout)
+    foreach($this->getOption('a_form')->aFormFieldsets as $aFormFieldset)
     {
-    	$form = $aFormLayout->getForm();
-      foreach($aFormLayout->aFormFields as $aFormField)
+    	$form = $aFormFieldset->getForm();
+      foreach($aFormFieldset->aFormFields as $aFormField)
       {
         $this->setWidget($aFormField['id'], new sfWidgetFormInput());
-        $label = count($aFormLayout->aFormFields) > 1? $aFormField['name'] : $aFormLayout->getLabel();
+        $label = count($aFormFieldset->aFormFields) > 1? $aFormField['name'] : $aFormFieldset->getLabel();
         $this->getWidget($aFormField['id'])->setLabel($label);
         $this->setValidator($aFormField['id'], new sfValidatorString(array('required' => false)));
-        $this->filterLayoutFields[$aFormLayout->getId()][] = $this[$aFormField['id']];
+        $this->filterFieldsetFields[$aFormFieldset->getId()][] = $this[$aFormField['id']];
       }
     }
   }
@@ -55,9 +55,9 @@ class aFormBuilderFilter extends BaseaFormSubmissionFormFilter
       ->addSelect('fs.*')
       ->where('fs.id = ffs.submission_id')
       ->andWhere('fs.form_id = ?', $this->getOption('a_form')->getId());
-    foreach($this->getOption('a_form')->aFormLayouts as $aFormLayout)
+    foreach($this->getOption('a_form')->aFormFieldsets as $aFormFieldset)
     {
-      foreach($aFormLayout->aFormFields as $aFormField)
+      foreach($aFormFieldset->aFormFields as $aFormField)
       {
         $query->addSelect(sprintf("GROUP_CONCAT(IF(ffs.field_id = %s, ffs.value, null)) AS %s", $aFormField['id'], 'field_'.$aFormField['id']));
         if(isset($values[$aFormField['id']]))

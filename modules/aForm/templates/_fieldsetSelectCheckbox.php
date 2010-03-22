@@ -1,4 +1,4 @@
-<li class="options-label"><label><?php echo $aFormLayout['label'] ?></label></li>
+<li class="options-label"><label><?php echo $aFormFieldset['label'] ?></label></li>
 <li class="options">
 	<div class="options-container">
 		<ul>
@@ -12,6 +12,6 @@
 	<button type="submit" class="a-btn a-submit">Save Options</button>
 </li>
 
-<?php if ($aFormLayout->getRequired()): ?>
+<?php if ($aFormFieldset->getRequired()): ?>
 <div class="a-form-field-required">Required</div>
 <?php endif ?>

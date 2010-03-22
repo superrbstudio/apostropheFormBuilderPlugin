@@ -3,6 +3,6 @@
     <?php echo $form['input']->render(array('disabled' => $disabled)) ?>
 </li>
 
-<?php if ($aFormLayout->getRequired()): ?>
+<?php if ($aFormFieldset->getRequired()): ?>
 <div class="a-form-field-required">Required</div>
 <?php endif ?>

@@ -10,8 +10,8 @@ abstract class PluginaForm extends BaseaForm
   public function getfieldCount()
   {
     $count = 0;
-		foreach($this->aFormLayouts as $aFormLayout)
-		  $count = count($aFormLayout) + $count;
+		foreach($this->aFormFieldsets as $aFormFieldset)
+		  $count = count($aFormFieldset) + $count;
 	  return $count;
   }
   
@@ -22,7 +22,7 @@ abstract class PluginaForm extends BaseaForm
   
   public function fetchFieldByRank($rank = 1)
   {
-    $q = Doctrine::getTable('aFormLayout')
+    $q = Doctrine::getTable('aFormFieldset')
       ->createQuery('ff')
       ->innerJoin('ff.aForm f WITH f.id = ?', $this->getId())
       ->where('ff.rank = ?', $rank);
@@ -32,7 +32,7 @@ abstract class PluginaForm extends BaseaForm
   
   public function getAllFieldsByRank()
   {
-    $q = Doctrine::getTable('aFormLayout')
+    $q = Doctrine::getTable('aFormFieldset')
       ->createQuery('ff')
       ->innerJoin('ff.aForm f WITH f.id = ?', $this->getId())
       ->orderBy('ff.rank');

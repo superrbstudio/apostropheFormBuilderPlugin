@@ -46,8 +46,8 @@ abstract class BaseaFormActions extends sfActions
     $this->aForm = $this->getObject();
     $this->aFormForm = new aFormForm($this->aForm);
     
-    $this->aFormLayout = new aFormLayout();
-    $this->aFormLayoutForm = new aFormLayoutForm($this->aFormLayout, array('a_form' => $this->aForm));    
+    $this->aFormFieldset = new aFormFieldset();
+    $this->aFormFieldsetForm = new aFormFieldsetForm($this->aFormFieldset, array('a_form' => $this->aForm));    
    
 		$this->form = new aFormBuilder(array(), array('a_form' => $this->aForm));
   }
@@ -67,228 +67,228 @@ abstract class BaseaFormActions extends sfActions
   }
   
   /**
-   * aFormLayout actions.
+   * aFormFieldset actions.
    * These should be refactored into their own module ASAP.
    */
-  public function executeShowLayout(sfWebRequest $request)
+  public function executeShowFieldset(sfWebRequest $request)
   {
     $this->aForm = $this->getObject();
     $this->aFormForm = new aFormForm($this->aForm, array('a_form' => $this->aForm));
 
-    $this->aFormLayout = Doctrine::getTable('aFormLayout')->find($request->getParameter('layout_id'));    
-    $this->forward404Unless($this->aFormLayout);
+    $this->aFormFieldset = Doctrine::getTable('aFormFieldset')->find($request->getParameter('fieldset_id'));    
+    $this->forward404Unless($this->aFormFieldset);
 
-    return $this->renderPartial('aForm/aFormLayoutEdit', array(
+    return $this->renderPartial('aForm/aFormFieldsetEdit', array(
       'aForm'       => $this->aForm,
-      'aFormLayout' => $this->aFormLayout,
+      'aFormFieldset' => $this->aFormFieldset,
     ));
   }
   
-  public function executeAddLayout(sfWebRequest $request)
+  public function executeAddFieldset(sfWebRequest $request)
   {
     $this->aForm = $this->getObject();
     $this->aFormForm = new aFormForm($this->aForm);
 
-    $this->aFormLayoutForm = new aFormLayoutForm();
-    $this->aFormLayoutForm->bind($request->getParameter($this->aFormLayoutForm->getName()));
+    $this->aFormFieldsetForm = new aFormFieldsetForm();
+    $this->aFormFieldsetForm->bind($request->getParameter($this->aFormFieldsetForm->getName()));
     
-    $this->aFormLayout = $this->aFormLayoutForm->getObject();
+    $this->aFormFieldset = $this->aFormFieldsetForm->getObject();
 
-    if ($this->aFormLayoutForm->isValid())
+    if ($this->aFormFieldsetForm->isValid())
     {
-      $this->aFormLayoutForm->save();
+      $this->aFormFieldsetForm->save();
       
-      $this->aFormLayout = new aFormLayout();
-      $this->aFormLayoutForm = new aFormLayoutForm($this->aFormLayout, array('a_form' => $this->aForm));    
+      $this->aFormFieldset = new aFormFieldset();
+      $this->aFormFieldsetForm = new aFormFieldsetForm($this->aFormFieldset, array('a_form' => $this->aForm));    
     }
 
     $this->setTemplate('edit');
   }
   
-  public function executeUpdateLayout(sfWebRequest $request)
+  public function executeUpdateFieldset(sfWebRequest $request)
   {
     $this->aForm = $this->getObject();
 
-    $this->aFormLayout = Doctrine::getTable('aFormLayout')->find($request->getParameter('layout_id'));
-    $this->forward404Unless($this->aFormLayout);
+    $this->aFormFieldset = Doctrine::getTable('aFormFieldset')->find($request->getParameter('fieldset_id'));
+    $this->forward404Unless($this->aFormFieldset);
     
-    $this->aFormLayoutForm = new aFormLayoutForm($this->aFormLayout);
+    $this->aFormFieldsetForm = new aFormFieldsetForm($this->aFormFieldset);
 
-    $this->aFormLayoutForm->bind($request->getParameter($this->aFormLayoutForm->getName()));
+    $this->aFormFieldsetForm->bind($request->getParameter($this->aFormFieldsetForm->getName()));
 
-    if ($this->aFormLayoutForm->isValid())
+    if ($this->aFormFieldsetForm->isValid())
     {
-      $this->aFormLayout = $this->aFormLayoutForm->save();
+      $this->aFormFieldset = $this->aFormFieldsetForm->save();
       
-      return $this->renderPartial('aForm/aFormLayoutEdit', array(
+      return $this->renderPartial('aForm/aFormFieldsetEdit', array(
         'aForm'       => $this->aForm,
-        'aFormLayout' => $this->aFormLayout,
+        'aFormFieldset' => $this->aFormFieldset,
       ));
     }
     else
     {
-      return $this->renderPartial('aForm/aFormLayoutForm', array(
+      return $this->renderPartial('aForm/aFormFieldsetForm', array(
         'aForm'           => $this->aForm,
-        'aFormLayout'     => $this->aFormLayout,
-        'aFormLayoutForm' => $this->aFormLayoutForm
+        'aFormFieldset'     => $this->aFormFieldset,
+        'aFormFieldsetForm' => $this->aFormFieldsetForm
       ));
     }
   }
   
-  public function executeEditLayout(sfWebRequest $request)
+  public function executeEditFieldset(sfWebRequest $request)
   {    
     $this->aForm = $this->getObject();
 
-    $this->aFormLayout = Doctrine::getTable('aFormLayout')->find($request->getParameter('layout_id'));
-    $this->forward404Unless($this->aFormLayout);
+    $this->aFormFieldset = Doctrine::getTable('aFormFieldset')->find($request->getParameter('fieldset_id'));
+    $this->forward404Unless($this->aFormFieldset);
 
-    $this->aFormLayoutForm = new aFormLayoutForm($this->aFormLayout);
+    $this->aFormFieldsetForm = new aFormFieldsetForm($this->aFormFieldset);
 
-    return $this->renderPartial('aForm/aFormLayoutForm', array(
+    return $this->renderPartial('aForm/aFormFieldsetForm', array(
       'aForm'           => $this->aForm,
-      'aFormLayout'     => $this->aFormLayout,
-      'aFormLayoutForm' => $this->aFormLayoutForm
+      'aFormFieldset'     => $this->aFormFieldset,
+      'aFormFieldsetForm' => $this->aFormFieldsetForm
     ));
   }
   
-  public function executeDeleteLayout(sfWebRequest $request)
+  public function executeDeleteFieldset(sfWebRequest $request)
   {
     $this->aForm = $this->getObject();
     
-    $this->aFormLayout = Doctrine::getTable('aFormLayout')->find($request->getParameter('layout_id'));
-    $this->forward404Unless($this->aFormLayout);
+    $this->aFormFieldset = Doctrine::getTable('aFormFieldset')->find($request->getParameter('fieldset_id'));
+    $this->forward404Unless($this->aFormFieldset);
     
-    $this->aFormLayout->delete();
+    $this->aFormFieldset->delete();
 
     return sfView::NONE;
   }
   
-  public function executeSortLayouts(sfWebRequest $request)
+  public function executeSortFieldsets(sfWebRequest $request)
   {
     $aForm = $this->getObject();
-    $order = $request->getParameter('a-form-layout');
-    Doctrine::getTable('aFormLayout')->doSort($order);
+    $order = $request->getParameter('a-form-fieldset');
+    Doctrine::getTable('aFormFieldset')->doSort($order);
     
     return sfView::NONE;
   }
 
   /**
-   * aFormLayoutOption actions.
-   * These should be refactored into their own module just like the aFormLayout actions.
+   * aFormFieldsetOption actions.
+   * These should be refactored into their own module just like the aFormFieldset actions.
    */
-  public function executeShowLayoutOption(sfWebRequest $request)
+  public function executeShowFieldsetOption(sfWebRequest $request)
   {
     $this->aForm = $this->getObject();
     $this->aFormForm = new aFormForm($this->aForm, array('a_form' => $this->aForm));
 
-    $this->aFormLayout = Doctrine::getTable('aFormLayout')->find($request->getParameter('layout_id'));    
-    $this->forward404Unless($this->aFormLayout);
+    $this->aFormFieldset = Doctrine::getTable('aFormFieldset')->find($request->getParameter('fieldset_id'));    
+    $this->forward404Unless($this->aFormFieldset);
 
-    $this->aFormLayoutOption = Doctrine::getTable('aFormLayout')->find($request->getParameter('layout_option_id'));    
-    $this->forward404Unless($this->aFormLayoutOption);
+    $this->aFormFieldsetOption = Doctrine::getTable('aFormFieldset')->find($request->getParameter('fieldset_option_id'));    
+    $this->forward404Unless($this->aFormFieldsetOption);
 
-    $this->aFormLayoutOptionForm = new aFormLayoutOptionForm($this->aFormLayoutOption);
+    $this->aFormFieldsetOptionForm = new aFormFieldsetOptionForm($this->aFormFieldsetOption);
 
-    return $this->renderPartial('aForm/aFormLayoutEdit', array(
+    return $this->renderPartial('aForm/aFormFieldsetEdit', array(
       'aForm'             => $this->aForm,
-      'aFormLayout'       => $this->aFormLayout,
-      'aFormLayoutOption' => $this->aFormLayoutOption, 
+      'aFormFieldset'       => $this->aFormFieldset,
+      'aFormFieldsetOption' => $this->aFormFieldsetOption, 
     ));
   }
   
-  public function executeAddLayoutOption(sfWebRequest $request)
+  public function executeAddFieldsetOption(sfWebRequest $request)
   {
     $this->aForm = $this->getObject();
     $this->aFormForm = new aFormForm($this->aForm);
 
-    $this->aFormLayout = Doctrine::getTable('aFormLayout')->find($request->getParameter('layout_id'));    
-    $this->forward404Unless($this->aFormLayout);
+    $this->aFormFieldset = Doctrine::getTable('aFormFieldset')->find($request->getParameter('fieldset_id'));    
+    $this->forward404Unless($this->aFormFieldset);
 
-    $this->aFormLayoutOptionForm = new aFormLayoutOptionForm();
-    $this->aFormLayoutOptionForm->bind($request->getParameter($this->aFormLayoutOptionForm->getName()));
+    $this->aFormFieldsetOptionForm = new aFormFieldsetOptionForm();
+    $this->aFormFieldsetOptionForm->bind($request->getParameter($this->aFormFieldsetOptionForm->getName()));
     
-    $this->aFormLayoutOption = $this->aFormLayoutOptionForm->getObject();
+    $this->aFormFieldsetOption = $this->aFormFieldsetOptionForm->getObject();
 
-    if ($this->aFormLayoutOptionForm->isValid())
+    if ($this->aFormFieldsetOptionForm->isValid())
     {
-      $this->aFormLayoutOptionForm->save();
+      $this->aFormFieldsetOptionForm->save();
       
-      $this->aFormLayoutOption = new aFormLayoutOption();
-      $this->aFormLayoutOptionForm = new aFormLayoutForm($this->aFormLayout, array('a_form' => $this->aForm));    
+      $this->aFormFieldsetOption = new aFormFieldsetOption();
+      $this->aFormFieldsetOptionForm = new aFormFieldsetForm($this->aFormFieldset, array('a_form' => $this->aForm));    
     }
 
-    return $this->renderPartial('aForm/aFormLayoutEdit', array(
+    return $this->renderPartial('aForm/aFormFieldsetEdit', array(
       'aForm'       => $this->aForm,
-      'aFormLayout' => $this->aFormLayout,
+      'aFormFieldset' => $this->aFormFieldset,
     ));
   }
   
-  public function executeUpdateLayoutOption(sfWebRequest $request)
+  public function executeUpdateFieldsetOption(sfWebRequest $request)
   {
     $this->aForm = $this->getObject();
 
-    $this->aFormLayout = Doctrine::getTable('aFormLayout')->find($request->getParameter('layout_id'));
-    $this->forward404Unless($this->aFormLayout);
+    $this->aFormFieldset = Doctrine::getTable('aFormFieldset')->find($request->getParameter('fieldset_id'));
+    $this->forward404Unless($this->aFormFieldset);
     
-    $this->aFormLayoutOption = Doctrine::getTable('aFormLayout')->find($request->getParameter('layout_option_id'));    
-    $this->forward404Unless($this->aFormLayoutOption);
+    $this->aFormFieldsetOption = Doctrine::getTable('aFormFieldset')->find($request->getParameter('fieldset_option_id'));    
+    $this->forward404Unless($this->aFormFieldsetOption);
 
-    $this->aFormLayoutOptionForm = new aFormLayoutOptionForm($this->aFormLayoutOption);
+    $this->aFormFieldsetOptionForm = new aFormFieldsetOptionForm($this->aFormFieldsetOption);
 
-    $this->aFormLayoutOptionForm->bind($request->getParameter($this->aFormLayoutOptionForm->getName()));
+    $this->aFormFieldsetOptionForm->bind($request->getParameter($this->aFormFieldsetOptionForm->getName()));
 
-    if ($this->aFormLayoutForm->isValid())
+    if ($this->aFormFieldsetForm->isValid())
     {
-      $this->aFormLayout = $this->aFormLayoutForm->save();
+      $this->aFormFieldset = $this->aFormFieldsetForm->save();
       
-      return $this->renderPartial('aForm/aFormLayoutEdit', array(
+      return $this->renderPartial('aForm/aFormFieldsetEdit', array(
         'aForm'             => $this->aForm,
-        'aFormLayout'       => $this->aFormLayout,
-        'aFormLayoutOption' => $this->aFormLayoutOption, 
+        'aFormFieldset'       => $this->aFormFieldset,
+        'aFormFieldsetOption' => $this->aFormFieldsetOption, 
       ));
     }
   }
   
-  public function executeEditLayoutOption(sfWebRequest $request)
+  public function executeEditFieldsetOption(sfWebRequest $request)
   {    
     $this->aForm = $this->getObject();
 
-    $this->aFormLayout = Doctrine::getTable('aFormLayout')->find($request->getParameter('layout_id'));
-    $this->forward404Unless($this->aFormLayout);
+    $this->aFormFieldset = Doctrine::getTable('aFormFieldset')->find($request->getParameter('fieldset_id'));
+    $this->forward404Unless($this->aFormFieldset);
     
-    $this->aFormLayoutOption = Doctrine::getTable('aFormLayout')->find($request->getParameter('layout_option_id'));    
-    $this->forward404Unless($this->aFormLayoutOption);
+    $this->aFormFieldsetOption = Doctrine::getTable('aFormFieldset')->find($request->getParameter('fieldset_option_id'));    
+    $this->forward404Unless($this->aFormFieldsetOption);
 
-    $this->aFormLayoutOptionForm = new aFormLayoutOptionForm($this->aFormLayoutOption);
+    $this->aFormFieldsetOptionForm = new aFormFieldsetOptionForm($this->aFormFieldsetOption);
 
-    return $this->renderPartial('aForm/aFormLayoutEdit', array(
+    return $this->renderPartial('aForm/aFormFieldsetEdit', array(
       'aForm'                 => $this->aForm,
-      'aFormLayout'           => $this->aFormLayout,
-      'aFormLayoutOption'     => $this->aFormLayoutOption, 
-      'aFormLayoutOptionForm' => $this->aFormLayoutOptionForm, 
+      'aFormFieldset'           => $this->aFormFieldset,
+      'aFormFieldsetOption'     => $this->aFormFieldsetOption, 
+      'aFormFieldsetOptionForm' => $this->aFormFieldsetOptionForm, 
     ));
   }
   
-  public function executeDeleteLayoutOption(sfWebRequest $request)
+  public function executeDeleteFieldsetOption(sfWebRequest $request)
   {
     $this->aForm = $this->getObject();
     
-    $this->aFormLayoutOption = Doctrine::getTable('aFormLayout')->find($request->getParameter('layout_option_id'));    
-    $this->forward404Unless($this->aFormLayoutOption);
+    $this->aFormFieldsetOption = Doctrine::getTable('aFormFieldset')->find($request->getParameter('fieldset_option_id'));    
+    $this->forward404Unless($this->aFormFieldsetOption);
     
-    $this->aFormLayoutOption->delete();
+    $this->aFormFieldsetOption->delete();
 
     return sfView::NONE;
   }
   
-  public function executeSortLayoutOptions(sfWebRequest $request)
+  public function executeSortFieldsetOptions(sfWebRequest $request)
   {
     $this->aForm = $this->getObject();
     
-    $this->aFormLayout = Doctrine::getTable('aFormLayout')->find($request->getParameter('layout_id'));
+    $this->aFormFieldset = Doctrine::getTable('aFormFieldset')->find($request->getParameter('fieldset_id'));
     
-    $order = $request->getParameter('a-form-layout-optiont');
-    Doctrine::getTable('aFormLayoutOption')->doSort($order);
+    $order = $request->getParameter('a-form-fieldset-optiont');
+    Doctrine::getTable('aFormFieldsetOption')->doSort($order);
     
     return sfView::NONE;
   }

@@ -25,8 +25,8 @@ abstract class BaseaFormSubmissionAdminActions extends autoAFormSubmissionAdminA
     $filters = $this->getFilters();
     
     $q = Doctrine::getTable('aForm')->createQuery('f')
-      ->leftJoin('f.aFormLayouts fl INDEXBY fl.id')
-  		->leftJoin('fl.aFormLayoutOptions flo INDEXBY flo.id')
+      ->leftJoin('f.aFormFieldsets fl INDEXBY fl.id')
+  		->leftJoin('fl.aFormFieldsetOptions flo INDEXBY flo.id')
       ->leftJoin('fl.aFormFields ff INDEXBY ff.id');
     
     if ($filters['form_id'])
@@ -110,17 +110,17 @@ abstract class BaseaFormSubmissionAdminActions extends autoAFormSubmissionAdminA
 		$headers = array();
 		$headers[] = 'Timestamp';
     $headers[] = 'IP Address';
-		foreach($this->a_form->aFormLayouts as $aFormLayout)
+		foreach($this->a_form->aFormFieldsets as $aFormFieldset)
 		{
-			if(count($aFormLayout->aFormFields) == 1)
+			if(count($aFormFieldset->aFormFields) == 1)
 			{
-				$headers[] = $aFormLayout->getLabel();
+				$headers[] = $aFormFieldset->getLabel();
 			}
 			else
 			{
-				foreach($aFormLayout->aFormFields as $aFormField)
+				foreach($aFormFieldset->aFormFields as $aFormField)
 				{
-					$headers[] = $aFormLayout->getLabel().' '.$aFormField->getName();
+					$headers[] = $aFormFieldset->getLabel().' '.$aFormField->getName();
 				}
 			}
 		}
@@ -131,9 +131,9 @@ abstract class BaseaFormSubmissionAdminActions extends autoAFormSubmissionAdminA
 			$row = array();
 			$row[] = $submission['created_at'];
       $row[] = $submission['ip_address'];
-			foreach($this->a_form->aFormLayouts as $aFormLayout)
+			foreach($this->a_form->aFormFieldsets as $aFormFieldset)
 			{
-				foreach($aFormLayout->aFormFields as $aFormField)
+				foreach($aFormFieldset->aFormFields as $aFormField)
 				{
 					$row[] = $submission['field_'.$aFormField->getId()];
 				}
