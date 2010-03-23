@@ -1,7 +1,7 @@
 <?php if ($listActions = $this->configuration->getValue('list.batch_actions')): ?>
 <li class="a-admin-batch-actions-choice">
   <select name="batch_action">
-    <option value="">[?php echo __('Choose an action', array(), 'a-admin') ?]</option>
+    <option value="">[?php echo __('Choose an action', array(), 'apostrophe') ?]</option>
 <?php foreach ((array) $listActions as $action => $params): ?>
     <?php echo $this->addCredentialCondition('<option value="'.$action.'">[?php echo __(\''.$params['label'].'\', array(), \'a-admin\') ?]</option>', $params) ?>
 <?php endforeach; ?>
