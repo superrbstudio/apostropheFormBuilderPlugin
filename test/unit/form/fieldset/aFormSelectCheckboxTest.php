@@ -9,18 +9,14 @@ include dirname(__FILE__).'/../../../bootstrap/Doctrine.php';
 
 $choices = array('CB1' => 'Checkbox 1', 'CB2' => 'Checkbox 2');
 
-$t = new lime_test((count($choices) * 2) + 1);
-
-$true_values = array('1');
-$false_values = array('0', ' ', '');
+$t = new lime_test(count($choices) + 1);
 
 sfForm::disableCSRFProtection();
 $form = new aFormSelectCheckbox(null, array('choices' => $choices));
 
 foreach ($choices as $key => $choice)
 {
-  $t->is_deeply($form->getValidator($key)->getOption('true_values'), $true_values, 'Checkbox is validating true_values on your fields.');
-  $t->is_deeply($form->getValidator($key)->getOption('false_values'), $false_values, 'Checkbox is validating false_values on your fields.');
+  $t->is_deeply($form->getValidator($key)->getOption('choices'), array($key, ''), 'Checkbox is validating the choices.');
 }
 
 $form->disableLocalCSRFProtection();
