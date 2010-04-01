@@ -1,4 +1,4 @@
-<?php use_helper('jQuery', 'Form') ?>
+<?php use_helper('jQuery') ?>
 
 <?php echo jq_form_remote_tag(array(
   'url' => 'aForm/editFieldOptions', 
