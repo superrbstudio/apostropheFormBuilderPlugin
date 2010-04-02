@@ -26,6 +26,7 @@ abstract class PluginaFormFieldset extends BaseaFormFieldset
     
   public function getFormOptions()
   {
+    
     $options = array(
       'slug' => $this->getSlug(), 
       'label' => $this->getLabel(),
@@ -56,10 +57,10 @@ abstract class PluginaFormFieldset extends BaseaFormFieldset
   
   public function getForm($defaults = null, $options = array())
   {
-
+    
     $class = $this->getFormClass();
     $this->form = new $class($defaults, array_merge($options, $this->getFormOptions()));
-    
+
     return $this->form;
   }
   

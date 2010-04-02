@@ -11,6 +11,9 @@
  */
 abstract class BaseaFormSubmissionComponents extends sfComponents
 {
-	
+  public function executeNew()
+  {
+    $this->form = new aFormBuilder(array(), array('a_form' => $this->aForm));
+  }
 	
 }
