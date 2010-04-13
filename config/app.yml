@@ -1,0 +1,9 @@
+all:
+  aFormBuilder:
+    fieldsets:
+      input: "Text Field"
+      select: "Select Menu"
+      select_radio: "Radio Select"
+      select_checkbox: "Checkbox Select"
+      address: "Address Field"
+      page_break: "Page Break"
