@@ -44,4 +44,41 @@ abstract class PluginaForm extends BaseaForm
   {
     return $this->getTable()->getMaxRank($this->getId());
   }
+
+  public function getSubform($rank = 0, $aFormSubmission = null)
+  {
+    $i = 0;
+    $subFieldset = array();
+    foreach($this->getAllFieldsByRank() as $aFormFieldset)
+    {
+      if($aFormFieldset['type'] == 'page_break')
+      {
+        $i = $i + 1;
+      }
+      else if($i == $rank)
+      {
+        $subFieldset[] = $aFormFieldset;
+      }
+    }
+
+    $form = new aFormBuilder(
+      $aFormSubmission,
+      array('a_form' => $this, 'a_form_fieldsets' => $subFieldset));
+    
+    return $form;
+  }
+
+  public function countSubforms()
+  {
+    $i = 1;
+    foreach($this->aFormFieldsets as $aFormFieldset)
+    {
+      if($aFormFieldset['type'] == 'page_break')
+      {
+        $i++;
+      }
+    }
+    return $i;
+  }
+
 }

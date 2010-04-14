@@ -15,5 +15,18 @@ abstract class BaseaFormSubmissionComponents extends sfComponents
   {
     $this->form = new aFormBuilder(array(), array('a_form' => $this->aForm));
   }
+
+  /**
+   * executeSubForm renders html for a sub form.  An apostrophe form is broken
+   * up into many sub forms by the page break fieldset.
+   *
+   * @param $aForm The apostrophe form to use for rendering
+   * @param $aFormSubmission The apostrophe form submission
+   * @param $rank The index of the subform that should be rendered.
+   */
+  public function executeSubform()
+  {
+    $this->form = $this->aForm->getSubform($this->rank, $this->aFormSubmission);
+  }
 	
 }
