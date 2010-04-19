@@ -20,15 +20,16 @@
 </ul>
 
 <ul class="a-form-field submit">
-	<li><input type="submit" name="submit" value="Submit" class="a-submit"></li>
+	<li><input type="submit" name="submit" value="Save" class="a-submit"></li>
   <?php if ($aFormFieldset->isNew()): ?>
-  <li class="cancel"> or <?php echo jq_link_to_function('cancel', "$('#add-fieldset-button-".$aForm->getId()."').show();$('#add-fieldset-form-".$aForm->getId()."').hide()", array('class' => 'b')) ?></li>
+  <li class="cancel"><?php echo jq_link_to_function('cancel', "$('#add-fieldset-button-".$aForm->getId()."').show();$('#add-fieldset-form-".$aForm->getId()."').hide()", array('class' => 'a-btn no-label icon a-cancel')) ?></li>
   <?php else: ?>
-  <li class="cancel"> or <?php echo jq_link_to_remote('cancel', array(
+  <li class="cancel"><?php echo jq_link_to_remote('cancel', array(
     'url' => '@a_form_showFieldset?id='.$aForm->getId().'&fieldset_id='.$aFormFieldset->getId(), 
     'update' => 'a-form-fieldset-'.$aFormFieldset->getId(),
-    'method' => 'get', 
-  ), array('class' => 'b')) ?></li>
+    'method' => 'get',
+		'complete' => 'aUI("#a-form-fieldset-'.$aFormFieldset->getId().'");', 
+  ), array('class' => 'a-btn no-label icon a-cancel')) ?></li>
   <?php endif ?>
 </ul>
 

@@ -5,4 +5,4 @@
   <?php echo $field ?>
   <?php if (!$field->isHidden()): ?></div><?php endif ?>
 <?php endforeach ?>
-<input type="submit" name="submit" value="Submit" class="a-submit">
+<input type="submit" name="submit" value="Add" class="a-submit">

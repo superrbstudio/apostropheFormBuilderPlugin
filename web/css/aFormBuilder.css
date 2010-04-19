@@ -1,3 +1,33 @@
+.a-pagebreak-top
+{
+	border-bottom:2px dashed #ccc;
+	border-left:2px solid #ccc;
+	border-right:2px solid #ccc;
+	height:20px;
+	width:100%;
+	float:left;
+	clear:both;
+}
+
+.a-pagebreak-bottom
+{
+	border-top:2px dashed #ccc;
+	border-left:2px solid #ccc;
+	border-right:2px solid #ccc;
+	height:20px;
+	width:100%;
+	float:left;
+	clear:both;
+}
+
+.a-pagebreak
+{
+	float:left;
+	margin:10px 0;
+	width:100%;
+	text-align:center;
+}
+
 .a-form,
 div.a-form-builder
 {
@@ -56,7 +86,8 @@ div.a-form-builder
 	margin-left: 20px;
 }
 
-.a-form-builder input,
+.a-form-builder input[type="text"],
+.a-form-builder input[type="password"],
 .a-form-builder select,
 .a-form-builder textarea
 { 
@@ -70,18 +101,11 @@ div.a-form-builder
 	width: 278px;
 }
 
-.a-form-builder.editing input,
+.a-form-builder.editing input[type="text"],
+.a-form-builder.editing input[type="password"],
 .a-form-builder.editing textarea
 { /* Editing */
 	width: 198px;
-}
-
-.a-form-builder input.a-submit
-{
-	padding: 0 4px;
-	font-size: 12px;
-	border: none;
-	margin: 0;
 }
 
 .a-form-builder select,
@@ -108,6 +132,7 @@ display: none !important;
 .a-form-builder.adding
 {
 	position: relative;
+	margin:20px 0;
 }
 
 .a-form-builder.editing-field .a-form-row,
@@ -302,7 +327,7 @@ padding: 0;
 	position: absolute;
 	top: 0;
 	right: 0;
-	width: 105px;
+	width: auto;
 }
 
 .a-form-builder.editing-field .a-form-field.submit li,

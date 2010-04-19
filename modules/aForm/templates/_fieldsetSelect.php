@@ -7,7 +7,7 @@
 			<li class="option new"><label><input type="text" value="Label" class="a-default-value" /></label><input type="text" value="Value" class="a-default-value" /><a href="#" class="a-btn icon no-label a-add" title="Add Option">Add</a></li>
 		</ul>
 	</div>
-	<button type="submit" class="a-btn a-submit">Save Options</button>
+	<input type="submit" value="Save" class="a-btn a-submit" />
 </li>
 
 <?php if ($aFormFieldset->getRequired()): ?>

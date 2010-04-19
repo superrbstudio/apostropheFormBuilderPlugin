@@ -10,7 +10,8 @@
 <li class="edit"><?php echo jq_link_to_remote('Edit<span></span>', array(
   'update' => 'a-form-fieldset-'.$aFormFieldset->getId(),
   'url' => '@a_form_editFieldset?id='.$aFormFieldset->getFormId().'&fieldset_id='.$aFormFieldset->getId(),
-  'script' => true, 
+  'script' => true,
+	'complete' => 'aUI("#a-form-fieldset-'.$aFormFieldset->getId().'");', 
 ), array('class' => 'a-btn icon no-label a-edit', 'title' => 'Edit', )) ?></li>
 
 <li>
