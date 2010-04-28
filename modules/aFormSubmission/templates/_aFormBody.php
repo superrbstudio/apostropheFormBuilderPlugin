@@ -28,7 +28,6 @@
   <?php endif ?>
 </li>
 <?php endforeach ?>
-<li><input type="submit" class="a-submit" value="Submit" /></li>
 </ul>
 
 
