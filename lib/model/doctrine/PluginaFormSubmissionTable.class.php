@@ -4,5 +4,15 @@
  */
 class PluginaFormSubmissionTable extends Doctrine_Table
 {
+  public function getUserSubmissionsQuery($form_id, $user_id, $q = null)
+  {
+    if(is_null($q))
+      $q = Doctrine::getTable('aFormSubmission')->createQuery('fs');
 
+    $q->innerJoin('fs.aFormFieldSubmissions ffs INDEXBY ffs.field_id')
+      ->addWhere('fs.user_id = ?', $user_id)
+      ->addWhere('fs.form_id = ?', $form_id);
+
+    return $q;
+  }
 }

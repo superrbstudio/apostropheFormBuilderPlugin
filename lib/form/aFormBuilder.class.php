@@ -13,14 +13,16 @@ class aFormBuilder extends BaseaFormSubmissionForm
     }	
 		$this->setDefault('form_id', $this->getOption('a_form')->getId());
 		$this->setWidget('form_id' , new sfWidgetFormInputHidden());
-		
+
     $fieldsetWrapperForm = new sfForm();
     
-    foreach ($this->getOption('a_form')->aFormFieldsets as $aFormFieldset)
+    foreach ($this->getOption('a_form_fieldsets', $this->getOption('a_form')->aFormFieldsets) as $aFormFieldset)
     {
-      $fieldsetWrapperForm->embedForm($aFormFieldset->getId(), $aFormFieldset->getForm(
-        $this->getObject()->getFieldSubmissionsForFieldset($aFormFieldset['id']), 
-        array('a_form_fieldset' => $aFormFieldset)
+      $fieldsetWrapperForm->embedForm(
+        $aFormFieldset->getId(),
+        $aFormFieldset->getForm(
+          $this->getObject()->getFieldSubmissionsForFieldset($aFormFieldset['id']),
+          array('a_form_fieldset' => $aFormFieldset)
       ));
 			$fieldsetWrapperForm[$aFormFieldset->getId()]->getWidget()->setLabel($aFormFieldset->getLabel());
     }
@@ -28,7 +30,8 @@ class aFormBuilder extends BaseaFormSubmissionForm
     $this->widgetSchema->setNameFormat('form[%s]');
 		$this->useFields(array('form_id', 'fields'));
   }
-	  
+	
+
   public function updateObjectEmbeddedForms($values, $forms = null)
   {
     foreach($this->getEmbeddedForm('fields')->getEmbeddedForms() as $name => $fieldsetForms)
@@ -49,7 +52,8 @@ class aFormBuilder extends BaseaFormSubmissionForm
   public function doUpdateObject($values)
   {
     $this->getObject()->setFormId($this->getOption('a_form')->getId());
-    $this->getObject()->setIpAddress($_SERVER['REMOTE_ADDR']);  
+    $this->getObject()->setIpAddress($_SERVER['REMOTE_ADDR']);
+    $this->getObject()->setUserId($this->getOption('user_id', null));
   }
   
 }

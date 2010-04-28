@@ -18,4 +18,5 @@ abstract class PluginaFormSubmission extends BaseaFormSubmission
 		}
 		return $aFieldSubmissions;
 	}
+
 }

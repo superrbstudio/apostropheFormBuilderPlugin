@@ -45,7 +45,7 @@ abstract class PluginaForm extends BaseaForm
     return $this->getTable()->getMaxRank($this->getId());
   }
 
-  public function getSubform($rank = 0, $aFormSubmission = null)
+  public function getSubform($rank = 0, $aFormSubmission = null, $options = array())
   {
     $i = 0;
     $subFieldset = array();
@@ -63,7 +63,10 @@ abstract class PluginaForm extends BaseaForm
 
     $form = new aFormBuilder(
       $aFormSubmission,
-      array('a_form' => $this, 'a_form_fieldsets' => $subFieldset));
+      array_merge(
+        $options,
+        array('a_form' => $this, 'a_form_fieldsets' => $subFieldset)
+    ));
     
     return $form;
   }
@@ -79,6 +82,13 @@ abstract class PluginaForm extends BaseaForm
       }
     }
     return $i;
+  }
+
+  public function getUserSubmissions($user_id, $q = null, $hydrationMode = null)
+  {
+    return Doctrine::getTable('aFormSubmission')
+      ->getUserSubmissionsQuery($this['id'], $user_id, $q)
+      ->execute(array(), $hydrationMode);
   }
 
 }
