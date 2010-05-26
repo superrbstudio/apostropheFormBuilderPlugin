@@ -1,50 +1,36 @@
 <?php use_helper('jQuery') ?>
 
 <?php echo jq_form_remote_tag(array(
-  'url' => 'aForm/editFieldOptions', 
-  'update' => 'a-form-field-'.$a_form_fieldset->getId(),
+  'url' => 'aForm/updateFieldsetOption?id='.$a_form_fieldset['form_id'].'&fieldset_id='.$a_form_fieldset['id'],
+  'update' => 'a-form-fieldset-'.$a_form_fieldset->getId(),
   'script' => 'true', 
   'complete' => '$("#a-form-field-options-'.$a_form_fieldset->getId().' .a-form-field-options input:last").focus()', 
   ), array('id' => 'a-form-field-options-'.$a_form_fieldset->getId())) ?>
   <?php echo $a_form_fieldset_options_form->renderGlobalErrors(); ?>
-	
-	<ul class="a-form-field-options <?php echo $a_form_fieldset->getType() ?>">
-  <?php $n=1; foreach($a_form_fieldset_options_form['options'] as $field): ?>
-   	<li>
-   	  <?php echo $field['id'] ?>
-	    <?php echo $field['name']->renderError(); ?>
-			<?php echo $field['name']->render(); ?>
-		</li>
-  <?php $n++; endforeach; ?>
-  </ul>
-
-  <?php echo input_hidden_tag('field_id', $a_form_fieldset->getId(), array()) ?>
-  
-  <input type="submit" value="save" class="a-submit" />
-
-<?php if ($a_form_fieldset->getType() == 'select'): ?>
-<script type="text/javascript">
-		$('.a-form-field-options.select input').focus(function(){
-				$(this).parent().siblings().css('background','none');
-				$(this).parent().css('background-color','#eee');
-		});
-</script>
-<?php endif ?>
-
-<?php if ($a_form_fieldset->getType() == 'select_radio'): ?>	
-<script type="text/javascript">
-	var radios = $('.a-form-field-options.select_radio input[type="text"]');
-	radios.parent().find('input[type="radio"]').remove();
-	radios.before('<input type="radio" class="radio" disabled="disabled" />');
-</script>
-<?php endif ?>
-
-<?php if ($a_form_fieldset->getType() == 'select_checkbox'): ?>	
-<script type="text/javascript">
-	var checkboxes = $('.a-form-field-options.select_checkbox input[type="text"]');
-	checkboxes.parent().find('input[type="checkbox"]').remove();
-	checkboxes.before('<input type="checkbox" class="checkbox" disabled="disabled" />');
-</script>
-<?php endif ?>
-
+  <?php echo $a_form_fieldset_options_form->renderHiddenFields(); ?>
+<li class="options">
+	<div class="options-container">
+    <ul>
+    <?php $optionsForm = $a_form_fieldset_options_form->getEmbeddedForm('options') ?>
+    <?php foreach($a_form_fieldset_options_form['options'] as $key => $field): ?>
+      <li class="option">
+        <?php echo $field['name']->render(); ?> <span><?php echo $field['value']->render(); ?></span>
+        <?php echo jq_link_to_remote('Delete', array(
+          'url' => 'aForm/updateFieldsetOption?id='.$a_form_fieldset['form_id'].'&fieldset_id='.$a_form_fieldset['id'].'&delete='.$a_form_fieldset_options_form->getEmbeddedForm('options')->getEmbeddedForm($key)->getObject()->getId(),
+          'with' => "$('#a-form-field-options-".$a_form_fieldset->getId()."').serialize()",
+          'update' => 'a-form-fieldset-'.$a_form_fieldset->getId(),
+          ), array('class' => 'a-btn icon no-label a-delete')) ?>
+      </li>
+    <?php endforeach; ?>
+      <li><?php echo jq_link_to_remote('Add', array(
+          'url' => 'aForm/updateFieldsetOption?id='.$a_form_fieldset['form_id'].'&fieldset_id='.$a_form_fieldset['id'].'&add=1',
+          'with' => "$('#a-form-field-options-".$a_form_fieldset->getId()."').serialize()",
+          'update' => 'a-form-fieldset-'.$a_form_fieldset->getId(),
+          ), array('class' => 'a-btn icon no-label a-add')) ?> </li>
+      <li><input type="submit" value="Save" class="a-btn a-submit" /></li>
+    </ul>
+  </div>
+</li>
 </form>
+
+  

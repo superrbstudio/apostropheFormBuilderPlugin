@@ -10,4 +10,9 @@
  */
 abstract class PluginaFormFieldsetOptionForm extends BaseaFormFieldsetOptionForm
 {
+  public function setup()
+  {
+    parent::setup();
+    unset($this['fieldset_id'], $this['rank']);
+  }
 }

@@ -13,6 +13,7 @@
 abstract class PluginaFormFieldset extends BaseaFormFieldset
 {
   protected $form;
+  protected $optionsForm;
   
   public static function getTypes()
   {
@@ -47,7 +48,7 @@ abstract class PluginaFormFieldset extends BaseaFormFieldset
   
   public function usesOptions()
   {
-    if (in_array($this->getType(), array('select', 'select_radio', 'select_checkbox')))
+    if (in_array($this->getType(), array('select', 'selectRadio', 'select_checkbox')))
     {
       return true;
     }
@@ -66,9 +67,17 @@ abstract class PluginaFormFieldset extends BaseaFormFieldset
   
   public function getOptionsForm()
   {
-    $form = new aFormFieldsetOptionsForm(null, array('a_form_fieldset' => $this));
+    if(!isset($this->optionsForm))
+    {
+      $this->optionsForm = new aFormFieldsetOptionsForm($this);
+    }
     
-    return $form;
+    return $this->optionsForm;
+  }
+
+  public function setOptionsForm($form)
+  {
+    $this->optionsForm = $form;
   }
   
   public function preSave($event)

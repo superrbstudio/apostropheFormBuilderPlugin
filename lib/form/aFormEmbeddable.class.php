@@ -1,6 +1,6 @@
 <?php
 
-abstract class aFormEmbeddable extends sfForm
+abstract class aFormEmbeddable extends BaseForm
 {
   protected $objects = array();
   

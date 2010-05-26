@@ -6,20 +6,17 @@
 abstract class PluginaForm extends BaseaForm
 {
   protected $fieldCount;
-  
-  public function getfieldCount()
-  {
-    $count = 0;
-		foreach($this->aFormFieldsets as $aFormFieldset)
-		  $count = count($aFormFieldset) + $count;
-	  return $count;
-  }
-  
+
+  /**
+   * Creates a symfony form representing this object and its related fieldsets.
+   * @return aFormBuilder
+   */
   public function buildForm()
   {
     return new aFormBuilder(null, array('a_form' => $this));
   }
-  
+
+
   public function fetchFieldByRank($rank = 1)
   {
     $q = Doctrine::getTable('aFormFieldset')
@@ -45,6 +42,13 @@ abstract class PluginaForm extends BaseaForm
     return $this->getTable()->getMaxRank($this->getId());
   }
 
+  /**
+   * Returns a subform seperated by a pagebreak field.
+   * @param integer $rank
+   * @param aFormSubmission $aFormSubmission
+   * @param array $options
+   * @return aFormBuilder
+   */
   public function getSubform($rank = 0, $aFormSubmission = null, $options = array())
   {
     $i = 0;
@@ -71,6 +75,10 @@ abstract class PluginaForm extends BaseaForm
     return $form;
   }
 
+  /**
+   * Counts the number of subForms that exist in this form
+   * @return integer
+   */
   public function countSubforms()
   {
     $i = 1;
@@ -84,11 +92,30 @@ abstract class PluginaForm extends BaseaForm
     return $i;
   }
 
+  /**
+   * Gets all of the user submissions for this form from a user
+   * @param <type> $user_id
+   * @param <type> $q
+   * @param <type> $hydrationMode
+   * @return <type>
+   */
   public function getUserSubmissions($user_id, $q = null, $hydrationMode = null)
   {
     return Doctrine::getTable('aFormSubmission')
       ->getUserSubmissionsQuery($this['id'], $user_id, $q)
       ->execute(array(), $hydrationMode);
+  }
+
+
+  public function getFieldsetBySlug($slug)
+  {
+    foreach($this->aFormFieldsets as $fieldset)
+    {
+      if($fieldset['slug'] == $slug)
+      {
+        return $fieldset;
+      }
+    }
   }
 
 }

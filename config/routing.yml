@@ -15,7 +15,7 @@ a_form:
       sortFieldsets:   post
       showFieldsetOption:    get
       addFieldsetOption:     post
-      updateFieldsetOption:  put
+      updateFieldsetOption:  [post, put]
       editFieldsetOption:    [get, post]
       deleteFieldsetOption:  post
       sortFieldsetOptions:   post

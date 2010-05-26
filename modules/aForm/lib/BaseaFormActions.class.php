@@ -119,20 +119,13 @@ abstract class BaseaFormActions extends sfActions
     if ($this->aFormFieldsetForm->isValid())
     {
       $this->aFormFieldset = $this->aFormFieldsetForm->save();
-      
-      return $this->renderPartial('aForm/aFormFieldsetEdit', array(
-        'aForm'       => $this->aForm,
-        'aFormFieldset' => $this->aFormFieldset,
-      ));
     }
-    else
-    {
-      return $this->renderPartial('aForm/aFormFieldsetForm', array(
-        'aForm'           => $this->aForm,
-        'aFormFieldset'     => $this->aFormFieldset,
-        'aFormFieldsetForm' => $this->aFormFieldsetForm
-      ));
-    }
+
+    return $this->renderPartial('aForm/aFormFieldsetForm', array(
+      'aForm'           => $this->aForm,
+      'aFormFieldset'     => $this->aFormFieldset,
+      'aFormFieldsetForm' => $this->aFormFieldsetForm
+    ));
   }
   
   public function executeEditFieldset(sfWebRequest $request)
@@ -176,51 +169,38 @@ abstract class BaseaFormActions extends sfActions
    * aFormFieldsetOption actions.
    * These should be refactored into their own module just like the aFormFieldset actions.
    */
-  public function executeShowFieldsetOption(sfWebRequest $request)
-  {
-    $this->aForm = $this->getObject();
-    $this->aFormForm = new aFormForm($this->aForm, array('a_form' => $this->aForm));
-
-    $this->aFormFieldset = Doctrine::getTable('aFormFieldset')->find($request->getParameter('fieldset_id'));    
-    $this->forward404Unless($this->aFormFieldset);
-
-    $this->aFormFieldsetOption = Doctrine::getTable('aFormFieldset')->find($request->getParameter('fieldset_option_id'));    
-    $this->forward404Unless($this->aFormFieldsetOption);
-
-    $this->aFormFieldsetOptionForm = new aFormFieldsetOptionForm($this->aFormFieldsetOption);
-
-    return $this->renderPartial('aForm/aFormFieldsetEdit', array(
-      'aForm'             => $this->aForm,
-      'aFormFieldset'       => $this->aFormFieldset,
-      'aFormFieldsetOption' => $this->aFormFieldsetOption, 
-    ));
-  }
   
   public function executeAddFieldsetOption(sfWebRequest $request)
   {
     $this->aForm = $this->getObject();
-    $this->aFormForm = new aFormForm($this->aForm);
 
-    $this->aFormFieldset = Doctrine::getTable('aFormFieldset')->find($request->getParameter('fieldset_id'));    
+    $this->aFormFieldset = Doctrine::getTable('aFormFieldset')->find($request->getParameter('fieldset_id'));
     $this->forward404Unless($this->aFormFieldset);
 
-    $this->aFormFieldsetOptionForm = new aFormFieldsetOptionForm();
-    $this->aFormFieldsetOptionForm->bind($request->getParameter($this->aFormFieldsetOptionForm->getName()));
+    $this->aFormFieldset->aFormFieldsetOptions[] = new aFormFieldsetOption();
     
-    $this->aFormFieldsetOption = $this->aFormFieldsetOptionForm->getObject();
+    $this->aFormFieldsetOptionsForm = new aFormFieldsetOptionsForm($this->aFormFieldset);
+    $this->aFormFieldsetOptionsForm->bind($request->getParameter($this->aFormFieldsetOptionsForm->getName()));
 
-    if ($this->aFormFieldsetOptionForm->isValid())
+    if ($this->aFormFieldsetOptionsForm->isValid())
     {
-      $this->aFormFieldsetOptionForm->save();
-      
-      $this->aFormFieldsetOption = new aFormFieldsetOption();
-      $this->aFormFieldsetOptionForm = new aFormFieldsetForm($this->aFormFieldset, array('a_form' => $this->aForm));    
+      $this->aFormFieldsetOptionsForm->save();
     }
 
     return $this->renderPartial('aForm/aFormFieldsetEdit', array(
-      'aForm'       => $this->aForm,
-      'aFormFieldset' => $this->aFormFieldset,
+      'aForm'          => $this->aForm,
+      'aFormFieldset'  => $this->aFormFieldset,
     ));
+  }
+
+  public function executeDeleteFieldsetOption(sfWebRequest $request)
+  {
+    $this->aForm = $this->getObject();
+    $this->aFormFieldset = Doctrine::getTable('aFormFieldset')->find($request->getParameter('fieldset_id'));
+
+    $this->forward404Unless($this->aFormFieldset && $this->aForm);
+
+    $this->aFormFieldset->delete();
   }
   
   public function executeUpdateFieldsetOption(sfWebRequest $request)
@@ -229,24 +209,34 @@ abstract class BaseaFormActions extends sfActions
 
     $this->aFormFieldset = Doctrine::getTable('aFormFieldset')->find($request->getParameter('fieldset_id'));
     $this->forward404Unless($this->aFormFieldset);
-    
-    $this->aFormFieldsetOption = Doctrine::getTable('aFormFieldset')->find($request->getParameter('fieldset_option_id'));    
-    $this->forward404Unless($this->aFormFieldsetOption);
 
-    $this->aFormFieldsetOptionForm = new aFormFieldsetOptionForm($this->aFormFieldsetOption);
-
-    $this->aFormFieldsetOptionForm->bind($request->getParameter($this->aFormFieldsetOptionForm->getName()));
-
-    if ($this->aFormFieldsetForm->isValid())
+    if ($request->hasParameter('add'))
     {
-      $this->aFormFieldset = $this->aFormFieldsetForm->save();
-      
-      return $this->renderPartial('aForm/aFormFieldsetEdit', array(
-        'aForm'             => $this->aForm,
-        'aFormFieldset'       => $this->aFormFieldset,
-        'aFormFieldsetOption' => $this->aFormFieldsetOption, 
-      ));
+      $option = new aFormFieldsetOption();
+      $option['rank'] = count($this->aFormFieldset->aFormFieldsetOptions);
+      $this->aFormFieldset->aFormFieldsetOptions[] = $option;
     }
+    if ($request->hasParameter('delete'))
+    {
+      $aFormFieldsetOption = Doctrine::getTable('aFormFieldsetOption')->findOneBy('id', $request->getParameter('delete'));
+      $this->forward404Unless($aFormFieldsetOption);
+      $aFormFieldsetOption->delete();
+    }
+
+    $this->aFormFieldsetOptionsForm = new aFormFieldsetOptionsForm($this->aFormFieldset);
+
+    $this->aFormFieldsetOptionsForm->bind($request->getParameter($this->aFormFieldsetOptionsForm->getName()));
+
+    if ($this->aFormFieldsetOptionsForm->isValid())
+    {
+        $this->aFormFieldsetOptionsForm->save();
+    }
+
+    $this->aFormFieldset->setOptionsForm($this->aFormFieldsetOptionsForm);
+    return $this->renderPartial('aForm/aFormFieldsetEdit', array(
+        'aForm'         => $this->aForm,
+        'aFormFieldset' => $this->aFormFieldset,
+    ));
   }
   
   public function executeEditFieldsetOption(sfWebRequest $request)
@@ -262,23 +252,9 @@ abstract class BaseaFormActions extends sfActions
     $this->aFormFieldsetOptionForm = new aFormFieldsetOptionForm($this->aFormFieldsetOption);
 
     return $this->renderPartial('aForm/aFormFieldsetEdit', array(
-      'aForm'                 => $this->aForm,
-      'aFormFieldset'           => $this->aFormFieldset,
-      'aFormFieldsetOption'     => $this->aFormFieldsetOption, 
-      'aFormFieldsetOptionForm' => $this->aFormFieldsetOptionForm, 
+        'aForm'             => $this->aForm,
+        'aFormFieldset'     => $this->aFormFieldset,
     ));
-  }
-  
-  public function executeDeleteFieldsetOption(sfWebRequest $request)
-  {
-    $this->aForm = $this->getObject();
-    
-    $this->aFormFieldsetOption = Doctrine::getTable('aFormFieldset')->find($request->getParameter('fieldset_option_id'));    
-    $this->forward404Unless($this->aFormFieldsetOption);
-    
-    $this->aFormFieldsetOption->delete();
-
-    return sfView::NONE;
   }
   
   public function executeSortFieldsetOptions(sfWebRequest $request)
