@@ -3,7 +3,7 @@
 <h3><?php //echo $a_form->getName() ?></h3>
 <?php echo $form->renderGlobalErrors() ?>
 <?php echo $form->renderHiddenFields() ?>
-<ul>
+<ul class="a-form-builder">
 <?php foreach ($form['fields'] as $id => $embedded_form): ?>
 <li class="a-form-row">
   <?php if (count($embedded_form) > 1): ?>

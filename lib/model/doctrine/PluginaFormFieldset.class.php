@@ -48,7 +48,7 @@ abstract class PluginaFormFieldset extends BaseaFormFieldset
   
   public function usesOptions()
   {
-    if (in_array($this->getType(), array('select', 'selectRadio', 'select_checkbox')))
+    if (in_array($this->getType(), array('select', 'select_radio', 'select_checkbox')))
     {
       return true;
     }

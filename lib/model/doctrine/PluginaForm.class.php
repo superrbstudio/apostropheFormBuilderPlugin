@@ -7,6 +7,19 @@ abstract class PluginaForm extends BaseaForm
 {
   protected $fieldCount;
 
+  public function getFieldCount()
+  {
+    $i = 0;
+    foreach($this->aFormFieldsets as $fieldset)
+    {
+      foreach($fieldset->aFormFields as $field)
+      {
+        $i++;
+      }
+    }
+    return $i;
+  }
+
   /**
    * Creates a symfony form representing this object and its related fieldsets.
    * @return aFormBuilder

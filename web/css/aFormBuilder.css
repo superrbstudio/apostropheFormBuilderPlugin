@@ -65,6 +65,11 @@ div.a-form-builder
 	margin: 0;
 }
 
+.a-form-builder .a-form-row label
+{ 
+	float: none;
+}
+
 .a-form-builder .a-form-row li.edit,
 .a-form-builder .a-form-row li.delete
 {
