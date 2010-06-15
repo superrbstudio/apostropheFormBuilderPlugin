@@ -49,7 +49,7 @@ class aFormAddress extends aFormEmbeddable
     ));
     
     $this->widgetSchema['street1']->setLabel('Street address');
-    $this->widgetSchema['street2']->setLabel(' ');
+    $this->widgetSchema['street2']->setLabel('&nbsp;');
     $this->widgetSchema['city']->setLabel('City');
     $this->widgetSchema['state']->setLabel('State');
     $this->widgetSchema['postal_code']->setLabel('Postal Code');
