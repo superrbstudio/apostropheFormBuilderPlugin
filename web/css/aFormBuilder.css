@@ -67,7 +67,7 @@ div.a-form-builder
 
 .a-form-builder .a-form-row label
 { 
-	float: none;
+	float: left;
 }
 
 .a-form-builder .a-form-row li.edit,
