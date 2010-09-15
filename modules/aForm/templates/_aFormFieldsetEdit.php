@@ -1,6 +1,6 @@
 <?php use_helper('jQuery') ?>
 
-<li class="drag"><?php echo jq_link_to_function('Drag', '', array('class' => 'a-btn icon no-label a-drag nobg alt', 'title' => 'Drag to Order',  )) ?></li>
+<li class="drag"><?php echo jq_link_to_function('Drag', '', array('class' => 'a-btn icon no-label a-drag no-bg alt', 'title' => 'Drag to Order',  )) ?></li>
 <li class="delete"><?php echo jq_link_to_remote('Delete', array(
   'url' => '@a_form_deleteFieldset?id='.$aForm->getId().'&fieldset_id='.$aFormFieldset->getId(),
   'confirm' => 'Are you sure you want to delete this field? If you do, you will no longer be able to retrieve the data from this column.',  
