@@ -1,5 +1,5 @@
 submit:
-  is_secure: off
+  is_secure: false
 
 default:
   is_secure: on

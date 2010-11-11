@@ -1,2 +1,2 @@
 exportSuccess:
-  has_fieldset: off
+  has_fieldset: false
