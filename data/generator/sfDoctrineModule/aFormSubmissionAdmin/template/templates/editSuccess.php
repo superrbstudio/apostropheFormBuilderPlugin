@@ -5,8 +5,10 @@
   [?php include_partial('<?php echo $this->getModuleName() ?>/form_bar', array('title' => <?php echo $this->getI18NString('edit.title') ?>)) ?]
 
 	[?php slot('a-subnav') ?]
-  <div id="a-subnav" class="subnav admin">
- 		[?php include_partial('<?php echo $this->getModuleName() ?>/form_header', array('<?php echo $this->getSingularName() ?>' => $<?php echo $this->getSingularName() ?>, 'form' => $form, 'configuration' => $configuration)) ?]
+  <div id="a-subnav" class="a-subnav-wrapper admin">
+		<div class="a-subnav-inner">
+ 			[?php include_partial('<?php echo $this->getModuleName() ?>/form_header', array('<?php echo $this->getSingularName() ?>' => $<?php echo $this->getSingularName() ?>, 'form' => $form, 'configuration' => $configuration)) ?]
+		</div>
   </div>
 	[?php end_slot() ?]
 
