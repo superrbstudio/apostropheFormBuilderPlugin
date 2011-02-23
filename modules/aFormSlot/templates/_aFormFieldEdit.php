@@ -1,12 +1,12 @@
 <?php use_helper('jQuery') ?>
 
-<li class="drag"><?php echo jq_link_to_function('Drag','',array('class' => 'a-btn icon a-drag nobg alt', )) ?></li>
-<li class="delete"><?php echo jq_link_to_remote('Delete', array(
+<li class="drag"><?php echo jq_link_to_function(__('Drag', array(), 'apostrophe') . '<span class="icon"></span>','',array('class' => 'a-btn icon a-drag nobg alt', )) ?></li>
+<li class="delete"><?php echo jq_link_to_remote(__('Delete', array(), 'apostrophe') . '<span class="icon"></span>', array(
   'url' => 'aForm/deleteField?id='.$a_form_fieldset->getId(),
   'confirm' => 'Are you sure you want to delete this field? If you do, you will no longer be able to retrieve the data from this column.',  
   'complete' => '$("#a-form-field-'.$a_form_fieldset->getId().'").hide()', 
 ), array('class' => 'a-btn icon delete', )) ?></li>
-<li class="edit"><?php echo jq_link_to_remote('Edit<span></span>', array(
+<li class="edit"><?php echo jq_link_to_remote(__('Edit', array(), 'apostrophe') . '<span class="icon"></span>', array(
   'update' => 'a-form-field-'.$a_form_fieldset->getId(),
   'url' => 'aForm/editField?id='.$a_form_fieldset->getId(),
   'script' => true, 

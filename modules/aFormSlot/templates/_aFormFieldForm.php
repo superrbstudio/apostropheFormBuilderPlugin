@@ -8,7 +8,7 @@
 
 
 <ul class="a-form-field">
-	<li class="drag"><?php echo jq_link_to_function('Drag','',array('class' => 'a-btn icon a-drag nobg alt', )) ?></li>
+	<li class="drag"><?php echo jq_link_to_function(__('Drag', array(), 'apostrophe') . '<span class="icon"></span>','',array('class' => 'a-btn icon a-drag nobg alt', )) ?></li>
 	<?php foreach ($a_form_fieldset_form as $field): ?>
 		<?php if (!$field->isHidden()): ?><li class="a-form-row <?php echo strtolower($field->renderLabelName()) ?>"><?php endif ?>
 		<?php echo (!$field->isHidden()) ? $field->renderLabel() : '' ?>

@@ -60,8 +60,10 @@ abstract class PluginaFormFieldset extends BaseaFormFieldset
   {
     
     $class = $this->getFormClass();
+    error_log("Class is $class");
     $this->form = new $class($defaults, array_merge($options, $this->getFormOptions()));
-
+    
+    error_log(get_class($this->form));
     return $this->form;
   }
   

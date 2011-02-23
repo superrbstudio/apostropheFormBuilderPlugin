@@ -60,6 +60,19 @@ class apostropheFormBuilderPluginConfiguration extends sfPluginConfiguration
         $migrate->query('UPDATE a_form_field_submission SET field_id = :field_id WHERE fieldset_id = :fieldset_id', array('field_id' => $id, 'fieldset_id' => $fieldset['id']));
       }
     }
+    if (!$migrate->columnExists('a_form', 'action'))
+    {
+      $migrate->sql(array(
+        'ALTER TABLE a_form ADD COLUMN action VARCHAR(255)'
+      ));
+    }
+    if (!$migrate->columnExists('a_form_fieldset_option', 'value'))
+    {
+      $migrate->sql(array(
+        'ALTER TABLE a_form_fieldset_option ADD COLUMN value VARCHAR(255)',
+        'UPDATE a_form_fieldset_option SET value = name'
+      ));
+    }
 
     if (!$migrate->getCommandsRun())
     {

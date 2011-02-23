@@ -17,17 +17,17 @@
   <?php endforeach ?>
 	<input type="submit" name="submit" value="Submit" class="a-submit">
   </form>
-  <?php echo link_to('Download CSV<span></span>', 'aForm/export?id='.$a_form->getId(), array('class' => 'a-btn b')) ?>
+  <?php echo link_to(__('Download CSV', array(), 'apostrophe') . '<span class="icon"></span>', 'aForm/export?id='.$a_form->getId(), array('class' => 'a-btn b')) ?>
 </div>
 
 <div id="a-form-<?php echo $a_form->getId() ?>-fields" class="a-form-builder editing">
-<?php echo include_partial('aForm/aFormFieldsets', array('a_form' => $a_form)); ?>
+<?php echo include_partial('aForm/aFormFieldsets', array('aForm' => $a_form)); ?>
 </div>
 
 <?php echo jq_sortable_element('#a-form-'.$a_form->getId().'-fields', array('url' => 'aForm/sortFields')) ?>
 
 <div id="add-field-form-<?php echo $a_form->getId() ?>" class="a-form-builder adding" <?php if (!$a_form_fieldset_form->hasErrors()): ?>style="display:none;"<?php endif ?>>
-	<?php echo include_partial('aForm/aFormFieldsetForm', array('a_form_fieldset_form' => $a_form_fieldset_form, 'a_form_fieldset' => $a_form_fieldset, 'a_form' => $a_form)); ?>
+	<?php echo include_partial('aForm/aFormFieldsetForm', array('aFormFieldsetForm' => $a_form_fieldset_form, 'aFormFieldset' => $a_form_fieldset, 'aForm' => $a_form)); ?>
 </div>
 
-<?php echo jq_link_to_function('Add field<span></span>', "$('#add-field-form-".$a_form->getId()."').show();$(this).hide()", array('id' => 'add-field-button-'.$a_form->getId(), 'class' => 'a-btn')) ?>
+<?php echo jq_link_to_function(__('Add field', array(), 'apostrophe') . '<span class="icon"></span>', "$('#add-field-form-".$a_form->getId()."').show();$(this).hide()", array('id' => 'add-field-button-'.$a_form->getId(), 'class' => 'a-btn')) ?>

@@ -8,7 +8,7 @@
 	<div id="a-admin-content" class="main">
 		
 		<ul id="a-admin-list-actions" class="a-controls a-admin-action-controls">
-  		<li class="filters">[?php echo jq_link_to_function("Filters", "$('#a-admin-filters-container').slideToggle()" ,array('class' => 'a-btn icon a-settings', 'title'=>'Filter Data')) ?]</li>
+  		<li class="filters">[?php echo jq_link_to_function('<span class="icon"></span>' . __("Filters", array(), 'apostrophe'), "$('#a-admin-filters-container').slideToggle()" ,array('class' => 'a-btn icon a-settings', 'title'=>'Filter Data')) ?]</li>
 			[?php include_partial('<?php echo $this->getModuleName() ?>/list_actions', array('helper' => $helper)) ?]		
 		</ul>
 		<?php if ($this->configuration->hasFilterForm()): ?>

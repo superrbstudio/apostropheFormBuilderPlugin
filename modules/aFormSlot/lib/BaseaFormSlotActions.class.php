@@ -8,26 +8,29 @@
  * @author      Alex Gilbert
  * @version     SVN: $Id: BaseActions.class.php 12534 2008-11-01 13:38:27Z Kris.Wallsmith $
  */
-abstract class BaseaFormSlotActions extends BaseaActions
+abstract class BaseaFormSlotActions extends BaseaSlotActions
 {
   public function executeEdit(sfRequest $request)
   {
     $this->editSetup();
-    
+    error_log("entering");
     if (!$a_form = Doctrine::getTable('aForm')->find($this->slot->form_id))
     {
       $a_form = new aForm();
     }
-    
-    $form = new aFormForm($a_form);
-	  $form->bind($request->getParameter($form->getName()));
 
-	  if (!$form->isValid())
+    $value = $this->getRequestParameter('slot-form-' . $this->id);
+    
+    $this->form = new aFormForm($this->id, $a_form);
+	  $this->form->bind($value);
+
+	  if (!$this->form->isValid())
 	  {
+	    error_log("editRetry");
       return $this->editRetry();
 	  }
-
-    $a_form = $form->save();
+    error_log("saving");
+    $a_form = $this->form->save();
 
     if (!$this->slot->form_id)
     {
@@ -167,6 +170,21 @@ abstract class BaseaFormSlotActions extends BaseaActions
       {
   			try
   			{
+  			  $message = $this->getMailer()->compose(
+                sfConfig::get('app_aForm_from'),
+                $affiliate->getEmail(),
+                'Jobeet affiliate token',
+                <<<EOF
+          Your Jobeet affiliate account has been activated.
+
+          Your token is {$affiliate->getToken()}.
+
+          The Jobeet Bot.
+          EOF
+              );
+
+              $this->getMailer()->send($message);
+          
   			  // Create the mailer and message objects
   			  $mailer = new Swift(new Swift_Connection_NativeMail());
   			  $message = new Swift_Message($a_form->getName().' Submission');

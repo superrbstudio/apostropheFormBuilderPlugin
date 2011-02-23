@@ -32,14 +32,14 @@
 </div>
 
 <?php if (!$aFormFieldsetForm->hasErrors()): ?>
-<?php echo jq_link_to_function('Add field<span></span>', "$('#add-fieldset-form-".$aForm->getId()."').show();$(this).hide();$('#a_form_fieldset_label').focus();", array('id' => 'add-fieldset-button-'.$aForm->getId(), 'class' => 'a-btn a-add-fieldset-button big icon a-add')) ?>
+<?php echo jq_link_to_function(__('Add field', array(), 'apostrophe') . '<span class="icon"></span>', "$('#add-fieldset-form-".$aForm->getId()."').show();$(this).hide();$('#a_form_fieldset_label').focus();", array('id' => 'add-fieldset-button-'.$aForm->getId(), 'class' => 'a-btn a-add-fieldset-button big icon a-add')) ?>
 <?php endif ?>
 
 <ul class="a-form-list">
   <li>
     <ul class="a-form-list-item">
-	  	<li><?php echo link_to('Fill out this form', '@a_form_submission_sequence_new?id='. $aForm->getId(), array('class' => 'a-btn', )) ?></li>
-      <li><?php echo link_to('See the data', '@a_form_submission_admin?form_id='. $aForm->getId(), array('class' => 'a-btn')) ?></li>
+	  	<li><?php echo link_to(__('Fill out this form', array(), 'apostrophe') . '<span class="icon"></span>', '@a_form_submission_sequence_new?id='. $aForm->getId(), array('class' => 'a-btn', )) ?></li>
+      <li><?php echo link_to(__('See the data', array(), 'apostrophe') . '<span class="icon"></span>', '@a_form_submission_admin?form_id='. $aForm->getId(), array('class' => 'a-btn')) ?></li>
     </ul>
   </li>
 </ul>

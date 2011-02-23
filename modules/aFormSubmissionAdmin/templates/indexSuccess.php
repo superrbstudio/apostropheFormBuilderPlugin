@@ -9,7 +9,7 @@
 	<div id="a-admin-content" class="main">
 		
 		<ul id="a-admin-list-actions" class="a-controls a-admin-action-controls">
-  		<li class="filters"><?php echo jq_link_to_function("Filters", "$('#a-admin-filters-container').slideToggle()" ,array('class' => 'a-btn icon a-settings', 'title'=>'Filter Data')) ?></li>
+  		<li class="filters"><?php echo jq_link_to_function(__("Filters", array(), 'apostrophe') . '<span class="icon"></span>', "$('#a-admin-filters-container').slideToggle()" ,array('class' => 'a-btn icon a-settings', 'title'=>'Filter Data')) ?></li>
 			<?php include_partial('aFormSubmissionAdmin/list_actions', array('helper' => $helper)) ?>		
 		</ul>
 				  <?php include_partial('aFormSubmissionAdmin/filters', array('form' => $filters, 'configuration' => $configuration)) ?>
