@@ -51,6 +51,7 @@ class aFormBuilder extends BaseaFormSubmissionForm
      
   public function doUpdateObject($values)
   {
+    parent::doUpdateObject($values);
     $this->getObject()->setFormId($this->getOption('a_form')->getId());
     $this->getObject()->setIpAddress($_SERVER['REMOTE_ADDR']);
     $this->getObject()->setUserId($this->getOption('user_id', null));
